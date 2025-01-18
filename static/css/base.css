@@ -1,0 +1,99 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-size: cover;
+    height: calc(100vh - 164px); /* Adjust the header height if necessary */
+    color: #555;
+    font-family: 'Lato', sans-serif; /* Added fallback font */
+}
+
+/* Headers and branding */
+.logo-font, .main-logo-link {
+    text-transform: uppercase;
+    font-size: 1.75rem; /* Ensure size is visible and appropriate */
+}
+
+/* Navigation styles */
+.navbar {
+    background-color: transparent; /* Clear background for navbar */
+}
+
+.nav-link {
+    color: #fff; /* White text for visibility against dark background */
+}
+
+/* Standard buttons and specific call to action */
+.btn-black, .shop-now-button {
+    background-color: black;
+    color: white;
+    border: none; /* Remove default border */
+    min-width: 200px; /* Sufficient width for legibility */
+}
+
+.btn-black:hover, .shop-now-button:hover {
+    background-color: #222; /* Slightly lighter black for hover */
+}
+
+/* Media queries for layout adjustments */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%; /* Restrict maximum width for large screens */
+    }
+}
+
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 164px; /* Space for fixed navbar */
+    }
+}
+
+/* Icon styling adapted for Artorium design */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;  /* Adjust size as needed */
+    width: 1.5rem;   /* Adjust size as needed */
+    color: #555;     /* Match icon color to site's color scheme */
+    font-size: 1rem; /* Ensure icons are proportionally sized for visibility */
+}
+
+
+/* Button styles for distinct visual cues */
+.btn-black {
+    background-color: black;
+    color: white;
+    border: none; /* Assuming you do not want borders unless hovered or focused */
+}
+
+/* Enhance button interactivity with subtle changes on hover, active, and focus */
+.btn-black:hover,
+.btn-black:active,
+.btn-black:focus,
+.shop-now-button:hover,
+.shop-now-button:active,
+.shop-now-button:focus {
+    background-color: #222; /* Dark grey for slight differentiation */
+    color: white;
+}
+
+/* Ensure text color is black for specified classes, overriding other styles */
+.text-black {
+    color: #000 !important; /* Use important to override other applied styles */
+}
+
+/* Consistent black borders for elements requiring emphasis */
+.border-black {
+    border: 1px solid black !important; /* Use important to ensure it applies over other border styles */
+}
+

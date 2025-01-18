@@ -3,17 +3,38 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+    {% block meta %}
     <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Artevia{% endblock %}</title>
+    {% endblock %}
+
+    {% block extra_meta %}
+    {% endblock %}
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% block extra_css %}{% endblock %}
+    {% block corecss %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% endblock %}
+    
+    {% block extra_css %}
+    {% endblock %}
+
+    {% block corejs %}
+    <script src="https://kit.fontawesome.com/c5a02229d2.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+
+    <title>{% block title %}Artevia{% endblock %}</title>
 </head>
 <body>
     <!-- Header -->
@@ -21,7 +42,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <!-- Brand/Logo -->
-                <a class="navbar-brand" href="{% url 'index' %}">
+                <a class="navbar-brand" href="{% url 'home' %}">
                     <h2 class="logo-font text-light my-0"><strong>Artevia</strong></h2>
                 </a>
         
@@ -33,16 +54,16 @@
                 <!-- Navigation Links -->
                 <div class="collapse navbar-collapse" id="main-nav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'artwork_list' %}">Marketplace</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'shopping_bag' %}">Shopping Bag</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        {#<li class="nav-item"><a class="nav-link" href="{% url 'artwork_list' %}">Marketplace</a></li>#}
+                        {#<li class="nav-item"><a class="nav-link" href="{% url 'shopping_bag' %}">Shopping Bag</a></li>#}
                         <!-- Additional Links and Authentication Handling -->
                         {% block nav_links %}{% endblock %}
                     </ul>
                     <!-- Shopping Bag Indicator -->
                     <ul class="list-inline my-auto">
                         <li class="list-inline-item">
-                            <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'shopping_bag' %}">
+                            {#<a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'shopping_bag' %}">#}
                                 <div class="text-center">
                                     <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                                     <p class="my-0">
@@ -89,7 +110,7 @@
 
     <!-- Footer -->
     <footer class="bg-dark text-light text-center py-3">
-        <p>&copy; 2025 Artevia. All rights reserved.</p>
+        <p>&copy; 2025 Artorium. All rights reserved.</p>
     </footer>
 
     <!-- Scripts -->
