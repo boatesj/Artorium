@@ -1,6 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
-    <h1 class="display-4 text-success">It works!</h1>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <div class="col-md-12 my-auto">
+                <h1 class="display-4 logo-font text-black font-weight-bold text-center">
+                    Welcome to Artorium
+                </h1>
+                <p class="lead text-muted text-center">Discover stunning artworks and connect with artists from around the world.</p>
+                <div class="text-center my-4">
+                    {#<img src="{% static 'images/art_gallery.jpg' %}" class="img-fluid rounded shadow" alt="Art Gallery">#}
+                </div>
+                <p class="mt-3 text-center">Explore our extensive collection or browse categories tailored to your preferences.</p>
+                <div class="text-center mt-4">
+                    {# <a href="{% url 'category_list' %}" class="btn btn-lg btn-primary mx-2">Browse Categories</a> #}
+                    {# <a href="{% url 'artwork_list' %}" class="btn btn-lg btn-secondary mx-2">View Artworks</a> #}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
