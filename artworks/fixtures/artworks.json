@@ -1,0 +1,219 @@
+[
+    {
+      "pk": 1,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Interactive Sculpture",
+        "description": "A captivating interactive sculpture.",
+        "price": 2500.00,
+        "category": 1,
+        "artist": "John Doe",
+        "image": "/workspace/Artorium/media/ar_sculpture_interactive.jpg"
+      }
+    },
+    {
+      "pk": 2,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Bioluminescent Ocean",
+        "description": "A mesmerizing artwork of glowing oceans.",
+        "price": 1800.00,
+        "category": 2,
+        "artist": "Jane Smith",
+        "image": "/workspace/Artorium/media/bioluminescent_ocean.jpg"
+      }
+    },
+    {
+      "pk": 3,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "The Birth of Venus",
+        "description": "A classic reproduction of Botticelli's masterpiece.",
+        "price": 3200.00,
+        "category": 1,
+        "artist": "Andrea Botticelli",
+        "image": "/workspace/Artorium/media/birth_of_venus.jpg"
+      }
+    },
+    {
+      "pk": 4,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Black and Grey Rothko",
+        "description": "Abstract art inspired by Rothko's style.",
+        "price": 2700.00,
+        "category": 1,
+        "artist": "Mark Rothko",
+        "image": "/workspace/Artorium/media/black_grey_rothko.jpg"
+      }
+    },
+    {
+      "pk": 5,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Campbell's Soup by Warhol",
+        "description": "Iconic pop art by Andy Warhol.",
+        "price": 3000.00,
+        "category": 2,
+        "artist": "Andy Warhol",
+        "image": "/workspace/Artorium/media/campbell_soup_warhol.jpg"
+      }
+    },
+    {
+      "pk": 6,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "City Skyline",
+        "description": "A stunning view of a modern city skyline.",
+        "price": 1500.00,
+        "category": 2,
+        "artist": "Emma Clark",
+        "image": "/workspace/Artorium/media/city_skyline.jpg"
+      }
+    },
+    {
+      "pk": 7,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Coastal Sunrise",
+        "description": "A serene depiction of a sunrise over the coast.",
+        "price": 1200.00,
+        "category": 1,
+        "artist": "Samuel Lee",
+        "image": "/workspace/Artorium/media/coastal_sunrise.jpg"
+      }
+    },
+    {
+      "pk": 8,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Evening Glow",
+        "description": "A beautiful capture of the evening glow over a landscape.",
+        "price": 1400.00,
+        "category": 1,
+        "artist": "Rachel Adams",
+        "image": "/workspace/Artorium/media/evening_glow.jpg"
+      }
+    },
+    {
+      "pk": 9,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Golden Fields",
+        "description": "An enchanting artwork of golden fields.",
+        "price": 2000.00,
+        "category": 1,
+        "artist": "Michael Turner",
+        "image": "/workspace/Artorium/media/golden_fields.jpg"
+      }
+    },
+    {
+      "pk": 10,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Human Algorithm",
+        "description": "A digital art piece representing the human algorithm.",
+        "price": 2800.00,
+        "category": 2,
+        "artist": "Sophia Nguyen",
+        "image": "/workspace/Artorium/media/human_algorithm.jpg"
+      }
+    },
+    {
+      "pk": 11,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Modern Abstract",
+        "description": "A captivating modern abstract piece.",
+        "price": 1900.00,
+        "category": 2,
+        "artist": "Liam Wilson",
+        "image": "/workspace/Artorium/media/modern_abstract.jpg"
+      }
+    },
+    {
+      "pk": 12,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Mountain Majesty",
+        "description": "A breathtaking depiction of mountain majesty.",
+        "price": 1700.00,
+        "category": 1,
+        "artist": "Isla Morgan",
+        "image": "/workspace/Artorium/media/mountain_majesty.jpg"
+      }
+    },
+    {
+      "pk": 13,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Pearl Earring",
+        "description": "Inspired by Vermeer’s Girl with a Pearl Earring.",
+        "price": 3200.00,
+        "category": 1,
+        "artist": "Vermeer",
+        "image": "/workspace/Artorium/media/pearl_earring_vermeer.jpg"
+      }
+    },
+    {
+      "pk": 14,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Portrait Elegance",
+        "description": "A timeless elegant portrait.",
+        "price": 2600.00,
+        "category": 1,
+        "artist": "Charlotte Baker",
+        "image": "/workspace/Artorium/media/portrait_elegance.jpg"
+      }
+    },
+    {
+      "pk": 15,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Quantum Canvas",
+        "description": "A futuristic digital art piece.",
+        "price": 3500.00,
+        "category": 2,
+        "artist": "Oliver Gray",
+        "image": "/workspace/Artorium/media/quantum_canvas.jpg"
+      }
+    },
+    {
+      "pk": 16,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Shark by Hirst",
+        "description": "Inspired by Damien Hirst’s iconic shark piece.",
+        "price": 4500.00,
+        "category": 2,
+        "artist": "Damien Hirst",
+        "image": "/workspace/Artorium/media/shark_hirst.jpg"
+      }
+    },
+    {
+      "pk": 17,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Starry Night",
+        "description": "Inspired by Van Gogh’s masterpiece.",
+        "price": 3300.00,
+        "category": 1,
+        "artist": "Vincent Van Gogh",
+        "image": "/workspace/Artorium/media/starry_night.jpg"
+      }
+    },
+    {
+      "pk": 18,
+      "model": "artworks.artwork",
+      "fields": {
+        "title": "Winter Wonderland",
+        "description": "A serene depiction of a winter landscape.",
+        "price": 2400.00,
+        "category": 1,
+        "artist": "Ella Roberts",
+        "image": "/workspace/Artorium/media/winter_wonderland.jpg"
+      }
+    }
+  ]
+  

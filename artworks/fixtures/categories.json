@@ -1,0 +1,27 @@
+[
+    {
+      "pk": 1,
+      "model": "artworks.category",
+      "fields": {
+        "name": "fine_art",
+        "friendly_name": "Fine Art"
+      }
+    },
+    {
+      "pk": 2,
+      "model": "artworks.category",
+      "fields": {
+        "name": "contemporary_digital",
+        "friendly_name": "Contemporary & Digital Art"
+      }
+    },
+    {
+      "pk": 3,
+      "model": "artworks.category",
+      "fields": {
+        "name": "custom_commissioned",
+        "friendly_name": "Custom & Commissioned Art"
+      }
+    }
+  ]
+  
