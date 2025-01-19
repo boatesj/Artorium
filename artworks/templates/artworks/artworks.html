@@ -13,30 +13,71 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="overlay"></div>
+    <div class="container-fluid">
         <div class="row">
-            {% for artwork in artworks %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="{{ artwork.image.url }}" class="card-img-top" alt="{{ artwork.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ artwork.title }}</h5>
-                            <p class="card-text">{{ artwork.description|truncatechars:100 }}</p>
-                            <p class="card-text"><strong>Artist:</strong> {{ artwork.artist|default:"Unknown" }}</p>
-                            <p class="card-text"><strong>Price:</strong> ${{ artwork.price }}</p>
-                            {% if artwork.available %}
-                                <p class="text-success">Available</p>
-                            {% else %}
-                                <p class="text-danger">Sold Out</p>
-                            {% endif %}
+            <div class="col text-center mt-3">
+                <h2 class="logo-font">Artworks</h2>
+                <hr class="w-50 mb-1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="artwork-container col-10 offset-1">
+                <div class="row mt-1 mb-2"></div>
+                <div class="row">
+                    {% for artwork in artworks %}
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                            <div class="card h-100 border-0">
+                                {% if artwork.image %}
+                                <a href="">
+                                    <img class="card-img-top img-fluid" src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
+                                </a>
+                                {% else %}
+                                <a href="">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ artwork.title }}">
+                                </a>
+                                {% endif %}
+                                <div class="card-body pb-0">
+                                    <p class="mb-0 font-weight-bold">{{ artwork.title }}</p>
+                                    <p class="text-muted">{{ artwork.artist|default:"Unknown" }}</p>
+                                </div>
+                                <div class="card-footer bg-white pt-0 border-0 text-left">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="lead mb-0 text-left font-weight-bold">${{ artwork.price }}</p>
+                                            {% if artwork.available %}
+                                                <p class="text-success">Available</p>
+                                            {% else %}
+                                                <p class="text-danger">Sold Out</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        {% if forloop.counter|divisibleby:1 %}
+                            <div class="col-12 d-sm-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}                        
+                        {% if forloop.counter|divisibleby:2 %}
+                            <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                        {% if forloop.counter|divisibleby:3 %}
+                            <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                        {% if forloop.counter|divisibleby:4 %}
+                            <div class="col-12 d-none d-xl-block mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            {% empty %}
-                <div class="col text-center">
-                    <p class="lead">No artworks available at the moment. Check back later!</p>
-                </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
