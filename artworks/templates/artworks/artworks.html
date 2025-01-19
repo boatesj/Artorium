@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="display-4">Artorium Gallery</h1>
+                <p class="lead">Discover and explore exclusive artworks from talented artists.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for artwork in artworks %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ artwork.image.url }}" class="card-img-top" alt="{{ artwork.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ artwork.title }}</h5>
+                            <p class="card-text">{{ artwork.description|truncatechars:100 }}</p>
+                            <p class="card-text"><strong>Artist:</strong> {{ artwork.artist|default:"Unknown" }}</p>
+                            <p class="card-text"><strong>Price:</strong> ${{ artwork.price }}</p>
+                            {% if artwork.available %}
+                                <p class="text-success">Available</p>
+                            {% else %}
+                                <p class="text-danger">Sold Out</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col text-center">
+                    <p class="lead">No artworks available at the moment. Check back later!</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
