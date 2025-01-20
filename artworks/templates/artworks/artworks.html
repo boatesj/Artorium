@@ -1,10 +1,10 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load static %}
 
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
-            </div>
+            <div class="col"></div>
         </div>
     </div>
 {% endblock %}
@@ -13,31 +13,40 @@
     <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col text-center mt-5-artwork-header">
+            <div class="col text-center mt-3">
                 <h2 class="logo-font">Artworks</h2>
+                {% for c in current_categories %}
+                    <a class="category-badge text-decoration-none" href="{% url 'artworks' %}?category={{ c.name }}">
+                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
+                    </a>
+                {% endfor %}
                 <hr class="w-50 mb-1">
             </div>
         </div>
         <div class="row">
             <div class="artwork-container col-10 offset-1">
                 <div class="row mt-1 mb-2">
-                    {% if search_term or category or sort %}
-                        <div class="col">
-                            <p class="text-muted">
-                                {% if search_term %}
-                                    Search results for: <strong>{{ search_term }}</strong>
-                                {% endif %}
-                                {% if category %}
-                                    {% if search_term %} | {% endif %}
-                                    Category: <strong>{{ category }}</strong>
-                                {% endif %}
-                                {% if sort %}
-                                    {% if search_term or category %} | {% endif %}
-                                    Sorted by: <strong>{{ sort }}</strong>
-                                {% endif %}
-                            </p>
+                    <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
+                        <div class="sort-select-wrapper w-50">
+                            <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                                <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
+                                <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                                <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
+                                <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
+                            </select>
                         </div>
-                    {% endif %}
+                    </div>
+                    <div class="col-12 col-md-6 order-md-first">
+                        <p class="text-muted mt-3 text-center text-md-left">
+                            {% if search_term or current_categories or current_sorting != 'None_None' %}
+                                <span class="small"><a href="{% url 'artworks' %}">Artworks Home</a> | </span>
+                            {% endif %}
+                            {{ artworks|length }} Artworks{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                        </p>
+                    </div>
                 </div>
                 <div class="row">
                     {% for artwork in artworks %}
@@ -53,18 +62,19 @@
                                 </a>
                                 {% endif %}
                                 <div class="card-body pb-0">
-                                    <p class="mb-0 font-weight-bold">{{ artwork.title }}</p>
-                                    <p class="text-muted">{{ artwork.artist|default:"Unknown" }}</p>
-                                    <p class="text-muted">Categories: 
-                                        {% for cat in artwork.category.all %}
-                                            {{ cat.friendly_name }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </p>
+                                    <p class="mb-0">{{ artwork.title }}</p>
                                 </div>
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
                                     <div class="row">
                                         <div class="col">
                                             <p class="lead mb-0 text-left font-weight-bold">${{ artwork.price }}</p>
+                                            {% if artwork.category %}
+                                            <p class="small mt-1 mb-0">
+                                                <a class="text-muted" href="{% url 'artworks' %}?category={{ artwork.category.name }}">
+                                                    <i class="fas fa-tag mr-1"></i>{{ artwork.category.friendly_name }}
+                                                </a>
+                                            </p>
+                                            {% endif %}
                                             {% if artwork.available %}
                                                 <p class="text-success">Available</p>
                                             {% else %}
@@ -79,7 +89,7 @@
                             <div class="col-12 d-sm-none mb-5">
                                 <hr>
                             </div>
-                        {% endif %}                        
+                        {% endif %}
                         {% if forloop.counter|divisibleby:2 %}
                             <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
                                 <hr>
@@ -95,10 +105,6 @@
                                 <hr>
                             </div>
                         {% endif %}
-                    {% empty %}
-                        <div class="col text-center">
-                            <p class="lead">No artworks found for the selected criteria.</p>
-                        </div>
                     {% endfor %}
                 </div>
             </div>
