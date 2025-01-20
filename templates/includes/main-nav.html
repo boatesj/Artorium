@@ -5,11 +5,10 @@
                 Gallery
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="gallery-link">
-                <a href="{% url 'artworks' %}?sort=price" class="dropdown-item">By Price</a>
-                <a href="{% url 'artworks' %}?sort=popularity" class="dropdown-item">By Popularity</a>
-                <a href="{% url 'artworks' %}?category=fine_art" class="dropdown-item">Fine Art</a>
-                <a href="{% url 'artworks' %}?category=contemporary_digital" class="dropdown-item">Contemporary & Digital Art</a>
-                <a href="{% url 'artworks' %}?category=custom_commissioned" class="dropdown-item">Custom & Commissioned Art</a>
+                <a href="{% url 'artworks' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
+                <a href="{% url 'artworks' %}?sort=title&direction=desc" class="dropdown-item">By Title</a>
+                <a href="{% url 'artworks' %}?sort=available&direction=desc" class="dropdown-item">By Availability</a>
+                <a href="{% url 'artworks' %}?sort=category&direction=asc" class="dropdown-item">By Category</a>
                 <a href="{% url 'artworks' %}" class="dropdown-item">All Artworks</a>
             </div>
         </li>
