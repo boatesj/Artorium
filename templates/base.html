@@ -79,14 +79,20 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a class="text-black nav-link" href=#">
+                        <a class="text-black nav-link" href="{% url 'view_bag' %}">
                             <div class="text-center">
-                                <div><i class="fas fa-heart fa-lg"></i></div>
-                                <p class="my-0">Wishlist</p>
+                                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                                <p class="my-0">
+                                    {% if grand_total %}
+                                        ${{ grand_total|floatformat:2 }}
+                                    {% else %}
+                                        $0.00
+                                    {% endif %}
+                                </p>
                             </div>
                         </a>
                     </li>
-                    </ul>
+                </ul>
             </div>
         </div>
         <div class="row bg-white">
@@ -98,9 +104,9 @@
                 {% include 'includes/main-nav.html' %}
             </nav>
         </div>
-        <div id="announcement-banner" class="row text-center" style="margin-top: 20px;">
-            <div class="col bg-black text-black">
-                <h4 class="logo-font my-1">Discover stunning artworks and connect with artists from around the world.</h4>                
+        <div id="announcement-banner" class="row text-center">
+            <div class="col bg-black text-white">
+                <h4 class="logo-font my-1">Discover stunning artworks and connect with artists worldwide.</h4>                
             </div>            
         </div>
     </header>
