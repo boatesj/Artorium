@@ -176,3 +176,13 @@ footer {
 .navbar .account-link:hover {
     color: var(--accent-color);
 }
+
+.artwork-container {
+    margin-top: 120px; 
+}
+
+.mt-5-artwork-header {
+    margin-top: 150px; /* Custom value */
+}
+
+

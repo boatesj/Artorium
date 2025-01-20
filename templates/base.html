@@ -79,7 +79,7 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a class="text-black nav-link" href="#">
+                        <a class="text-black nav-link" href=#">
                             <div class="text-center">
                                 <div><i class="fas fa-heart fa-lg"></i></div>
                                 <p class="my-0">Wishlist</p>
@@ -114,7 +114,13 @@
     </header>
 
     {% if messages %}
-        <div class="message-container"></div>
+        <div class="message-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 
     {% block page_header %}

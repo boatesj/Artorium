@@ -7,13 +7,19 @@ class ArtworkAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'artist',
-        'category',
+        'get_categories',
         'price',
         'available',
         'image',
     )
 
     ordering = ('title',)
+
+    def get_categories(self, obj):
+        """ Return a comma-separated list of categories for the artwork """
+        return ", ".join([cat.friendly_name for cat in obj.category.all()])
+    
+    get_categories.short_description = 'Categories'
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (

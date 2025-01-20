@@ -5,10 +5,12 @@
                 Gallery
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="gallery-link">
-                <a href="#" class="dropdown-item">By Price</a>
-                <a href="#" class="dropdown-item">By Artist</a>
-                <a href="#" class="dropdown-item">By Category</a>
-                <a href="#" class="dropdown-item">All Artworks</a>
+                <a href="{% url 'artworks' %}?sort=price" class="dropdown-item">By Price</a>
+                <a href="{% url 'artworks' %}?sort=popularity" class="dropdown-item">By Popularity</a>
+                <a href="{% url 'artworks' %}?category=fine_art" class="dropdown-item">Fine Art</a>
+                <a href="{% url 'artworks' %}?category=contemporary_digital" class="dropdown-item">Contemporary & Digital Art</a>
+                <a href="{% url 'artworks' %}?category=custom_commissioned" class="dropdown-item">Custom & Commissioned Art</a>
+                <a href="{% url 'artworks' %}" class="dropdown-item">All Artworks</a>
             </div>
         </li>
 
@@ -17,22 +19,21 @@
                 Fine Art
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="fine-art-link">
-                <a href="#" class="dropdown-item">Paintings</a>
-                <a href="#" class="dropdown-item">Sculptures</a>
-                <a href="#" class="dropdown-item">Mixed Media</a>
-                <a href="#" class="dropdown-item">All Fine Art</a>
+                <a href="{% url 'artworks' %}?category=paintings" class="dropdown-item">Paintings</a>
+                <a href="{% url 'artworks' %}?category=sculpture" class="dropdown-item">Sculptures</a>
+                <a href="{% url 'artworks' %}?category=drawings" class="dropdown-item">Drawings</a>
+                <a href="{% url 'artworks' %}?category=fine_art" class="dropdown-item">All Fine Art</a>
             </div>
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="contemporary-art-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Contemporary & Digital Art
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="digital-art-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Digital & Contemporary Art
             </a>
-            <div class="dropdown-menu border-0" aria-labelledby="contemporary-art-link">
-                <a href="#" class="dropdown-item">Digital Art</a>
-                <a href="#" class="dropdown-item">Abstract Art</a>
-                <a href="#" class="dropdown-item">NFTs</a>
-                <a href="#" class="dropdown-item">All Contemporary Art</a>
+            <div class="dropdown-menu border-0" aria-labelledby="digital-art-link">
+                <a href="{% url 'artworks' %}?category=digital_art" class="dropdown-item">Digital Art</a>
+                <a href="{% url 'artworks' %}?category=abstract_art" class="dropdown-item">Abstract Art</a>
+                <a href="{% url 'artworks' %}?category=digital_art,abstract_art" class="dropdown-item">All Contemporary Art</a>
             </div>
         </li>
 
@@ -41,10 +42,8 @@
                 Custom & Commissioned Art
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="commissioned-art-link">
-                <a href="#" class="dropdown-item">Request a Commission</a>
-                <a href="#" class="dropdown-item">View Progress</a>
-                <a href="#" class="dropdown-item">Featured Commissions</a>
-                <a href="#" class="dropdown-item">All Custom Art</a>
+                <a href="{% url 'artworks' %}?category=custom_commissioned" class="dropdown-item">View Commissioned Art</a>
+                <a href="{% url 'artworks' %}" class="dropdown-item">All Custom Art</a>
             </div>
         </li>
     </ul>

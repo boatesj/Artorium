@@ -1,27 +1,66 @@
 [
-    {
+  {
       "pk": 1,
       "model": "artworks.category",
       "fields": {
-        "name": "fine_art",
-        "friendly_name": "Fine Art"
+          "name": "fine_art",
+          "friendly_name": "Fine Art"
       }
-    },
-    {
+  },
+  {
       "pk": 2,
       "model": "artworks.category",
       "fields": {
-        "name": "contemporary_digital",
-        "friendly_name": "Contemporary & Digital Art"
+          "name": "contemporary_digital",
+          "friendly_name": "Contemporary & Digital Art"
       }
-    },
-    {
+  },
+  {
       "pk": 3,
       "model": "artworks.category",
       "fields": {
-        "name": "custom_commissioned",
-        "friendly_name": "Custom & Commissioned Art"
+          "name": "custom_commissioned",
+          "friendly_name": "Custom & Commissioned Art"
       }
-    }
-  ]
-  
+  },
+  {
+      "pk": 4,
+      "model": "artworks.category",
+      "fields": {
+          "name": "paintings",
+          "friendly_name": "Paintings"
+      }
+  },
+  {
+      "pk": 5,
+      "model": "artworks.category",
+      "fields": {
+          "name": "sculpture",
+          "friendly_name": "Sculptures"
+      }
+  },
+  {
+      "pk": 6,
+      "model": "artworks.category",
+      "fields": {
+          "name": "drawings",
+          "friendly_name": "Drawings"
+      }
+  },
+  {
+      "pk": 7,
+      "model": "artworks.category",
+      "fields": {
+          "name": "digital_art",
+          "friendly_name": "Digital Art"
+      }
+  },
+  {
+      "pk": 8,
+      "model": "artworks.category",
+      "fields": {
+          "name": "abstract_art",
+          "friendly_name": "Abstract Art"
+      }
+  }
+]
