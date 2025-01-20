@@ -32,8 +32,8 @@
                                 <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                                 <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
                                 <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
-                                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
-                                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                                <option value="title_asc" {% if current_sorting == 'title_asc' %}selected{% endif %}>Title (A-Z)</option>
+                                <option value="title_desc" {% if current_sorting == 'title_desc' %}selected{% endif %}>Title (Z-A)</option>
                                 <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
                                 <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
                             </select>
@@ -70,15 +70,12 @@
                                             <p class="lead mb-0 text-left font-weight-bold">${{ artwork.price }}</p>
                                             {% if artwork.category %}
                                             <p class="small mt-1 mb-0">
-                                                <a class="text-muted" href="{% url 'artworks' %}?category={{ artwork.category.name }}">
-                                                    <i class="fas fa-tag mr-1"></i>{{ artwork.category.friendly_name }}
-                                                </a>
+                                                {% for cat in artwork.category.all %}
+                                                    <a class="text-muted" href="{% url 'artworks' %}?category={{ cat.name }}">
+                                                        <i class="fas fa-tag mr-1"></i>{{ cat.friendly_name }}
+                                                    </a>{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
                                             </p>
-                                            {% endif %}
-                                            {% if artwork.available %}
-                                                <p class="text-success">Available</p>
-                                            {% else %}
-                                                <p class="text-danger">Sold Out</p>
                                             {% endif %}
                                         </div>
                                     </div>

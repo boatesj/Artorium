@@ -16,24 +16,28 @@ def all_artworks(request):
     direction = None
 
     if request.GET:
+        # Sorting logic
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
-            if sortkey == 'title':  # Assuming 'title' is the field to sort by
+            if sortkey == 'title':  # Sort by artwork title
                 sortkey = 'lower_title'
                 artworks = artworks.annotate(lower_title=Lower('title'))
-
+            if sortkey == 'category':  # Sort by category name
+                sortkey = 'category__name'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             artworks = artworks.order_by(sortkey)
 
+        # Filtering by category
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             artworks = artworks.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
 
+        # Search logic
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:

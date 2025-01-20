@@ -30,19 +30,17 @@
                 <div class="artwork-details-container mb-5 mt-md-5">
                     <p class="mb-0 font-weight-bold">{{ artwork.title }}</p>
                     <p class="text-muted">By {{ artwork.artist|default:"Unknown" }}</p>
-                    <p class="text-muted">Categories: 
+                    <p class="lead mb-0 text-left font-weight-bold">${{ artwork.price }}</p>
+                    <p class="text-muted">
+                        Categories:
                         {% for cat in artwork.category.all %}
-                            {{ cat.friendly_name }}{% if not forloop.last %}, {% endif %}
+                            <a class="text-muted" href="{% url 'artworks' %}?category={{ cat.name }}">
+                                <i class="fas fa-tag mr-1"></i>{{ cat.friendly_name }}
+                            </a>
+                            {% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </p>
-                    <p class="lead mb-0 text-left font-weight-bold">${{ artwork.price }}</p>
-                    {% if artwork.category %}
-                    <p class="small mt-1 mb-0">
-                        <a class="text-muted" href="{% url 'artworks' %}?category={{ artwork.category.name }}">
-                            <i class="fas fa-tag mr-1"></i>{{ artwork.category.friendly_name }}
-                        </a>
-                    </p>
-                    {% endif %}
+                    {% if artwork.available %}
                         <p class="text-success">Available</p>
                     {% else %}
                         <p class="text-danger">Sold Out</p>
