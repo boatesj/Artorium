@@ -1,0 +1,44 @@
+<script type="text/javascript">
+
+    // Function to enable or disable the +/- buttons based on the quantity range (1-99)
+    function handleEnableDisable(itemId) {
+        var currentValue = parseInt($(`#id_qty_${itemId}`).val()); // Get the current quantity value
+        var minusDisabled = currentValue < 2; // Disable the decrement button if quantity is less than 2
+        var plusDisabled = currentValue > 98; // Disable the increment button if quantity exceeds 98
+        $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled); // Update decrement button state
+        $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled); // Update increment button state
+    }
+
+    // Ensure all quantity inputs have correct button states when the page loads
+    var allQtyInputs = $('.qty_input');
+    for(var i = 0; i < allQtyInputs.length; i++){
+        var itemId = $(allQtyInputs[i]).data('item_id'); // Retrieve the item ID from data attribute
+        handleEnableDisable(itemId); // Set the initial button states
+    }
+
+    // Update button states whenever the quantity input is manually changed
+    $('.qty_input').change(function() {
+        var itemId = $(this).data('item_id'); // Get the item ID
+        handleEnableDisable(itemId); // Adjust button states
+    });
+
+    // Increment the quantity when the "+" button is clicked
+    $('.increment-qty').click(function(e) {
+       e.preventDefault(); // Prevent default button behavior
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0]; // Find the associated input field
+       var currentValue = parseInt($(closestInput).val()); // Get the current quantity value
+       $(closestInput).val(currentValue + 1); // Increase the quantity by 1
+       var itemId = $(this).data('item_id'); // Get the item ID
+       handleEnableDisable(itemId); // Update button states
+    });
+
+    // Decrement the quantity when the "-" button is clicked
+    $('.decrement-qty').click(function(e) {
+       e.preventDefault(); // Prevent default button behavior
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0]; // Find the associated input field
+       var currentValue = parseInt($(closestInput).val()); // Get the current quantity value
+       $(closestInput).val(currentValue - 1); // Decrease the quantity by 1
+       var itemId = $(this).data('item_id'); // Get the item ID
+       handleEnableDisable(itemId); // Update button states
+    });
+</script>
