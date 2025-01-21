@@ -205,3 +205,29 @@ a.category-badge > span.badge:hover {
     margin-top: 120px;
 }
 
+
+.btn-black {
+    background: black;
+    color: white;
+}
+
+.btn-outline-black {
+    background: white;
+    color: black !important; /* use important to override link colors for <a> elements */
+    border: 1px solid black;
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:active,
+.btn-outline-black:focus {
+    background: black;
+    color: white !important;
+}
+
+.spacing-top {
+    margin-top: 3rem; /* Equivalent to 'my-5' */
+}
+.spacing-bottom {
+    margin-bottom: 3rem; /* Equivalent to 'my-5' */
+}
+
