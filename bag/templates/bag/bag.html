@@ -14,8 +14,8 @@
     <div class="overlay"></div>
     <div class="container mb-2">
         <div class="row">
-            <div class="col mt-5-artwork-header">
-                <hr>
+            <div class="col">
+                <hr style="margin-top: 100px;">
                 <h2 class="logo-font mb-4">Shopping Bag</h2>
                 <hr>
             </div>
@@ -25,59 +25,71 @@
             <div class="col">
                 {% if bag_items %}
                     <div class="table-responsive rounded">
-                        <table class="table table-hover align-middle">
-                            <thead>
+                        <table class="table table-borderless align-middle">
+                            <thead class="text-black">
                                 <tr>
-                                    <th scope="col">Artwork</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Subtotal</th>
-                                    <th scope="col">Remove</th>
+                                    <th scope="col" class="w-25">Artwork</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col" class="text-center">Price</th>
+                                    <th scope="col" class="text-center">Qty</th>
+                                    <th scope="col" class="text-center">Subtotal</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 {% for item in bag_items %}
-                                    <tr>
-                                        <td class="align-middle">
-                                            <a href="{% url 'artwork_detail' item.artwork.id %}">
-                                                <img class="img-thumbnail rounded" src="{{ item.artwork.image.url }}" alt="{{ item.artwork.title }}" style="max-height: 100px;">
-                                            </a>
+                                    <tr class="align-middle">
+                                        <td class="p-3 align-middle">
+                                            <img class="img-fluid rounded" src="{{ item.artwork.image.url }}" alt="{{ item.artwork.title }}" style="max-height: 200px;">
                                         </td>
-                                        <td class="align-middle">
-                                            <a href="{% url 'artwork_detail' item.artwork.id %}" class="text-decoration-none text-dark">
-                                                {{ item.artwork.title }}
-                                            </a>
+                                        <td class="py-3 align-middle">
+                                            <p class="my-0"><strong>{{ item.artwork.title }}</strong></p>
+                                            <p class="my-0 small text-muted">SKU: {{ item.artwork.sku|default:"N/A" }}</p>
                                         </td>
-                                        <td class="align-middle">${{ item.artwork.price }}</td>
-                                        <td class="align-middle">
-                                            <form method="post" action="{% url 'update_bag' item.artwork.id %}">
-                                                {% csrf_token %}
-                                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="10" class="form-control rounded-0 text-center">
-                                                <button type="submit" class="btn btn-sm btn-outline-secondary mt-2 rounded-0">Update</button>
-                                            </form>
+                                        <td class="py-3 text-center align-middle">
+                                            <p class="my-0">£{{ item.artwork.price }}</p>
                                         </td>
-                                        <td class="align-middle">${{ item.artwork.price|multiply:item.quantity }}</td>
-                                        <td class="align-middle">
-                                            <form method="post" action="{% url 'remove_from_bag' item.artwork.id %}">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-sm btn-danger rounded-0">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                        <td class="py-3 text-center align-middle">
+                                            <p class="my-0">{{ item.quantity }}</p>
+                                        </td>
+                                        <td class="py-3 text-center align-middle">
+                                            <p class="my-0">£{{ item.subtotal|floatformat:2 }}</p>
                                         </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="text-right"><strong>Bag Total:</strong></td>
+                                    <td class="text-center">£{{ total|floatformat:2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="text-right"><strong>Delivery:</strong></td>
+                                    <td class="text-center">£{{ delivery|floatformat:2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="text-right"><strong>Grand Total:</strong></td>
+                                    <td class="text-center">£{{ grand_total|floatformat:2 }}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
-                    <div class="row mt-4">
-                        <div class="col text-right">
-                            <h4 class="font-weight-bold">Total: ${{ total }}</h4>
-                            <a href="{% url 'checkout' %}" class="btn btn-black btn-lg rounded-0 mt-2">
-                                Proceed to Checkout
-                            </a>
-                        </div>
+                    <div class="text-right mt-4 mb-5">
+                        <a href="{% url 'artworks' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="text-uppercase">Keep Browsing</span>
+                        </a>
+                        <a href="#" class="btn btn-black rounded-0 btn-lg">
+                            <span class="text-uppercase">Secure Checkout</span>
+                            <span class="icon">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </a>
                     </div>
                 {% else %}
                     <p class="lead mb-5">Your bag is empty.</p>
@@ -85,7 +97,7 @@
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
-                        <span class="text-uppercase">Browse Artworks</span>
+                        <span class="text-uppercase">Keep Browsing</span>
                     </a>
                 {% endif %}
             </div>
