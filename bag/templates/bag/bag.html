@@ -112,9 +112,12 @@
                             </span>
                             <span class="text-uppercase">Keep Browsing</span>
                         </a>
-                        <button class="btn btn-black rounded-0 btn-lg" disabled>
-                            <span class="text-uppercase">Checkout Coming Soon</span>
-                        </button>
+                        <a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
+                            <span class="text-uppercase">Secure Checkout</span>
+                            <span class="icon">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </a>
                     </div>
                 {% else %}
                     <p class="lead mb-5">Your bag is empty.</p>
