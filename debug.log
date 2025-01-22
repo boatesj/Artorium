@@ -15501,3 +15501,217 @@ Bag contents after removal: {'17': 1, '3': 1}
 (0.000) UPDATE "django_session" SET "session_data" = 'eyJiYWciOnsiMTciOjEsIjMiOjF9fQ:1tabqt:aPyhrk0tZeNE7QRg7n5liMMjOVlbR4sx0bXkVMQ3fSE', "expire_date" = '2025-02-05 14:37:07.987814' WHERE "django_session"."session_key" = 'xdu48gv1q9gpf5quyqejboj9pacznc6j'; args=('eyJiYWciOnsiMTciOjEsIjMiOjF9fQ:1tabqt:aPyhrk0tZeNE7QRg7n5liMMjOVlbR4sx0bXkVMQ3fSE', '2025-02-05 14:37:07.987814', 'xdu48gv1q9gpf5quyqejboj9pacznc6j')
 "GET /bag/ HTTP/1.1" 200 26702
 "GET /bag/ HTTP/1.1" 200 26702
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) PRAGMA foreign_keys = OFF; args=None
+(0.000) PRAGMA foreign_keys = OFF; args=None
+(0.000) PRAGMA foreign_keys; args=None
+(0.000) PRAGMA foreign_keys; args=None
+(0.000) BEGIN; args=None
+(0.000) BEGIN; args=None
+CREATE TABLE "checkout_order" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "order_number" varchar(32) NOT NULL, "full_name" varchar(50) NOT NULL, "email" varchar(254) NOT NULL, "phone_number" varchar(20) NOT NULL, "country" varchar(40) NOT NULL, "postcode" varchar(20) NULL, "town_or_city" varchar(40) NOT NULL, "street_address1" varchar(80) NOT NULL, "street_address2" varchar(80) NULL, "county" varchar(80) NULL, "date" datetime NOT NULL, "delivery_cost" decimal NOT NULL, "order_total" decimal NOT NULL, "grand_total" decimal NOT NULL); (params None)
+CREATE TABLE "checkout_order" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "order_number" varchar(32) NOT NULL, "full_name" varchar(50) NOT NULL, "email" varchar(254) NOT NULL, "phone_number" varchar(20) NOT NULL, "country" varchar(40) NOT NULL, "postcode" varchar(20) NULL, "town_or_city" varchar(40) NOT NULL, "street_address1" varchar(80) NOT NULL, "street_address2" varchar(80) NULL, "county" varchar(80) NULL, "date" datetime NOT NULL, "delivery_cost" decimal NOT NULL, "order_total" decimal NOT NULL, "grand_total" decimal NOT NULL); (params None)
+(0.001) CREATE TABLE "checkout_order" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "order_number" varchar(32) NOT NULL, "full_name" varchar(50) NOT NULL, "email" varchar(254) NOT NULL, "phone_number" varchar(20) NOT NULL, "country" varchar(40) NOT NULL, "postcode" varchar(20) NULL, "town_or_city" varchar(40) NOT NULL, "street_address1" varchar(80) NOT NULL, "street_address2" varchar(80) NULL, "county" varchar(80) NULL, "date" datetime NOT NULL, "delivery_cost" decimal NOT NULL, "order_total" decimal NOT NULL, "grand_total" decimal NOT NULL); args=None
+(0.001) CREATE TABLE "checkout_order" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "order_number" varchar(32) NOT NULL, "full_name" varchar(50) NOT NULL, "email" varchar(254) NOT NULL, "phone_number" varchar(20) NOT NULL, "country" varchar(40) NOT NULL, "postcode" varchar(20) NULL, "town_or_city" varchar(40) NOT NULL, "street_address1" varchar(80) NOT NULL, "street_address2" varchar(80) NULL, "county" varchar(80) NULL, "date" datetime NOT NULL, "delivery_cost" decimal NOT NULL, "order_total" decimal NOT NULL, "grand_total" decimal NOT NULL); args=None
+CREATE TABLE "checkout_orderlineitem" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "quantity" integer NOT NULL, "lineitem_total" decimal NOT NULL, "artwork_id" bigint NOT NULL REFERENCES "artworks_artwork" ("id") DEFERRABLE INITIALLY DEFERRED, "order_id" bigint NOT NULL REFERENCES "checkout_order" ("id") DEFERRABLE INITIALLY DEFERRED); (params None)
+CREATE TABLE "checkout_orderlineitem" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "quantity" integer NOT NULL, "lineitem_total" decimal NOT NULL, "artwork_id" bigint NOT NULL REFERENCES "artworks_artwork" ("id") DEFERRABLE INITIALLY DEFERRED, "order_id" bigint NOT NULL REFERENCES "checkout_order" ("id") DEFERRABLE INITIALLY DEFERRED); (params None)
+(0.000) CREATE TABLE "checkout_orderlineitem" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "quantity" integer NOT NULL, "lineitem_total" decimal NOT NULL, "artwork_id" bigint NOT NULL REFERENCES "artworks_artwork" ("id") DEFERRABLE INITIALLY DEFERRED, "order_id" bigint NOT NULL REFERENCES "checkout_order" ("id") DEFERRABLE INITIALLY DEFERRED); args=None
+(0.000) CREATE TABLE "checkout_orderlineitem" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "quantity" integer NOT NULL, "lineitem_total" decimal NOT NULL, "artwork_id" bigint NOT NULL REFERENCES "artworks_artwork" ("id") DEFERRABLE INITIALLY DEFERRED, "order_id" bigint NOT NULL REFERENCES "checkout_order" ("id") DEFERRABLE INITIALLY DEFERRED); args=None
+(0.004) PRAGMA foreign_key_check; args=None
+(0.004) PRAGMA foreign_key_check; args=None
+CREATE INDEX "checkout_orderlineitem_artwork_id_b2fb026a" ON "checkout_orderlineitem" ("artwork_id"); (params ())
+CREATE INDEX "checkout_orderlineitem_artwork_id_b2fb026a" ON "checkout_orderlineitem" ("artwork_id"); (params ())
+(0.000) CREATE INDEX "checkout_orderlineitem_artwork_id_b2fb026a" ON "checkout_orderlineitem" ("artwork_id"); args=()
+(0.000) CREATE INDEX "checkout_orderlineitem_artwork_id_b2fb026a" ON "checkout_orderlineitem" ("artwork_id"); args=()
+CREATE INDEX "checkout_orderlineitem_order_id_b4cfbe6b" ON "checkout_orderlineitem" ("order_id"); (params ())
+CREATE INDEX "checkout_orderlineitem_order_id_b4cfbe6b" ON "checkout_orderlineitem" ("order_id"); (params ())
+(0.000) CREATE INDEX "checkout_orderlineitem_order_id_b4cfbe6b" ON "checkout_orderlineitem" ("order_id"); args=()
+(0.000) CREATE INDEX "checkout_orderlineitem_order_id_b4cfbe6b" ON "checkout_orderlineitem" ("order_id"); args=()
+(0.000) PRAGMA foreign_keys = ON; args=None
+(0.000) PRAGMA foreign_keys = ON; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('checkout', '0001_initial', '2025-01-22 18:52:35.469042'); args=['checkout', '0001_initial', '2025-01-22 18:52:35.469042']
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('checkout', '0001_initial', '2025-01-22 18:52:35.469042'); args=['checkout', '0001_initial', '2025-01-22 18:52:35.469042']
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=()
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'admin' AND "django_content_type"."model" = 'logentry') LIMIT 21; args=('admin', 'logentry')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'admin' AND "django_content_type"."model" = 'logentry') LIMIT 21; args=('admin', 'logentry')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (1) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(1,)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (1) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(1,)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'permission') LIMIT 21; args=('auth', 'permission')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'permission') LIMIT 21; args=('auth', 'permission')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'group') LIMIT 21; args=('auth', 'group')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'group') LIMIT 21; args=('auth', 'group')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'user') LIMIT 21; args=('auth', 'user')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'user') LIMIT 21; args=('auth', 'user')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (2, 3, 4) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(2, 3, 4)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (2, 3, 4) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(2, 3, 4)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'contenttypes' AND "django_content_type"."model" = 'contenttype') LIMIT 21; args=('contenttypes', 'contenttype')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'contenttypes' AND "django_content_type"."model" = 'contenttype') LIMIT 21; args=('contenttypes', 'contenttype')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (5) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(5,)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (5) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(5,)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sessions' AND "django_content_type"."model" = 'session') LIMIT 21; args=('sessions', 'session')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sessions' AND "django_content_type"."model" = 'session') LIMIT 21; args=('sessions', 'session')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (6) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(6,)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (6) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(6,)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sites'; args=('sites',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sites'; args=('sites',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sites' AND "django_content_type"."model" = 'site') LIMIT 21; args=('sites', 'site')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sites' AND "django_content_type"."model" = 'site') LIMIT 21; args=('sites', 'site')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (7) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(7,)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (7) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(7,)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sites'; args=('sites',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sites'; args=('sites',)
+(0.000) SELECT (1) AS "a" FROM "django_site" LIMIT 1; args=()
+(0.000) SELECT (1) AS "a" FROM "django_site" LIMIT 1; args=()
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'allauth'; args=('allauth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'allauth'; args=('allauth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'allauth'; args=('allauth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'allauth'; args=('allauth',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'account'; args=('account',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'account'; args=('account',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'account' AND "django_content_type"."model" = 'emailaddress') LIMIT 21; args=('account', 'emailaddress')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'account' AND "django_content_type"."model" = 'emailaddress') LIMIT 21; args=('account', 'emailaddress')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'account' AND "django_content_type"."model" = 'emailconfirmation') LIMIT 21; args=('account', 'emailconfirmation')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'account' AND "django_content_type"."model" = 'emailconfirmation') LIMIT 21; args=('account', 'emailconfirmation')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (8, 9) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(8, 9)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (8, 9) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(8, 9)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'account'; args=('account',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'account'; args=('account',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'socialaccount'; args=('socialaccount',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'socialaccount'; args=('socialaccount',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'socialaccount' AND "django_content_type"."model" = 'socialaccount') LIMIT 21; args=('socialaccount', 'socialaccount')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'socialaccount' AND "django_content_type"."model" = 'socialaccount') LIMIT 21; args=('socialaccount', 'socialaccount')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'socialaccount' AND "django_content_type"."model" = 'socialapp') LIMIT 21; args=('socialaccount', 'socialapp')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'socialaccount' AND "django_content_type"."model" = 'socialapp') LIMIT 21; args=('socialaccount', 'socialapp')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'socialaccount' AND "django_content_type"."model" = 'socialtoken') LIMIT 21; args=('socialaccount', 'socialtoken')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'socialaccount' AND "django_content_type"."model" = 'socialtoken') LIMIT 21; args=('socialaccount', 'socialtoken')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (10, 11, 12) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(10, 11, 12)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (10, 11, 12) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(10, 11, 12)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'socialaccount'; args=('socialaccount',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'socialaccount'; args=('socialaccount',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'artworks'; args=('artworks',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'artworks'; args=('artworks',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'artworks' AND "django_content_type"."model" = 'category') LIMIT 21; args=('artworks', 'category')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'artworks' AND "django_content_type"."model" = 'category') LIMIT 21; args=('artworks', 'category')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'artworks' AND "django_content_type"."model" = 'artwork') LIMIT 21; args=('artworks', 'artwork')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'artworks' AND "django_content_type"."model" = 'artwork') LIMIT 21; args=('artworks', 'artwork')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (13, 14) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(13, 14)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (13, 14) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(13, 14)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'artworks'; args=('artworks',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'artworks'; args=('artworks',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'checkout'; args=('checkout',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'checkout'; args=('checkout',)
+(0.000) BEGIN; args=None
+(0.000) BEGIN; args=None
+(0.001) INSERT INTO "django_content_type" ("app_label", "model") SELECT 'checkout', 'orderlineitem' UNION ALL SELECT 'checkout', 'order'; args=('checkout', 'orderlineitem', 'checkout', 'order')
+(0.001) INSERT INTO "django_content_type" ("app_label", "model") SELECT 'checkout', 'orderlineitem' UNION ALL SELECT 'checkout', 'order'; args=('checkout', 'orderlineitem', 'checkout', 'order')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'checkout' AND "django_content_type"."model" = 'orderlineitem') LIMIT 21; args=('checkout', 'orderlineitem')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'checkout' AND "django_content_type"."model" = 'orderlineitem') LIMIT 21; args=('checkout', 'orderlineitem')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'checkout' AND "django_content_type"."model" = 'order') LIMIT 21; args=('checkout', 'order')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'checkout' AND "django_content_type"."model" = 'order') LIMIT 21; args=('checkout', 'order')
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (16, 15) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(16, 15)
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (16, 15) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(16, 15)
+(0.000) BEGIN; args=None
+(0.000) BEGIN; args=None
+(0.000) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") SELECT 'Can add order line item', 15, 'add_orderlineitem' UNION ALL SELECT 'Can change order line item', 15, 'change_orderlineitem' UNION ALL SELECT 'Can delete order line item', 15, 'delete_orderlineitem' UNION ALL SELECT 'Can view order line item', 15, 'view_orderlineitem' UNION ALL SELECT 'Can add order', 16, 'add_order' UNION ALL SELECT 'Can change order', 16, 'change_order' UNION ALL SELECT 'Can delete order', 16, 'delete_order' UNION ALL SELECT 'Can view order', 16, 'view_order'; args=('Can add order line item', 15, 'add_orderlineitem', 'Can change order line item', 15, 'change_orderlineitem', 'Can delete order line item', 15, 'delete_orderlineitem', 'Can view order line item', 15, 'view_orderlineitem', 'Can add order', 16, 'add_order', 'Can change order', 16, 'change_order', 'Can delete order', 16, 'delete_order', 'Can view order', 16, 'view_order')
+(0.000) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") SELECT 'Can add order line item', 15, 'add_orderlineitem' UNION ALL SELECT 'Can change order line item', 15, 'change_orderlineitem' UNION ALL SELECT 'Can delete order line item', 15, 'delete_orderlineitem' UNION ALL SELECT 'Can view order line item', 15, 'view_orderlineitem' UNION ALL SELECT 'Can add order', 16, 'add_order' UNION ALL SELECT 'Can change order', 16, 'change_order' UNION ALL SELECT 'Can delete order', 16, 'delete_order' UNION ALL SELECT 'Can view order', 16, 'view_order'; args=('Can add order line item', 15, 'add_orderlineitem', 'Can change order line item', 15, 'change_orderlineitem', 'Can delete order line item', 15, 'delete_orderlineitem', 'Can view order line item', 15, 'view_orderlineitem', 'Can add order', 16, 'add_order', 'Can change order', 16, 'change_order', 'Can delete order', 16, 'delete_order', 'Can view order', 16, 'view_order')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'checkout'; args=('checkout',)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'checkout'; args=('checkout',)
