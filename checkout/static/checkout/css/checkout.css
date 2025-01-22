@@ -1,0 +1,55 @@
+/* Stripe Elements and Custom Input Styling */
+.StripeElement,
+.stripe-style-input {
+  box-sizing: border-box;
+  height: 45px; 
+  padding: 12px 14px;
+  border: 1px solid #ddd; /* Subtle gray for modern look */
+  border-radius: 4px; /* Added slight rounding for a modern aesthetic */
+  background-color: #f9f9f9; /* Light gray background for visual contrast */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  -webkit-transition: box-shadow 150ms ease, border-color 150ms ease;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.StripeElement--focus,
+.stripe-style-input:focus,
+.stripe-style-input:active {
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Modern blue glow */
+  border-color: #007bff; 
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important; /* Retain default autofill styling */
+}
+
+.stripe-style-input::placeholder {
+  color: #6c757d; 
+  font-style: italic; 
+}
+
+/* Fieldset Legend Styling */
+.fieldset-label {
+  position: relative;
+  right: 0; 
+  padding: 0 0.5rem;
+  color: #495057; 
+  font-size: 0.875rem; 
+  font-weight: bold;
+  background: #f9f9f9; 
+  border-radius: 4px; 
+}
+
+/* Payment Form Inputs */
+#payment-form .form-control,
+#card-element {
+  color: #212529; 
+  border: 1px solid #ced4da; 
+  border-radius: 4px; 
+}
+
+/* On Hover for Inputs */
+#payment-form .form-control:hover,
+#card-element:hover {
+  border-color: #007bff; 
+}
