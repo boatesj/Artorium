@@ -81,7 +81,7 @@
                                             <a class="remove-item text-danger float-right" id="remove_{{ item.artwork.id }}"><small>Remove</small></a>
                                         </td>
                                         <td class="py-3 text-center align-middle">
-                                            <p class="my-0">£{{ item.subtotal|floatformat:2 }}</p>
+                                            <p class="my-0">£{{ item.artwork.price|calc_subtotal:item.quantity|floatformat:2 }}</p>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -112,12 +112,9 @@
                             </span>
                             <span class="text-uppercase">Keep Browsing</span>
                         </a>
-                        <a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
-                            <span class="text-uppercase">Secure Checkout</span>
-                            <span class="icon">
-                                <i class="fas fa-lock"></i>
-                            </span>
-                        </a>
+                        <button class="btn btn-black rounded-0 btn-lg" disabled>
+                            <span class="text-uppercase">Checkout Coming Soon</span>
+                        </button>
                     </div>
                 {% else %}
                     <p class="lead mb-5">Your bag is empty.</p>
@@ -135,6 +132,8 @@
 
 {% block postloadjs %}
 {{ block.super }}
+{% include 'artworks/includes/quantity_input_script.html' %}
+
 <script type="text/javascript">
     // Update quantity on click
     $('.update-link').click(function(e) {
@@ -142,11 +141,12 @@
         form.submit();
     })
 
+   
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
-        var url = `/bag/remove/${itemId}`;
+        var url = `/bag/remove/${itemId}/`;
         var data = {'csrfmiddlewaretoken': csrfToken};
 
         $.post(url, data)
@@ -154,5 +154,6 @@
              location.reload();
          });
     })
+
 </script>
 {% endblock %}
