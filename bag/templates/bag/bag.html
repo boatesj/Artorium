@@ -81,7 +81,7 @@
                                             <a class="remove-item text-danger float-right" id="remove_{{ item.artwork.id }}"><small>Remove</small></a>
                                         </td>
                                         <td class="py-3 text-center align-middle">
-                                            <p class="my-0">£{{ item.artwork.price|calc_subtotal:item.quantity|floatformat:2 }}</p>
+                                            <p class="my-0">£{{ item.artwork.price|calc_subtotal:item.quantity }}</p>
                                         </td>
                                     </tr>
                                 {% endfor %}
