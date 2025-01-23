@@ -6,32 +6,68 @@
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+    <div class="container text-center py-5">
+        <h1 class="display-4">Thank You</h1>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <hr>
-                <h2 class="logo-font mb-4">Thank You</h2>
-                <hr>
-                <p class="text-black">Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 text-center">
+                <div class="alert alert-success" role="alert">
+                    Your order has been successfully processed!
+                </div>
+                <p>A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-lg-7 text-right">
-                <a href="{% url 'artworks' %}" class="btn btn-black rounded-0 my-2">  
-                    <span class="icon mr-2">
-                        <i class="fas fa-paint-brush"></i>  
-                    </span>
-                    <span class="text-uppercase">Explore More Artworks</span>  
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Order Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+                        <p><strong>Order Date:</strong> {{ order.date }}</p>
+
+                        <h6 class="mt-4">Artworks Ordered:</h6>
+                        <ul class="list-group mb-4">
+                            {% for item in order.lineitems.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ item.artwork.title }}
+                                <span>{{ item.quantity }} @ £{{ item.artwork.price }} each</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h6>Delivery Address:</h6>
+                        <p>
+                            <strong>Full Name:</strong> {{ order.full_name }}<br>
+                            <strong>Address:</strong> {{ order.street_address1 }}{% if order.street_address2 %}, {{ order.street_address2 }}{% endif %}<br>
+                            <strong>Town or City:</strong> {{ order.town_or_city }}<br>
+                            {% if order.county %}<strong>County:</strong> {{ order.county }}<br>{% endif %}
+                            {% if order.postcode %}<strong>Postal Code:</strong> {{ order.postcode }}<br>{% endif %}
+                            <strong>Country:</strong> {{ order.country }}<br>
+                            <strong>Phone Number:</strong> {{ order.phone_number }}
+                        </p>
+
+                        <h6>Billing Info:</h6>
+                        <p>
+                            <strong>Order Total:</strong> £{{ order.order_total }}<br>
+                            <strong>Delivery:</strong> £{{ order.delivery_cost }}<br>
+                            <strong>Grand Total:</strong> £{{ order.grand_total }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <a href="{% url 'artworks' %}" class="btn btn-dark btn-lg">
+                    <i class="fas fa-paint-brush mr-2"></i> Explore More Artworks
                 </a>
             </div>
         </div>
