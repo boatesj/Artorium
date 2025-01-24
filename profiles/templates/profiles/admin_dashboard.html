@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col">
+                <h2 class="logo-font mb-4">Admin Dashboard</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>All Commissions</h3>
+                <ul>
+                    {% for commission in commissions %}
+                        <li>{{ commission.title }} by {{ commission.artist.user.username }} for {{ commission.patron.user.username }} - Status: 
+                            {% if commission.is_approved %} Approved 
+                            {% elif commission.is_declined %} Declined 
+                            {% else %} Pending 
+                            {% endif %}
+                        </li>
+                    {% empty %}
+                        <li>No commissions available.</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>All Transactions</h3>
+                <ul>
+                    {% for transaction in transactions %}
+                        <li>{{ transaction.transaction_date }} - £{{ transaction.amount }} - {{ transaction.user.user.username }}</li>
+                    {% empty %}
+                        <li>No transactions found.</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>All Artworks</h3>
+                <ul>
+                    {% for artwork in artworks %}
+                        <li>{{ artwork.title }} by {{ artwork.artist.user.username }} - £{{ artwork.price }}</li>
+                    {% empty %}
+                        <li>No artworks found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

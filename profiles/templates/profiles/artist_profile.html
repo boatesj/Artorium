@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col">
+                <h2 class="logo-font mb-4">My Profile (Artist)</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>My Artworks</h3>
+                <ul>
+                    {% for artwork in artworks %}
+                        <li>{{ artwork.title }} - £{{ artwork.price }}</li>
+                    {% empty %}
+                        <li>No artworks found. <a href="{% url 'add_artwork' %}">Add new artwork</a></li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Commissions Received</h3>
+                <ul>
+                    {% for commission in commissions %}
+                        <li>{{ commission.title }} from {{ commission.patron.user.username }} - Status: 
+                            {% if commission.is_approved %} Approved 
+                            {% elif commission.is_declined %} Declined 
+                            {% else %} Pending 
+                            {% endif %}
+                        </li>
+                    {% empty %}
+                        <li>You have no commissions at the moment.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

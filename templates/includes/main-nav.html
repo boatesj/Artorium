@@ -36,6 +36,7 @@
             </div>
         </li>
 
+        {% if request.user.is_authenticated and not request.user.userprofile.is_admin %}
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black" href="#" id="commissioned-art-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Custom & Commissioned Art
@@ -45,5 +46,7 @@
                 <a href="{% url 'artworks' %}" class="dropdown-item">All Custom Art</a>
             </div>
         </li>
+        {% endif %}
+
     </ul>
 </div>
