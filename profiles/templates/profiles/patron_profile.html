@@ -2,52 +2,56 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'profiles/css/patron_profile.css' %}">
 {% endblock %}
 
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
-            <div class="col">
-                <h2 class="logo-font mb-4">My Profile (Patron)</h2>
+            <div class="col text-center">
+                <h1 class="logo-font">Welcome, {{ user.first_name }}</h1>
+                <p class="text-muted">Manage your account and explore your saved artworks.</p>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
+    <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>My Wishlist</h3>
+                <hr>
+                <h2 class="logo-font mb-4">My Profile</h2>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Delivery Address:</strong> {{ user.userprofile.delivery_address }}</p>
+                <hr>
+                <h3 class="logo-font">Wishlist</h3>
                 <ul>
-                    {% for artwork in wishlist %}
-                        <li>{{ artwork.title }} - £{{ artwork.price }}</li>
-                    {% empty %}
-                        <li>Your wishlist is empty.</li>
-                    {% endfor %}
-                </ul>
-
-                <h3>My Commissions</h3>
-                <ul>
-                    {% for commission in commissions %}
-                        <li>{{ commission.title }} - Status: 
-                            {% if commission.is_approved %} Approved 
-                            {% elif commission.is_declined %} Declined 
-                            {% else %} Pending 
-                            {% endif %}
+                    {% for artwork in user.userprofile.wishlist.all %}
+                        <li>
+                            <a href="{% url 'artwork_detail' artwork.id %}">
+                                {{ artwork.title }} by {{ artwork.artist.name }}
+                            </a>
                         </li>
                     {% empty %}
-                        <li>You have no active commissions.</li>
+                        <p>Your wishlist is currently empty.</p>
                     {% endfor %}
                 </ul>
-
-                <h3>Transaction History</h3>
+                <hr>
+                <h3 class="logo-font">Order History</h3>
                 <ul>
-                    {% for transaction in transactions %}
-                        <li>{{ transaction.transaction_date }} - £{{ transaction.amount }}</li>
+                    {% for order in user.userprofile.orders.all %}
+                        <li>
+                            <strong>Order #{{ order.id }}</strong> - {{ order.date }}
+                            <ul>
+                                {% for item in order.items.all %}
+                                    <li>{{ item.artwork.title }} - ${{ item.price }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     {% empty %}
-                        <li>No transactions found.</li>
+                        <p>You have no past orders.</p>
                     {% endfor %}
                 </ul>
             </div>

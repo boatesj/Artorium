@@ -70,7 +70,7 @@
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
-                                    <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Admin Dashboard</a>
+                                    <a href="#" class="dropdown-item">Admin Dashboard</a>
                                 {% elif request.user.userprofile.is_artist %}
                                     <a href="{% url 'artist_profile' %}" class="dropdown-item">Artist Profile</a>
                                     <a href="{% url 'manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
