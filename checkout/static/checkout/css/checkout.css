@@ -54,6 +54,47 @@
   border-color: #007bff; 
 }
 
+/* Style the select dropdown */
+select {
+  background-color: #f9f9f9; /* Light gray background */
+  border: 1px solid #d1d5db; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  color: #000000; /* Text color for valid selections */
+  font-size: 16px; /* Modern font size */
+  padding: 10px 12px; /* Comfortable padding */
+  width: 100%; /* Full width for better responsiveness */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  appearance: none; /* Remove default dropdown styling */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+/* Add a custom arrow for the dropdown */
+select:focus {
+  border-color: #4f46e5; /* Highlight border on focus */
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25); /* Focus ring */
+  outline: none; /* Remove default outline */
+}
+
+/* Style for placeholder option and invalid selection */
+select:invalid,
+select option[value=""] {
+  color: #aab7c4 !important; /* Light gray text */
+}
+
+/* Option styling */
+select option {
+  color: #000000; /* Default text color for valid options */
+}
+
+/* Add an arrow using a pseudo-element */
+select {
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%234f46e5"><path fill-rule="evenodd" d="M10 12.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 01.708-.708L10 12.293z" clip-rule="evenodd"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 1em;
+}
+
+
 #loading-overlay {
 	display: none;
 	position: fixed;
