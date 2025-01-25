@@ -35,8 +35,8 @@
                 <a href="{% url 'artist_profile' %}" class="dropdown-item">Artist Profile</a>
                 <a href="{% url 'manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
             {% else %}
-                <a href="{% url 'patron_profile' %}" class="dropdown-item">My Profile</a>
-                <a href="{% url 'wishlist' %}" class="dropdown-item">Wishlist</a>
+                <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                <a href="#" class="dropdown-item">Wishlist</a>
             {% endif %}
             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
         {% else %}
