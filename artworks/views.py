@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Artwork, Category
+from .forms import ArtworkForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -62,10 +64,28 @@ def all_artworks(request):
 def artwork_detail(request, artwork_id):
     """ A view to show individual artwork details """
 
+    # Retrieve the specific artwork by ID
     artwork = get_object_or_404(Artwork, pk=artwork_id)
 
     context = {
-        'artwork': artwork,
+        'artwork': artwork,  # Updated context key
     }
 
+    # Render the appropriate template
     return render(request, 'artworks/artwork_detail.html', context)
+    
+
+@login_required
+def add_artwork(request):
+    if request.method == 'POST':
+        form = ArtworkForm(request.POST, request.FILES)
+        if form.is_valid():
+            artwork = form.save(commit=False)
+            artwork.artist = request.user.userprofile  # Link artwork to the artist
+            artwork.save()
+            return redirect('all_artworks')
+    else:
+        form = ArtworkForm()
+
+    return render(request, 'artworks/add_artwork.html', {'form': form})
+

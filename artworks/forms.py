@@ -2,6 +2,7 @@ from django import forms
 from .models import Artwork, Category
 
 
+
 class ArtworkForm(forms.ModelForm):
     """
     Form for creating and managing artworks.
@@ -22,3 +23,6 @@ class ArtworkForm(forms.ModelForm):
         # Add consistent styling to form fields
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'border-black rounded-0'
+
+
+    
