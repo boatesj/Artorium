@@ -1,21 +1,38 @@
 from django import forms
 from .models import UserProfile
 
+
 class UserProfileForm(forms.ModelForm):
-    """
-    Form to update user profile information.
-    """
     class Meta:
         model = UserProfile
-        fields = [
-            'default_phone_number',
-            'default_country',
-            'default_postcode',
-            'default_town_or_city',
-            'default_street_address1',
-            'default_street_address2',
-            'default_county',
-            'artist_bio',
-            'portfolio_link',
-            'is_available_for_commissions',
-        ]
+        exclude = ('user',)
+
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels, and set autofocus on first field
+        """
+        self.role = kwargs.pop('role', 'patron') 
+        super().__init__(*args, **kwargs)
+
+        placeholders = {
+            'default_phone_number': 'Phone Number',
+            'default_postcode': 'Postal Code',
+            'default_town_or_city': 'Town or City',
+            'default_street_address1': 'Street Address 1',
+            'default_street_address2': 'Street Address 2',
+            'default_county': 'County, State or Locality',
+            # Add placeholders for additional fields like 'role' if necessary
+        }
+
+        self.fields['default_phone_number'].widget.attrs['autofocus'] = True
+
+        for field in self.fields:
+            if field != 'default_country':
+                # Safely get the placeholder, defaulting to an empty string if the field is not in placeholders
+                placeholder = placeholders.get(field, '')
+                if self.fields[field].required:
+                    placeholder += ' *'
+                self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['class'] = 'border-black rounded-0 profile-form-input'
+            self.fields[field].label = False

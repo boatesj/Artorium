@@ -22,12 +22,12 @@ class UserProfile(models.Model):
 
     # Common fields for all users
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
-    default_country = CountryField(blank_label='Country *', null=True, blank=True)
-    default_postcode = models.CharField(max_length=20, null=True, blank=True)
-    default_town_or_city = models.CharField(max_length=40, null=True, blank=True)
     default_street_address1 = models.CharField(max_length=80, null=True, blank=True)
     default_street_address2 = models.CharField(max_length=80, null=True, blank=True)
+    default_town_or_city = models.CharField(max_length=40, null=True, blank=True)
     default_county = models.CharField(max_length=80, null=True, blank=True)
+    default_postcode = models.CharField(max_length=20, null=True, blank=True)
+    default_country = CountryField(blank_label='Country', null=True, blank=True)
 
     # Artist-specific fields
     artist_bio = models.TextField(null=True, blank=True)
@@ -97,7 +97,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
     if created:
         # Create a new UserProfile only if the user is newly created
-        UserProfile.objects.create(user=instance)
+        UserProfile.objects.create(user=instance, role='patron')
     else:
         # Check if the profile exists before trying to save it
         UserProfile.objects.get_or_create(user=instance)
