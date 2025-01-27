@@ -96,3 +96,22 @@ def add_artwork(request):
 
     return render(request, template, context)
 
+
+def edit_artwork(request, artwork_id):
+    """ Edit an existing artwork """
+    artwork = get_object_or_404(Artwork, id=artwork_id)
+    if request.method == 'POST':
+        form = ArtworkForm(request.POST, request.FILES, instance=artwork)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Artwork updated successfully!')
+            return redirect(reverse('artwork_detail', args=[artwork.id]))
+        else:
+            messages.error(request, 'Failed to update artwork. Please ensure the form is valid.')
+    else:
+        form = ArtworkForm(instance=artwork)
+        messages.info(request, f'You are editing {artwork.name}')
+
+    template = 'artworks/edit_artwork.html'
+    context = {'form': form, 'artwork': artwork}
+    return render(request, template, context)
