@@ -73,19 +73,26 @@ def artwork_detail(request, artwork_id):
 
     # Render the appropriate template
     return render(request, 'artworks/artwork_detail.html', context)
-    
+
 
 @login_required
 def add_artwork(request):
+    """ Add a new artwork to the gallery """
     if request.method == 'POST':
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
-            artwork = form.save(commit=False)
-            artwork.artist = request.user.userprofile  # Link artwork to the artist
-            artwork.save()
-            return redirect('all_artworks')
+            form.save()
+            messages.success(request, 'Successfully added artwork!')
+            return redirect(reverse('add_artwork'))  # Redirect back to the add artwork page
+        else:
+            messages.error(request, 'Failed to add artwork. Please ensure the form is valid.')
     else:
         form = ArtworkForm()
+        
+    template = 'artworks/add_artwork.html'  # Update template path
+    context = {
+        'form': form,
+    }
 
-    return render(request, 'artworks/add_artwork.html', {'form': form})
+    return render(request, template, context)
 

@@ -18,6 +18,8 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Update failed. Please ensure the form is valid.')
     else:
         # Initialize the form for GET requests
         form = UserProfileForm(instance=profile, role=getattr(profile, 'role', 'patron'))
