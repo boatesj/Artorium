@@ -70,12 +70,12 @@
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
-                                    <a href="{% url 'add_artwork' %}" class="dropdown-item">Admin Dashboard</a>
-                                {% elif request.user.userprofile.is_artist %}
-                                    <a href="{% url 'artist_profile' %}" class="dropdown-item">Artist Profile</a>
+                                    <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Admin Dashboard</a>
+                                {% elif request.user.userprofile.role == 'artist' %}
+                                    <a href="{% url 'artist_dashboard' %}" class="dropdown-item">Artist Dashboard</a>
                                     <a href="{% url 'manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
-                                {% else %}
-                                    <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                                {% elif request.user.userprofile.role == 'patron' %}
+                                    <a href="{% url 'patron_dashboard' %}" class="dropdown-item">Patron Dashboard</a>
                                     <a href="#" class="dropdown-item">Wishlist</a>
                                 {% endif %}
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
@@ -100,7 +100,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div>        
         </div>
         <div class="row bg-white">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
