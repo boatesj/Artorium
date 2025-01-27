@@ -19,26 +19,33 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>My Artworks</h3>
-                <ul>
+                <h3 class="logo-font">My Artworks</h3>
+                <ul class="list-unstyled">
                     {% for artwork in artworks %}
-                        <li>{{ artwork.title }} - £{{ artwork.price }}</li>
+                        <li>
+                            <strong>{{ artwork.title }}</strong> - £{{ artwork.price }}
+                            <div>
+                                <a href="{% url 'edit_artwork' artwork.id %}">Edit</a> | 
+                                <a href="{% url 'delete_artwork' artwork.id %}" class="text-danger">Delete</a>
+                            </div>
+                        </li>
                     {% empty %}
-                        <li>No artworks found. <a href="{% url 'add_artwork' %}">Add new artwork</a></li>
+                        <p>No artworks found. <a href="{% url 'add_artwork' %}">Add new artwork</a></p>
                     {% endfor %}
                 </ul>
 
-                <h3>Commissions Received</h3>
-                <ul>
+                <h3 class="logo-font">Commissions Received</h3>
+                <ul class="list-unstyled">
                     {% for commission in commissions %}
-                        <li>{{ commission.title }} from {{ commission.patron.user.username }} - Status: 
+                        <li>
+                            <strong>{{ commission.title }}</strong> from {{ commission.patron.user.username }} - Status: 
                             {% if commission.is_approved %} Approved 
                             {% elif commission.is_declined %} Declined 
                             {% else %} Pending 
                             {% endif %}
                         </li>
                     {% empty %}
-                        <li>You have no commissions at the moment.</li>
+                        <p>You have no commissions at the moment.</p>
                     {% endfor %}
                 </ul>
             </div>

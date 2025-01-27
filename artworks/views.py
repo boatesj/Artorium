@@ -78,42 +78,48 @@ def artwork_detail(request, artwork_id):
 @login_required
 def add_artwork(request):
     """ Add an artwork to the gallery """
-    if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only admin can do that.')
+    if request.user.userprofile.role != 'artist' and not request.user.is_superuser:
+        messages.error(request, 'Sorry, only artists or admins can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            artwork = form.save(commit=False)
+            artwork.artist = request.user.userprofile  # Set the logged-in artist as the creator
+            artwork.save()
             messages.success(request, 'Successfully added artwork!')
-            return redirect(reverse('add_artwork'))  # Redirect back to the add artwork page
+            return redirect(reverse('artist_dashboard'))  # Redirect to artist dashboard
         else:
             messages.error(request, 'Failed to add artwork. Please ensure the form is valid.')
     else:
         form = ArtworkForm()
-        
-    template = 'artworks/add_artwork.html'  # Update template path
-    context = {
-        'form': form,
-    }
 
+    template = 'artworks/add_artwork.html'
+    context = {'form': form}
     return render(request, template, context)
+
 
 
 @login_required
 def edit_artwork(request, artwork_id):
-    """Edit an artwork to the gallery """
-    if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only admin can do that.')
+    """ Edit an artwork """
+    artwork = get_object_or_404(Artwork, pk=artwork_id)
+
+    if request.user.userprofile.role != 'artist' and not request.user.is_superuser:
+        messages.error(request, 'Sorry, only artists or admins can edit artworks.')
         return redirect(reverse('home'))
-    artwork = get_object_or_404(Artwork, id=artwork_id)
+
+    if artwork.artist != request.user.userprofile and not request.user.is_superuser:
+        messages.error(request, 'You do not have permission to edit this artwork.')
+        return redirect(reverse('home'))
+
     if request.method == 'POST':
         form = ArtworkForm(request.POST, request.FILES, instance=artwork)
         if form.is_valid():
-            artwork = form.save()
+            form.save()
             messages.success(request, 'Artwork updated successfully!')
-            return redirect(reverse('artwork_detail', args=[artwork.id]))
+            return redirect(reverse('artist_dashboard'))
         else:
             messages.error(request, 'Failed to update artwork. Please ensure the form is valid.')
     else:
@@ -125,11 +131,17 @@ def edit_artwork(request, artwork_id):
     return render(request, template, context)
 
 
+
 @login_required
 def delete_artwork(request, artwork_id):
+    """ Delete an artwork """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
-    if not request.user.is_superuser and request.user != artwork.artist.user:
-        raise PermissionDenied("You do not have permission to delete this artwork.")
+
+    if artwork.artist != request.user.userprofile and not request.user.is_superuser:
+        messages.error(request, 'You do not have permission to delete this artwork.')
+        return redirect(reverse('home'))
+
     artwork.delete()
     messages.success(request, 'Artwork deleted!')
-    return redirect(reverse('artworks'))
+    return redirect(reverse('artist_dashboard'))
+

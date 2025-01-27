@@ -65,7 +65,7 @@ def admin_dashboard(request):
     patrons = UserProfile.objects.filter(role='patron')
     artists = UserProfile.objects.filter(role='artist')
 
-    template = 'dashboard/admin_dashboard.html'
+    template = 'profiles/admin_dashboard.html'
     context = {
         'artworks': artworks,
         'patrons': patrons,

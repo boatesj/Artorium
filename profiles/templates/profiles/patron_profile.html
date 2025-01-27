@@ -24,14 +24,19 @@
                 <hr>
                 <h2 class="logo-font mb-4">My Profile</h2>
                 <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Delivery Address:</strong> {{ user.userprofile.delivery_address }}</p>
+                <p><strong>Delivery Address:</strong> 
+                    {{ user.userprofile.default_street_address1 }}, 
+                    {{ user.userprofile.default_town_or_city }}, 
+                    {{ user.userprofile.default_country }}
+                    <a href="{% url 'edit_profile' %}" class="ml-2">Edit Address</a>
+                </p>
                 <hr>
                 <h3 class="logo-font">Wishlist</h3>
-                <ul>
+                <ul class="list-unstyled">
                     {% for artwork in user.userprofile.wishlist.all %}
                         <li>
                             <a href="{% url 'artwork_detail' artwork.id %}">
-                                {{ artwork.title }} by {{ artwork.artist.name }}
+                                {{ artwork.title }} by {{ artwork.artist.user.username }}
                             </a>
                         </li>
                     {% empty %}
@@ -40,13 +45,13 @@
                 </ul>
                 <hr>
                 <h3 class="logo-font">Order History</h3>
-                <ul>
+                <ul class="list-unstyled">
                     {% for order in user.userprofile.orders.all %}
                         <li>
                             <strong>Order #{{ order.id }}</strong> - {{ order.date }}
                             <ul>
                                 {% for item in order.items.all %}
-                                    <li>{{ item.artwork.title }} - ${{ item.price }}</li>
+                                    <li>{{ item.artwork.title }} - £{{ item.price }}</li>
                                 {% endfor %}
                             </ul>
                         </li>
