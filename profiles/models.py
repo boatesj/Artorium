@@ -18,7 +18,6 @@ class UserProfile(models.Model):
     # Basic user and role data
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='patron')
-    is_admin = models.BooleanField(default=False)
 
     # Common fields for all users
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -39,6 +38,16 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    # Role-specific helper methods
+    def is_artist(self):
+        return self.role == 'artist'
+
+    def is_patron(self):
+        return self.role == 'patron'
+
+    def is_admin(self):
+        return self.user.is_superuser  # Use Django's superuser for admin
 
 
 class Artwork(models.Model):
@@ -96,11 +105,12 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile whenever a User object is saved.
     """
     if created:
-        # Create a new UserProfile only if the user is newly created
-        UserProfile.objects.create(user=instance, role='patron')
+        # Assign role based on superuser status
+        role = 'patron'  # Default to patron
+        if instance.is_superuser:
+            role = 'admin'
+        UserProfile.objects.create(user=instance, role=role)
     else:
-        # Check if the profile exists before trying to save it
+        # Ensure a profile exists for existing users
         UserProfile.objects.get_or_create(user=instance)
-        # Save the profile for updates
         instance.userprofile.save()
-
