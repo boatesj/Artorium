@@ -77,7 +77,11 @@ def artwork_detail(request, artwork_id):
 
 @login_required
 def add_artwork(request):
-    """ Add a new artwork to the gallery """
+    """ Add an artwork to the gallery """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only admin can do that.')
+        return redirect(reverse('home'))
+
     if request.method == 'POST':
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
@@ -97,8 +101,12 @@ def add_artwork(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_artwork(request, artwork_id):
-    """ Edit an existing artwork """
+    """Edit an artwork to the gallery """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only admin can do that.')
+        return redirect(reverse('home'))
     artwork = get_object_or_404(Artwork, id=artwork_id)
     if request.method == 'POST':
         form = ArtworkForm(request.POST, request.FILES, instance=artwork)
