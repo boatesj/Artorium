@@ -77,6 +77,12 @@
                                                 {% endfor %}
                                             </p>
                                             {% endif %}
+                                            {% if request.user.is_superuser %}
+                                                <small class="ml-3">
+                                                    <a href="{% url 'edit_artwork' artwork.id %}">Edit</a> | 
+                                                    <a class="text-danger" href="{% url 'delete_artwork' artwork.id %}">Delete</a>
+                                                </small>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

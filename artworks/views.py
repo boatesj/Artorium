@@ -103,15 +103,25 @@ def edit_artwork(request, artwork_id):
     if request.method == 'POST':
         form = ArtworkForm(request.POST, request.FILES, instance=artwork)
         if form.is_valid():
-            form.save()
+            artwork = form.save()
             messages.success(request, 'Artwork updated successfully!')
             return redirect(reverse('artwork_detail', args=[artwork.id]))
         else:
             messages.error(request, 'Failed to update artwork. Please ensure the form is valid.')
     else:
         form = ArtworkForm(instance=artwork)
-        messages.info(request, f'You are editing {artwork.name}')
+        messages.info(request, f'You are editing {artwork.title}')
 
     template = 'artworks/edit_artwork.html'
     context = {'form': form, 'artwork': artwork}
     return render(request, template, context)
+
+
+@login_required
+def delete_artwork(request, artwork_id):
+    artwork = get_object_or_404(Artwork, pk=artwork_id)
+    if not request.user.is_superuser and request.user != artwork.artist.user:
+        raise PermissionDenied("You do not have permission to delete this artwork.")
+    artwork.delete()
+    messages.success(request, 'Artwork deleted!')
+    return redirect(reverse('artworks'))
