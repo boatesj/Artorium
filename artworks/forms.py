@@ -1,4 +1,5 @@
 from django import forms
+from .widgets import CustomClearableFileInput
 from .models import Artwork, Category
 
 
@@ -11,6 +12,8 @@ class ArtworkForm(forms.ModelForm):
     class Meta:
         model = Artwork
         fields = '__all__'  # Include all fields from the Artwork model
+
+    image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
