@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.models import User
+
 
 from .models import UserProfile, Commission, Transaction
 from .forms import UserProfileForm
@@ -79,12 +81,6 @@ def admin_dashboard(request):
     return render(request, template, context)
 
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
-from .models import UserProfile, Artwork, Commission
-
-
 @login_required
 def artist_dashboard(request):
     """Artist dashboard for managing their own artworks and commissions."""
@@ -155,3 +151,70 @@ def edit_profile(request):
         form = UserProfileForm(instance=profile)
 
     return render(request, 'profiles/edit_profile.html', {'form': form})
+
+
+
+@login_required
+def edit_users(request):
+    """ Admin edits user roles or details """
+    if not request.user.is_superuser:
+        raise PermissionDenied("You do not have access to this page.")
+
+    if request.method == "POST":
+        for key, value in request.POST.items():
+            if key.startswith("role_"):  # Keys like 'role_<user_id>'
+                user_id = key.split("_")[1]
+                try:
+                    user = User.objects.get(id=user_id)
+                    if value == 'admin':
+                        user.is_staff = True
+                        user.is_superuser = True
+                    else:
+                        user.is_staff = False
+                        user.is_superuser = False
+                    user.userprofile.role = value  # Update the role in UserProfile
+                    user.userprofile.save()
+                    user.save()
+                except User.DoesNotExist:
+                    messages.error(request, f"User with ID {user_id} not found.")
+        messages.success(request, "User roles updated successfully!")
+        return redirect('edit_users')
+
+    users = User.objects.all()
+    return render(request, 'profiles/edit_user.html', {'users': users})
+
+
+@login_required
+def edit_user_detail(request, user_id):
+    """ Admin edits specific user details """
+    if not request.user.is_superuser:
+        raise PermissionDenied("You do not have access to this page.")
+
+    user = get_object_or_404(User, id=user_id)
+    profile = user.userprofile
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "User details updated successfully!")
+            return redirect('edit_users')
+
+    form = UserProfileForm(instance=profile)
+    return render(request, 'profiles/edit_user_detail.html', {'form': form, 'user': user})
+
+
+
+@login_required
+def delete_user(request, user_id):
+    """ Admin deletes a user """
+    if not request.user.is_superuser:
+        raise PermissionDenied("You do not have access to this page.")
+
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    messages.success(request, "User deleted successfully!")
+    return redirect('admin_dashboard')
+
+
+

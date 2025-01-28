@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="logo-font mb-4">User Management</h2>
+    <h5 class="text-muted">Manage User Roles and Details</h5>
+    <hr>
+
+    <!-- Table of Users -->
+    <form method="POST" action="{% url 'edit_users' %}">
+        {% csrf_token %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <select name="role_{{ user.id }}" class="form-control">
+                                <option value="patron" {% if user.userprofile.role == 'patron' %}selected{% endif %}>Patron</option>
+                                <option value="artist" {% if user.userprofile.role == 'artist' %}selected{% endif %}>Artist</option>
+                                <option value="admin" {% if user.is_superuser %}selected{% endif %}>Admin</option>
+                            </select>
+                        </td>
+                        <td>
+                            <a href="{% url 'edit_user_detail' user.id %}" class="btn btn-sm btn-outline-primary">Edit Details</a>
+                            <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No users found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right mt-3">
+            <button class="btn btn-black rounded-0" type="submit">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
