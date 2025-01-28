@@ -2,52 +2,72 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'profiles/css/admin_dashboard.css' %}">
 {% endblock %}
 
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
-            <div class="col">
-                <h2 class="logo-font mb-4">Admin Dashboard</h2>
+            <div class="col text-center">
+                <h1 class="logo-font">Welcome, {{ user.first_name }}</h1>
+                <p class="text-muted">Manage platform activity, including transactions, commissions, and artworks.</p>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
+    <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>All Commissions</h3>
-                <ul>
+                <hr>
+                <h2 class="logo-font mb-4">Admin Overview</h2>
+                <p><strong>Total Sales:</strong> £{{ total_sales }}</p>
+                <hr>
+                <h3 class="logo-font">All Commissions</h3>
+                <ul class="list-unstyled">
                     {% for commission in commissions %}
-                        <li>{{ commission.title }} by {{ commission.artist.user.username }} for {{ commission.patron.user.username }} - Status: 
-                            {% if commission.is_approved %} Approved 
-                            {% elif commission.is_declined %} Declined 
-                            {% else %} Pending 
+                        <li>
+                            <strong>{{ commission.title }}</strong> by 
+                            {{ commission.artist.user.username }} for 
+                            {{ commission.patron.user.username }}
+                            - Status:
+                            {% if commission.is_approved %}
+                                <span class="text-success">Approved</span>
+                            {% elif commission.is_declined %}
+                                <span class="text-danger">Declined</span>
+                            {% else %}
+                                <span class="text-warning">Pending</span>
                             {% endif %}
                         </li>
                     {% empty %}
-                        <li>No commissions available.</li>
+                        <p class="text-muted">No commissions available.</p>
                     {% endfor %}
                 </ul>
-
-                <h3>All Transactions</h3>
-                <ul>
+                <hr>
+                <h3 class="logo-font">All Transactions</h3>
+                <ul class="list-unstyled">
                     {% for transaction in transactions %}
-                        <li>{{ transaction.transaction_date }} - £{{ transaction.amount }} - {{ transaction.user.user.username }}</li>
+                        <li>
+                            <strong>{{ transaction.transaction_date|date:"d M Y H:i" }}</strong> 
+                            - £{{ transaction.amount }} by 
+                            {{ transaction.user.user.username }}
+                        </li>
                     {% empty %}
-                        <li>No transactions found.</li>
+                        <p class="text-muted">No transactions found.</p>
                     {% endfor %}
                 </ul>
-
-                <h3>All Artworks</h3>
-                <ul>
+                <hr>
+                <h3 class="logo-font">All Artworks</h3>
+                <ul class="list-unstyled">
                     {% for artwork in artworks %}
-                        <li>{{ artwork.title }} by {{ artwork.artist.user.username }} - £{{ artwork.price }}</li>
+                        <li>
+                            <strong>{{ artwork.title }}</strong> by 
+                            {{ artwork.artist.user.username }} - £{{ artwork.price }}
+                        </li>
                     {% empty %}
-                        <li>No artworks found.</li>
+                        <p class="text-muted">No artworks found.</p>
                     {% endfor %}
                 </ul>
             </div>

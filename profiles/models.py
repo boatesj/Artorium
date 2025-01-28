@@ -105,12 +105,14 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile whenever a User object is saved.
     """
     if created:
-        # Assign role based on superuser status
-        role = 'patron'  # Default to patron
-        if instance.is_superuser:
-            role = 'admin'
+        # Automatically assign the role based on superuser status
+        role = 'admin' if instance.is_superuser else getattr(instance, 'signup_role', 'patron')
         UserProfile.objects.create(user=instance, role=role)
     else:
-        # Ensure a profile exists for existing users
+        # Ensure the profile exists and is up-to-date
         UserProfile.objects.get_or_create(user=instance)
-        instance.userprofile.save()
+        # Update role if the user is a superuser
+        if instance.is_superuser and instance.userprofile.role != 'admin':
+            instance.userprofile.role = 'admin'
+            instance.userprofile.save()
+
