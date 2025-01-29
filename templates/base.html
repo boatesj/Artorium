@@ -73,10 +73,10 @@
                                     <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Admin Dashboard</a>
                                 {% elif request.user.userprofile.role == 'artist' %}
                                     <a href="{% url 'artist_dashboard' %}" class="dropdown-item">Artist Dashboard</a>
-                                    <a href="#" class="dropdown-item">Manage Portfolio</a>
+                                    <a href="{% url 'manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
                                 {% elif request.user.userprofile.role == 'patron' %}
                                     <a href="{% url 'patron_dashboard' %}" class="dropdown-item">Patron Dashboard</a>
-                                    <a href="#" class="dropdown-item">Wishlist</a>
+                                    <a href="{% url 'patron_dashboard' %}#wishlist" class="dropdown-item">Wishlist</a>
                                 {% endif %}
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}

@@ -2,69 +2,87 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/admin_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'profiles/css/artist_profile.css' %}">
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col text-center">
-                <h1 class="logo-font">Welcome, {{ user.first_name }}</h1>
-                <p class="text-muted">Manage platform activity, including transactions, commissions, and artworks.</p>
-            </div>
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="logo-font">Welcome, {{ user.first_name }}</h1>
+            <p class="text-muted">Manage your portfolio and profile details.</p>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <hr>
-                <h2 class="logo-font mb-4">Platform Overview</h2>
-                <p><strong>Total Sales:</strong> £{{ total_sales }}</p>
-                <hr>
-                <h3 class="logo-font">All Commissions</h3>
-                <ul class="list-unstyled">
-                    {% for commission in commissions %}
-                        <li>
-                            <strong>{{ commission.title }}</strong> by {{ commission.artist.user.username }} for {{ commission.patron.user.username }}
-                            - Status:
-                            {% if commission.is_approved %} Approved 
-                            {% elif commission.is_declined %} Declined 
-                            {% else %} Pending 
-                            {% endif %}
-                        </li>
-                    {% empty %}
-                        <p>No commissions available.</p>
-                    {% endfor %}
-                </ul>
-                <hr>
-                <h3 class="logo-font">All Transactions</h3>
-                <ul class="list-unstyled">
-                    {% for transaction in transactions %}
-                        <li>
-                            <strong>Date:</strong> {{ transaction.transaction_date|date:"d M Y H:i" }}
-                            - <strong>Amount:</strong> £{{ transaction.amount }}
-                            - <strong>User:</strong> {{ transaction.user.user.username }}
-                        </li>
-                    {% empty %}
-                        <p>No transactions found.</p>
-                    {% endfor %}
-                </ul>
-                <hr>
-                <h3 class="logo-font">All Artworks</h3>
-                <ul class="list-unstyled">
-                    {% for artwork in artworks %}
-                        <li>
-                            <strong>{{ artwork.title }}</strong> by {{ artwork.artist.user.username }} - £{{ artwork.price }}
-                        </li>
-                    {% empty %}
-                        <p>No artworks found.</p>
-                    {% endfor %}
-                </ul>
+<div class="overlay"></div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <hr>
+            <h2 class="logo-font mb-4">Artist Dashboard</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Portfolio Link:</strong> 
+                {% if user.userprofile.portfolio_link %}
+                    <a href="{{ user.userprofile.portfolio_link }}" target="_blank">
+                        {{ user.userprofile.portfolio_link }}
+                    </a>
+                {% else %}
+                    <span class="text-muted">Not provided</span>
+                {% endif %}
+                <a href="{% url 'edit_profile' %}" class="ml-2">Edit</a>
+            </p>
+            <hr>
+
+            <!-- ✅ Add Artwork Section -->
+            <div class="card shadow-sm border-0 rounded-0 mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-plus"></i> Add New Artwork</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p class="text-muted">Upload new artworks to your portfolio.</p>
+                    <a href="{% url 'add_artwork' %}" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Add Artwork
+                    </a>
+                </div>
             </div>
+
+            <!-- ✅ Portfolio Section (With Edit & Delete Buttons) -->
+            <div class="card shadow-sm border-0 rounded-0 mt-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-images"></i> My Portfolio</h5>
+                </div>
+                <div class="card-body">
+                    {% if artworks %}
+                        <ul class="list-group">
+                            {% for artwork in artworks %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a href="{% url 'artwork_detail' artwork.id %}" class="text-dark">
+                                            <i class="fas fa-palette text-info"></i> {{ artwork.title }}
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'edit_artwork' artwork.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="{% url 'delete_artwork' artwork.id %}" class="btn btn-sm btn-outline-danger"
+                                           onclick="return confirm('Are you sure you want to delete this artwork?');">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">You have no artworks in your portfolio.</p>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 {% endblock %}

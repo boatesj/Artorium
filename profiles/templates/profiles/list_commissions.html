@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Commissions</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Patron</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for commission in commissions %}
+        <tr>
+            <td>{{ commission.title }}</td>
+            <td>{{ commission.artist.username }}</td>
+            <td>{{ commission.patron.username }}</td>
+            <td>
+                {% if commission.is_approved %} Approved
+                {% elif commission.is_declined %} Declined
+                {% else %} Pending {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'edit_commission' commission.id %}">Edit</a>
+                <a href="{% url 'delete_commission' commission.id %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No commissions available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'artworks/css/add_artwork.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container-fluid bg-primary text-white py-4 mb-4">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="logo-font">Add Artwork</h1>
+            <p class="text-light">Fill out the details below to add a new artwork to your portfolio.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary text-center">Artwork Details</h2>
+                    <hr>
+
+                    <!-- Form Start -->
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Display Form Errors If Any -->
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Please correct the following errors:</strong>
+                            <ul>
+                                {% for field, errors in form.errors.items %}
+                                    <li>{{ field|title }}: {{ errors|join:", " }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <!-- Title Field -->
+                        <div class="form-group">
+                            <label for="id_title" class="font-weight-bold">Title</label>
+                            {{ form.title|default_if_none:"" }}
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="form-group">
+                            <label for="id_description" class="font-weight-bold">Description</label>
+                            {{ form.description|default_if_none:"" }}
+                        </div>
+
+                        <!-- Price Field -->
+                        <div class="form-group">
+                            <label for="id_price" class="font-weight-bold">Price (£)</label>
+                            {{ form.price|default_if_none:"" }}
+                        </div>
+
+                        <!-- Category Field -->
+                        <div class="form-group">
+                            <label for="id_category" class="font-weight-bold">Category</label>
+                            {{ form.category|default_if_none:"" }}
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-group">
+                            <label for="id_image" class="font-weight-bold">Artwork Image</label>
+                            {{ form.image|default_if_none:"" }}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Add Artwork</button>
+                        </div>
+                    </form>
+                    <!-- Form End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

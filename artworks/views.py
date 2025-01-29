@@ -5,6 +5,7 @@ from django.db.models.functions import Lower
 from .models import Artwork, Category
 from .forms import ArtworkForm
 from django.contrib.auth.decorators import login_required
+from profiles.models import UserProfile
 
 # Create your views here.
 
@@ -106,11 +107,13 @@ def edit_artwork(request, artwork_id):
     """ Edit an artwork """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
 
+    # ✅ Ensure only the correct artist or admin can edit the artwork
     if request.user.userprofile.role != 'artist' and not request.user.is_superuser:
         messages.error(request, 'Sorry, only artists or admins can edit artworks.')
         return redirect(reverse('home'))
 
-    if artwork.artist != request.user.userprofile and not request.user.is_superuser:
+    if artwork.artist != request.user.username and not request.user.is_superuser:
+
         messages.error(request, 'You do not have permission to edit this artwork.')
         return redirect(reverse('home'))
 
@@ -119,7 +122,7 @@ def edit_artwork(request, artwork_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Artwork updated successfully!')
-            return redirect(reverse('artist_dashboard'))
+            return redirect(reverse('manage_portfolio'))  # ✅ Redirect to correct portfolio page
         else:
             messages.error(request, 'Failed to update artwork. Please ensure the form is valid.')
     else:
@@ -132,16 +135,66 @@ def edit_artwork(request, artwork_id):
 
 
 
+
 @login_required
 def delete_artwork(request, artwork_id):
     """ Delete an artwork """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
 
-    if artwork.artist != request.user.userprofile and not request.user.is_superuser:
+    # ✅ Ensure only the correct artist or admin can delete the artwork
+    if artwork.artist.user != request.user and not request.user.is_superuser:
         messages.error(request, 'You do not have permission to delete this artwork.')
         return redirect(reverse('home'))
 
     artwork.delete()
     messages.success(request, 'Artwork deleted!')
-    return redirect(reverse('artist_dashboard'))
+    return redirect(reverse('manage_portfolio'))  # ✅ Redirect to portfolio page
 
+
+
+@login_required
+def add_artwork_artist(request):
+    """Allow artists to add new artwork from their dashboard."""
+    profile = UserProfile.objects.get(user=request.user)
+
+    # Ensure only artists can access this view
+    if profile.role != 'artist':
+        messages.error(request, "You do not have permission to add artwork.")
+        return redirect('artist_dashboard')
+
+    if request.method == 'POST':
+        form = ArtworkForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Save the form but do not commit to the database yet
+            artwork = form.save(commit=False)
+            # Associate the logged-in artist's profile
+            artwork.artist = profile
+            artwork.save()
+            messages.success(request, "Artwork added successfully!")
+            return redirect('artist_dashboard')
+        else:
+            messages.error(request, "Failed to add artwork. Please ensure the form is valid.")
+    else:
+        form = ArtworkForm()
+
+    template = 'artworks/add_artwork_artist.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)
+
+
+
+@login_required
+def manage_portfolio(request):
+    """ Display all artworks uploaded by the logged-in artist """
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    # ✅ Ensure only the logged-in artist can see their own artworks
+    if profile.role != 'artist':
+        messages.error(request, "Access Denied: Only artists can manage portfolios.")
+        return redirect('home')
+
+    artworks = Artwork.objects.filter(artist=profile)
+
+    return render(request, 'profiles/manage_portfolio.html', {'artworks': artworks})

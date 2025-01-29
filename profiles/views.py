@@ -3,12 +3,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
+from checkout.models import Order
 
 
 from .models import UserProfile, Commission, Transaction
 from .forms import UserProfileForm
 from checkout.models import Order
 from artworks.models import Artwork
+
 
 
 @login_required
@@ -56,29 +58,44 @@ def order_history(request, order_number):
 
 
 # Role-Specific Dashboards
-
 @login_required
 def admin_dashboard(request):
-    """ Admin dashboard for managing the platform """
-    if not request.user.is_superuser:
-        raise PermissionDenied("You do not have access to this page.")
+    """
+    Admin dashboard for managing the platform
+    """
+    try:
+        # Ensure only superusers can access this view
+        if not request.user.is_superuser:
+            raise PermissionDenied("You do not have access to this page.")
 
-    artworks = Artwork.objects.all()
-    patrons = UserProfile.objects.filter(role='patron')
-    artists = UserProfile.objects.filter(role='artist')
-    commissions = Commission.objects.all()  # Fetch all commissions
-    transactions = Transaction.objects.all()  # Fetch all transactions
+        # ✅ Fetch all necessary data
+        artworks = Artwork.objects.all()
+        patrons = UserProfile.objects.filter(role='patron')
+        artists = UserProfile.objects.filter(role='artist')
+        orders = Order.objects.all().order_by('-date')
+        transactions = Transaction.objects.all().order_by('-transaction_date')  # ✅ Fetch from `checkout` app
 
-    template = 'profiles/admin_dashboard.html'
-    context = {
-        'artworks': artworks,
-        'patrons': patrons,
-        'artists': artists,
-        'commissions': commissions,  # Add commissions
-        'transactions': transactions,  # Add transactions
-    }
+        # ✅ Debugging log (REMOVE in production)
+        print(f"Fetched Data: Artworks({artworks.count()}), Patrons({patrons.count()}), Artists({artists.count()}), Orders({orders.count()}), Transactions({transactions.count()})")
 
-    return render(request, template, context)
+        # ✅ Ensure context variables exist
+        context = {
+            'artworks': artworks,
+            'patrons': patrons,
+            'artists': artists,
+            'all_orders': orders,
+            'transactions': transactions,
+        }
+
+        return render(request, 'profiles/admin_dashboard.html', context)
+
+    except PermissionDenied:
+        return render(request, 'profiles/403.html', status=403)
+
+    except Exception as e:
+        print(f"Unexpected error in admin_dashboard: {e}")  # ✅ Log the actual error
+        return render(request, 'profiles/error.html', {'error': str(e)}, status=500)
+
 
 
 @login_required
@@ -94,7 +111,7 @@ def artist_dashboard(request):
         return redirect('home')  # Change 'home' to the appropriate redirection name
 
     # Optimize queries with related data
-    artworks = Artwork.objects.filter(artist=profile).select_related('artist')
+    artworks = Artwork.objects.filter(artist=str(profile))
     commissions = profile.commissions_received.all()  # Assuming prefetch isn't needed for a related manager
 
     # Additional stats for the dashboard
@@ -215,6 +232,129 @@ def delete_user(request, user_id):
     user.delete()
     messages.success(request, "User deleted successfully!")
     return redirect('admin_dashboard')
+
+
+    # CRUD for Commissions
+def list_commissions(request):
+    """ List all commissions """
+    commissions = Commission.objects.all()
+    return render(request, 'profiles/list_commissions.html', {'commissions': commissions})
+
+
+def edit_commission(request, commission_id):
+    """ Edit a commission """
+    commission = get_object_or_404(Commission, id=commission_id)
+    if request.method == "POST":
+        form = CommissionForm(request.POST, instance=commission)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Commission updated successfully!")
+            return redirect('list_commissions')
+    else:
+        form = CommissionForm(instance=commission)
+    return render(request, 'profiles/edit_commission.html', {'form': form})
+
+
+def delete_commission(request, commission_id):
+    """ Delete a commission """
+    commission = get_object_or_404(Commission, id=commission_id)
+    commission.delete()
+    messages.success(request, "Commission deleted successfully!")
+    return redirect('list_commissions')
+
+
+    # CRUD for Transactions
+def list_transactions(request):
+    """ List all transactions """
+    transactions = Transaction.objects.all()
+    return render(request, 'profiles/list_transactions.html', {'transactions': transactions})
+
+
+def edit_transaction(request, transaction_id):
+    """ Edit a transaction """
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    if request.method == "POST":
+        form = TransactionForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Transaction updated successfully!")
+            return redirect('list_transactions')
+    else:
+        form = TransactionForm(instance=transaction)
+    return render(request, 'profiles/edit_transaction.html', {'form': form})
+
+
+def delete_transaction(request, transaction_id):
+    """ Delete a transaction """
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    transaction.delete()
+    messages.success(request, "Transaction deleted successfully!")
+    return redirect('list_transactions')
+
+
+def complete_order(request):
+    # Your existing checkout/purchase logic
+    order = ...  # Assume the order is created here
+
+    # Get the buyer's profile
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    # Create a transaction
+    Transaction.objects.create(
+        user=user_profile,
+        amount=order.grand_total,  # Use the order's total amount
+        transaction_date=order.created_at  # Or use `timezone.now()` if needed
+    )
+
+
+@login_required
+def transaction_detail(request, transaction_id):
+    """ View details of a specific transaction """
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+
+    return render(request, 'profiles/transaction_detail.html', {
+        'transaction': transaction
+    })
+
+
+@login_required
+def add_to_wishlist(request, artwork_id):
+    """ Add or remove an artwork from the user's wishlist """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    artwork = get_object_or_404(Artwork, pk=artwork_id)  
+
+    # Debugging: Print to confirm artwork instance
+    print(f"Adding/removing artwork: {artwork} (ID: {artwork.id}, Type: {type(artwork)})")
+
+    if profile.wishlist.filter(pk=artwork.pk).exists():
+        profile.wishlist.remove(artwork)  
+    else:
+        profile.wishlist.add(artwork)  
+
+    return redirect('artworks') 
+
+
+@login_required
+def remove_from_wishlist(request, artwork_id):
+    """ Remove an artwork from the user's wishlist """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    artwork = get_object_or_404(Artwork, id=artwork_id)
+
+    if profile.wishlist.filter(pk=artwork.pk).exists():
+        profile.wishlist.remove(artwork)  
+
+    return redirect('patron_dashboard') 
+
+
+@login_required
+def wishlist(request):
+    """ Display the user's wishlist items """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    wishlist_items = profile.wishlist.all()
+
+    return render(request, 'profiles/wishlist.html', {'wishlist_items': wishlist_items})
+
+
 
 
 

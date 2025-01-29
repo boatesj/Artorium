@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserProfile
+from .models import UserProfile, Commission, Transaction
 from allauth.account.forms import SignupForm
 
 
@@ -11,7 +11,7 @@ class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated
-        labels, and set autofocus on first field
+        labels, and set autofocus on the first field.
         """
         self.role = kwargs.pop('role', 'patron')  # Default role is patron
         super().__init__(*args, **kwargs)
@@ -55,3 +55,38 @@ class CustomSignupForm(SignupForm):
         # Attach the role to the user instance, to be used in the profile creation logic
         user.signup_role = self.cleaned_data['role']  # Add signup_role attribute dynamically
         return user
+
+
+class CommissionForm(forms.ModelForm):
+    """
+    Form to create or edit a commission.
+    """
+    class Meta:
+        model = Commission
+        fields = ['title', 'artist', 'patron', 'is_approved', 'is_declined']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['placeholder'] = 'Enter the title of the commission'
+        self.fields['title'].widget.attrs['class'] = 'form-control'
+        self.fields['artist'].widget.attrs['class'] = 'form-control'
+        self.fields['patron'].widget.attrs['class'] = 'form-control'
+        self.fields['is_approved'].widget.attrs['class'] = 'form-check-input'
+        self.fields['is_declined'].widget.attrs['class'] = 'form-check-input'
+
+
+class TransactionForm(forms.ModelForm):
+    """
+    Form to create or edit a transaction, excluding the transaction_date field.
+    """
+    class Meta:
+        model = Transaction
+        exclude = ['transaction_date']  # Exclude the non-editable field
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].widget.attrs['class'] = 'form-control'
+        self.fields['amount'].widget.attrs['placeholder'] = 'Enter the transaction amount'
+        self.fields['amount'].widget.attrs['class'] = 'form-control'
+
+

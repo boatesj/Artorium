@@ -155,3 +155,209 @@ p a:hover {
         margin-top: 10px;
     }
 }
+
+/* General Styling */
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    font-family: 'Arial', sans-serif;
+    color: #343a40; /* Dark text color */
+}
+
+.container {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 20px;
+}
+
+.header-container {
+    padding: 40px 20px;
+    background-color: #007bff; /* Primary blue */
+    color: white;
+    border-radius: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle text shadow */
+}
+
+.header-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.header-container p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Section Headings */
+h2, h3 {
+    color: #495057; /* Gray heading */
+    border-left: 5px solid #007bff; /* Primary blue left border */
+    padding-left: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* List Styling */
+ul.list-unstyled {
+    padding-left: 0;
+    margin: 0;
+}
+
+ul.list-unstyled li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+ul.list-unstyled li strong {
+    font-weight: 600; /* Semi-bold for stronger emphasis */
+    color: #007bff; /* Primary color */
+}
+
+ul.list-unstyled li a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #6c757d; /* Muted link color */
+}
+
+ul.list-unstyled li a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    color: #fff;
+}
+
+.btn {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Button shadow */
+}
+
+/* Tables */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: 1px solid #dee2e6; /* Table border */
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+}
+
+.table th {
+    background-color: #007bff; /* Primary blue */
+    color: #fff;
+    font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa; /* Light gray background for odd rows */
+}
+
+.table-striped tbody tr:hover {
+    background-color: #e9ecef; /* Slight hover effect */
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .header-container h1 {
+        font-size: 2rem;
+    }
+
+    .header-container p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    ul.list-unstyled li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Luxury Styling for Artorium Edit Profile */
+.profile-card {
+    border: none;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.profile-card .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-card .form-control:focus {
+    border-color: #2a5298;
+    box-shadow: 0 0 5px rgba(42, 82, 152, 0.5);
+}
+
+.btn-luxury {
+    background: #2a5298;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-luxury:hover {
+    background: #1e3c72;
+    color: white;
+}
+
+.btn-outline-luxury {
+    border: 2px solid #2a5298;
+    color: #2a5298;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-luxury:hover {
+    background: #2a5298;
+    color: white;
+}
+
+/* Sidebar Styling */
+.sidebar .list-group-item {
+    border: none;
+    padding: 12px 15px;
+    font-weight: bold;
+    color: #2a5298;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar .list-group-item:hover {
+    background: #2a5298;
+    color: white;
+}
+
+.sidebar .list-group-item i {
+    margin-right: 8px;
+}

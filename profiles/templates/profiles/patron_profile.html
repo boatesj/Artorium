@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
+    <div class="container header-container mt-5">
         <div class="row">
             <div class="col text-center">
                 <h1 class="logo-font">Welcome, {{ user.first_name }}</h1>
@@ -31,34 +31,56 @@
                     <a href="{% url 'edit_profile' %}" class="ml-2">Edit Address</a>
                 </p>
                 <hr>
-                <h3 class="logo-font">Wishlist</h3>
+                <!-- Wishlist Section -->
+                <div class="card shadow-sm border-0 rounded-0 mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-heart"></i> Wishlist</h5>
+                </div>
+                <div class="card-body">
+                {% if user.userprofile.wishlist.all %}
                 <ul class="list-unstyled">
-                    {% for artwork in user.userprofile.wishlist.all %}
-                        <li>
-                            <a href="{% url 'artwork_detail' artwork.id %}">
-                                {{ artwork.title }} by {{ artwork.artist.user.username }}
-                            </a>
-                        </li>
-                    {% empty %}
-                        <p>Your wishlist is currently empty.</p>
-                    {% endfor %}
+                {% for artwork in user.userprofile.wishlist.all %}
+                    <li class="d-flex justify-content-between align-items-center mb-2">
+                        <a href="{% url 'artwork_detail' artwork.id %}" class="text-dark">
+                            <i class="fas fa-heart text-danger"></i> {{ artwork.title }} by {{ artwork.artist.user.username }}
+                        </a>
+                        <!-- Remove from Wishlist Button -->
+                        <a href="{% url 'remove_from_wishlist' artwork.id %}" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash"></i> Remove
+                        </a>
+                    </li>
+                {% endfor %}
                 </ul>
+                {% else %}
+                    <p class="text-muted">Your wishlist is currently empty.</p>
+                {% endif %}
+                </div>
+            </div>
+
                 <hr>
-                <h3 class="logo-font">Order History</h3>
-                <ul class="list-unstyled">
-                    {% for order in user.userprofile.orders.all %}
-                        <li>
-                            <strong>Order #{{ order.id }}</strong> - {{ order.date }}
-                            <ul>
-                                {% for item in order.items.all %}
-                                    <li>{{ item.artwork.title }} - £{{ item.price }}</li>
+                <div class="card shadow-sm border-0 rounded-0 mt-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fas fa-box"></i> Order History</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if user.userprofile.orders.all %}
+                            <ul class="list-group">
+                                {% for order in user.userprofile.orders.all %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Order #{{ order.order_number }}</strong> - {{ order.date|date:"d M Y" }}
+                                        </div>
+                                        <a href="{% url 'order_history' order.order_number %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i> View Details
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
-                        </li>
-                    {% empty %}
-                        <p>You have no past orders.</p>
-                    {% endfor %}
-                </ul>
+                        {% else %}
+                            <p class="text-muted">You have no past orders.</p>
+                        {% endif %}
+                    </div>
+                </div>             
             </div>
         </div>
     </div>

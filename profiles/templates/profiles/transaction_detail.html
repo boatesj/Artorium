@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="logo-font mb-4">Transaction Details</h2>
+    <hr>
+    <p><strong>Transaction ID:</strong> {{ transaction.id }}</p>
+    <p><strong>User:</strong> {{ transaction.user.user.username }}</p>
+    <p><strong>Date:</strong> {{ transaction.transaction_date|date:"d M Y, H:i" }}</p>
+    <p><strong>Amount:</strong> £{{ transaction.amount }}</p>
+
+    <h5>Items</h5>
+    <ul>
+        {% for item in transaction.lineitems.all %}
+            <li>{{ item.product.name }} x{{ item.quantity }}</li>
+        {% empty %}
+            <li>No items found for this transaction.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

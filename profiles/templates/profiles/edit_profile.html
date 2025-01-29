@@ -1,38 +1,120 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'profiles/css/patron_profile.css' %}"> <!-- External CSS file -->
+    <style>
+    .profile-card .card-header {
+        background: linear-gradient(to right, #000, #707174); 
+        border-radius: 12px 12px 0 0;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    </style>
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-                <h2 class="logo-font mb-4">Edit Profile</h2>
-                <p class="text-muted">Update your profile details below.</p>
-            </div>
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="logo-font">Edit Profile</h1>
+            <p class="text-muted">Update your details to ensure seamless transactions and curated experiences.</p>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" class="profile-form">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <div class="text-end mt-3">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                <a href="{% url 'patron_dashboard' %}" class="btn btn-secondary">Cancel</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<div class="overlay"></div>
+<div class="container mt-5">  <!-- Added mt-5 for spacing -->
+    <div class="row">
+        <!-- ✅ Show Sidebar ONLY for Patrons -->
+        {% if request.user.userprofile.role == "patron" %}
+        <div class="col-md-3">
+            <div class="list-group sidebar shadow-sm">
+                <a href="{% url 'patron_dashboard' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="{% url 'wishlist' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-heart"></i> Wishlist
+                </a>
+                {% if user.userprofile.orders.all %}
+                    <a href="{% url 'order_history' user.userprofile.orders.first.order_number %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-box"></i> Order History
+                    </a>
+                {% else %}
+                    <span class="text-muted list-group-item">
+                        <i class="fas fa-box"></i> No Orders Yet
+                    </span>
+                {% endif %}
             </div>
         </div>
+        {% endif %}
+
+        <!-- ✅ Full Width Form for Artists, Sidebar + Form for Patrons -->
+        <div class="{% if request.user.userprofile.role == 'patron' %}col-md-9{% else %}col-md-12{% endif %}">
+            <div class="card profile-card">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">Refine Your Profile</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Contact Information -->
+                        <h6 class="text-muted">Contact Details</h6>
+                        <div class="form-group">
+                            {{ form.default_phone_number|as_crispy_field }}
+                        </div>
+
+                        <!-- Address Details -->
+                        <h6 class="text-muted mt-3">Delivery Information</h6>
+                        <div class="form-group">
+                            {{ form.default_street_address1|as_crispy_field }}
+                            {{ form.default_street_address2|as_crispy_field }}
+                            {{ form.default_town_or_city|as_crispy_field }}
+                            {{ form.default_county|as_crispy_field }}
+                            {{ form.default_postcode|as_crispy_field }}
+                        </div>
+
+                        <!-- ✅ Artist-Specific Fields (Only for Artists) -->
+                        {% if user.userprofile.role == 'artist' %}
+                        <h6 class="text-muted mt-3">Artist Profile</h6>
+                        <div class="form-group">
+                            <label><strong>Artist Biography</strong></label>
+                            {{ form.artist_bio|as_crispy_field }}
+                            <small class="form-text text-muted">Introduce yourself to collectors and curators.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><strong>Portfolio Website</strong></label>
+                            {{ form.portfolio_link|as_crispy_field }}
+                            <small class="form-text text-muted">Link to your online portfolio or website.</small>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            {{ form.is_available_for_commissions }}
+                            <label class="form-check-label">
+                                Open for Commissions
+                            </label>
+                        </div>
+                        {% endif %}
+
+                        <!-- ✅ Save & Cancel Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% if request.user.userprofile.role == 'patron' %}{% url 'patron_dashboard' %}{% else %}{% url 'artist_dashboard' %}{% endif %}" class="btn btn-outline-luxury">
+                                <i class="fas fa-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-luxury">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
     </div>
+</div>
 {% endblock %}

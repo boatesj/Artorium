@@ -34,7 +34,7 @@ class UserProfile(models.Model):
     is_available_for_commissions = models.BooleanField(default=True)
 
     # Patron-specific fields
-    wishlist = models.ManyToManyField('Artwork', blank=True, related_name='wishlisted_by')
+    wishlist = models.ManyToManyField('artworks.Artwork', blank=True, related_name='wishlisted_by')
 
     def __str__(self):
         return self.user.username
