@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-wzhj^7)zd%5wx@ljoz*kldyer@k6w3ad1&)dnqd4gowg^x6((q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['artorium-app.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = [
+    'artorium-app.herokuapp.com',
+    'localhost',
+    '8000-boatesj-artorium-khwjq8uzeva.ws.codeinstitute-ide.net',  
+    os.getenv('HEROKU_HOSTNAME', ''), 
+]
 
 
 # Application definition
