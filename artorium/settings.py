@@ -222,7 +222,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'USE_AWS' in os.environ:
     # AWS S3 Bucket Configuration
-    AWS_STORAGE_BUCKET_NAME = 'app-boutiquehaven'  # Your existing S3 bucket
+    AWS_STORAGE_BUCKET_NAME = 'artorium-app'   # Your existing S3 bucket
     AWS_S3_REGION_NAME = 'eu-west-2'  # Your bucket's region
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -230,9 +230,9 @@ if 'USE_AWS' in os.environ:
 
     # Custom storage settings
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    STATICFILES_LOCATION = 'artorium/static'
+    STATICFILES_LOCATION = 'static'
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-    MEDIAFILES_LOCATION = 'artorium/media'
+    MEDIAFILES_LOCATION = 'media'
 
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
