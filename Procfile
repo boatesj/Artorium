@@ -1,0 +1,1 @@
+web: gunicorn artorium.wsgi:application
