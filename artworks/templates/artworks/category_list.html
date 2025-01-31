@@ -1,0 +1,22 @@
+
+
+{% extends "base.html" %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <h2 class="logo-font text-center">Category List</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Categories</h1>
+        <ul>
+            {% for category in categories %}
+                <li>{{ category.name }} - {{ category.description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+

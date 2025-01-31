@@ -7,6 +7,8 @@ from .forms import ArtworkForm
 from django.contrib.auth.decorators import login_required
 from profiles.models import UserProfile
 
+
+
 # Create your views here.
 
 def all_artworks(request):
@@ -198,6 +200,18 @@ def manage_portfolio(request):
     artworks = Artwork.objects.filter(artist=profile)
 
     return render(request, 'profiles/manage_portfolio.html', {'artworks': artworks})
+
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'artworks/category_list.html', {'categories': categories})
+
+
+def artwork_list(request):
+    artworks = Artwork.objects.all()
+    return render(request, 'artworks/artwork_list.html', {'artworks': artworks})
+
+
 
 
     
