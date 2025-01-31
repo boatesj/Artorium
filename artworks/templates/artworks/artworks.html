@@ -55,7 +55,7 @@
 
                                 {% if artwork.image %}
                                 <a href="{% url 'artwork_detail' artwork.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
+                                    <img class="card-img-top img-fluid" src="https://artorium-app.s3.eu-west-2.amazonaws.com/media/bioluminescent_ocean.jpg" alt="{{ artwork.title }}">
                                 </a>
                                 {% else %}
                                 <a href="{% url 'artwork_detail' artwork.id %}">

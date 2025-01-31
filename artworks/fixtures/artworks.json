@@ -7,7 +7,7 @@
       "description": "A captivating interactive sculpture.",
       "price": 2500.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/ar_sculpture_interactive.jpg",
+      "image": "artworks/ar_sculpture_interactive.jpg",
       "sku": "ART001"
     }
   },
@@ -19,7 +19,7 @@
       "description": "A mesmerizing artwork of glowing oceans.",
       "price": 1800.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/bioluminescent_ocean.jpg",
+      "image": "artworks/bioluminescent_ocean.jpg",
       "sku": "ART002"
     }
   },
@@ -31,7 +31,7 @@
       "description": "A classic reproduction of Botticelli's masterpiece.",
       "price": 3200.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/birth_of_venus.jpg",
+      "image": "artworks/birth_of_venus.jpg",
       "sku": "ART003"
     }
   },
@@ -43,7 +43,7 @@
       "description": "Abstract art inspired by Rothko's style.",
       "price": 2700.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/black_grey_rothko.jpg",
+      "image": "artworks/black_grey_rothko.jpg",
       "sku": "ART004"
 
     }
@@ -56,7 +56,7 @@
       "description": "Iconic pop art by Andy Warhol.",
       "price": 3000.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/campbell_soup_warhol.jpg",
+      "image": "artworks/campbell_soup_warhol.jpg",
       "sku": "ART005"
     }
   },
@@ -68,7 +68,7 @@
       "description": "A stunning view of a modern city skyline.",
       "price": 1500.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/city_skyline.jpg",
+      "image": "artworks/city_skyline.jpg",
       "sku": "ART006"
 
     }
@@ -81,7 +81,7 @@
       "description": "A serene depiction of a sunrise over the coast.",
       "price": 1200.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/coastal_sunrise.jpg",
+      "image": "artworks/coastal_sunrise.jpg",
       "sku": "ART007"
     }
   },
@@ -93,7 +93,7 @@
       "description": "A beautiful capture of the evening glow over a landscape.",
       "price": 1400.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/evening_glow.jpg",
+      "image": "artworks/evening_glow.jpg",
       "sku": "ART008"
     }
   },
@@ -105,7 +105,7 @@
       "description": "An enchanting artwork of golden fields.",
       "price": 2000.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/golden_fields.jpg",
+      "image": "artworks/golden_fields.jpg",
       "sku": "ART009"
     }
   },
@@ -117,7 +117,7 @@
       "description": "A digital art piece representing the human algorithm.",
       "price": 2800.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/human_algorithm.jpg",
+      "image": "artworks/human_algorithm.jpg",
       "sku": "ART010"
     }
   },
@@ -129,7 +129,7 @@
       "description": "A captivating modern abstract piece.",
       "price": 1900.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/modern_abstract.jpg",
+      "image": "artworks/modern_abstract.jpg",
       "sku": "ART011"
     }
   },
@@ -141,7 +141,7 @@
       "description": "A breathtaking depiction of mountain majesty.",
       "price": 1700.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/mountain_majesty.jpg",
+      "image": "artworks/mountain_majesty.jpg",
       "sku": "ART012"
     }
   },
@@ -153,7 +153,7 @@
       "description": "Inspired by Vermeer’s Girl with a Pearl Earring.",
       "price": 3200.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/pearl_earring_vermeer.jpg",
+      "image": "artworks/pearl_earring_vermeer.jpg",
       "sku": "ART013"
     }
   },
@@ -165,7 +165,7 @@
       "description": "A timeless elegant portrait.",
       "price": 2600.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/portrait_elegance.jpg",
+      "image": "artworks/portrait_elegance.jpg",
       "sku": "ART014"
     }
   },
@@ -177,7 +177,7 @@
       "description": "A futuristic digital art piece.",
       "price": 3500.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/quantum_canvas.jpg",
+      "image": "artworks/quantum_canvas.jpg",
       "sku": "ART015"
     }
   },
@@ -189,7 +189,7 @@
       "description": "Inspired by Damien Hirst’s iconic shark piece.",
       "price": 4500.00,
       "category": [2],
-      "image": "/workspace/Artorium/media/shark_hirst.jpg",
+      "image": "artworks/shark_hirst.jpg",
       "sku": "ART016"
     }
   },
@@ -201,7 +201,7 @@
       "description": "Inspired by Van Gogh’s masterpiece.",
       "price": 3300.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/starry_night.jpg",
+      "image": "artworks/starry_night.jpg",
       "sku": "ART017"
     }
   },
@@ -213,7 +213,7 @@
       "description": "A serene depiction of a winter landscape.",
       "price": 2400.00,
       "category": [1],
-      "image": "/workspace/Artorium/media/winter_wonderland.jpg",
+      "image": "artworks/winter_wonderland.jpg",
       "sku": "ART018"
     }
   }
