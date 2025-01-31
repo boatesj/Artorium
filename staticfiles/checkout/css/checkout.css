@@ -1,0 +1,115 @@
+/* Stripe Elements and Custom Input Styling */
+.StripeElement,
+.stripe-style-input {
+  box-sizing: border-box;
+  height: 45px; 
+  padding: 12px 14px;
+  border: 1px solid #ddd; /* Subtle gray for modern look */
+  border-radius: 4px; /* Added slight rounding for a modern aesthetic */
+  background-color: #f9f9f9; /* Light gray background for visual contrast */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  -webkit-transition: box-shadow 150ms ease, border-color 150ms ease;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.StripeElement--focus,
+.stripe-style-input:focus,
+.stripe-style-input:active {
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Modern blue glow */
+  border-color: #007bff; 
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important; /* Retain default autofill styling */
+}
+
+.stripe-style-input::placeholder {
+  color: #6c757d; 
+  font-style: italic; 
+}
+
+/* Fieldset Legend Styling */
+.fieldset-label {
+  position: relative;
+  right: 0; 
+  padding: 0 0.5rem;
+  color: #495057; 
+  font-size: 0.875rem; 
+  font-weight: bold;
+  background: #f9f9f9; 
+  border-radius: 4px; 
+}
+
+/* Payment Form Inputs */
+#payment-form .form-control,
+#card-element {
+  color: #212529; 
+  border: 1px solid #ced4da; 
+  border-radius: 4px; 
+}
+
+/* On Hover for Inputs */
+#payment-form .form-control:hover,
+#card-element:hover {
+  border-color: #007bff; 
+}
+
+/* Style the select dropdown */
+select {
+  background-color: #f9f9f9; /* Light gray background */
+  border: 1px solid #d1d5db; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  color: #000000; /* Text color for valid selections */
+  font-size: 16px; /* Modern font size */
+  padding: 10px 12px; /* Comfortable padding */
+  width: 100%; /* Full width for better responsiveness */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  appearance: none; /* Remove default dropdown styling */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+/* Add a custom arrow for the dropdown */
+select:focus {
+  border-color: #4f46e5; /* Highlight border on focus */
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25); /* Focus ring */
+  outline: none; /* Remove default outline */
+}
+
+/* Style for placeholder option and invalid selection */
+select:invalid,
+select option[value=""] {
+  color: #aab7c4 !important; /* Light gray text */
+}
+
+/* Option styling */
+select option {
+  color: #000000; /* Default text color for valid options */
+}
+
+/* Add an arrow using a pseudo-element */
+select {
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%234f46e5"><path fill-rule="evenodd" d="M10 12.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 01.708-.708L10 12.293z" clip-rule="evenodd"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 1em;
+}
+
+
+#loading-overlay {
+	display: none;
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(23, 162, 184, .85);
+    z-index: 9999;
+}
+
+.loading-spinner {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+}

@@ -3,20 +3,11 @@
 {% load crispy_forms_tags %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/patron_profile.css' %}"> <!-- External CSS file -->
-    <style>
-    .profile-card .card-header {
-        background: linear-gradient(to right, #000, #707174); 
-        border-radius: 12px 12px 0 0;
-        color: #fff;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    </style>
+    <link rel="stylesheet" href="{% static 'profiles/css/manage_portfolio.css' %}"> <!-- External CSS file -->
 {% endblock %}
 
 {% block page_header %}
-<div class="container header-container mt-5">
+<div class="container header-container">
     <div class="row">
         <div class="col text-center">
             <h1 class="logo-font">Edit Profile</h1>
@@ -28,7 +19,22 @@
 
 {% block content %}
 <div class="overlay"></div>
-<div class="container mt-5">  <!-- Added mt-5 for spacing -->
+
+<!-- ✅ Display Messages (Success/Error) -->
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="container mt-5">
     <div class="row">
         <!-- ✅ Show Sidebar ONLY for Patrons -->
         {% if request.user.userprofile.role == "patron" %}
@@ -68,7 +74,7 @@
                         <div class="form-group">
                             {{ form.default_phone_number|as_crispy_field }}
                         </div>
-
+                    
                         <!-- Address Details -->
                         <h6 class="text-muted mt-3">Delivery Information</h6>
                         <div class="form-group">
@@ -77,8 +83,9 @@
                             {{ form.default_town_or_city|as_crispy_field }}
                             {{ form.default_county|as_crispy_field }}
                             {{ form.default_postcode|as_crispy_field }}
+                            {{ form.default_country|as_crispy_field }}
                         </div>
-
+                    
                         <!-- ✅ Artist-Specific Fields (Only for Artists) -->
                         {% if user.userprofile.role == 'artist' %}
                         <h6 class="text-muted mt-3">Artist Profile</h6>
@@ -87,13 +94,13 @@
                             {{ form.artist_bio|as_crispy_field }}
                             <small class="form-text text-muted">Introduce yourself to collectors and curators.</small>
                         </div>
-
+                    
                         <div class="form-group">
                             <label><strong>Portfolio Website</strong></label>
                             {{ form.portfolio_link|as_crispy_field }}
                             <small class="form-text text-muted">Link to your online portfolio or website.</small>
                         </div>
-
+                    
                         <div class="form-check mb-3">
                             {{ form.is_available_for_commissions }}
                             <label class="form-check-label">
@@ -101,7 +108,7 @@
                             </label>
                         </div>
                         {% endif %}
-
+                    
                         <!-- ✅ Save & Cancel Buttons -->
                         <div class="d-flex justify-content-between mt-4">
                             <a href="{% if request.user.userprofile.role == 'patron' %}{% url 'patron_dashboard' %}{% else %}{% url 'artist_dashboard' %}{% endif %}" class="btn btn-outline-luxury">
@@ -111,7 +118,7 @@
                                 <i class="fas fa-save"></i> Save Changes
                             </button>
                         </div>
-                    </form>
+                    </form>                 
                 </div>
             </div>  
         </div>

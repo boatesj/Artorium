@@ -2,27 +2,21 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/patron_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'profiles/css/manage_portfolio.css' %}">
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container mt-5">
-        <div class="row">
-            <div class="col text-center">
-                <h1 class="logo-font">Welcome, {{ user.first_name }}</h1>
-                <p class="text-muted">Manage your account and explore your saved artworks.</p>
-            </div>
-        </div>
+    <div class="container header-container">
+        <h2 class="logo-font text-center">My Profile</h2>
+        <p class="text-muted text-center">Manage your account and explore your saved artworks.</p>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col">
                 <hr>
-                <h2 class="logo-font mb-4">My Profile</h2>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Delivery Address:</strong> 
                     {{ user.userprofile.default_street_address1 }}, 
@@ -31,33 +25,36 @@
                     <a href="{% url 'edit_profile' %}" class="ml-2">Edit Address</a>
                 </p>
                 <hr>
+
                 <!-- Wishlist Section -->
                 <div class="card shadow-sm border-0 rounded-0 mt-4">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0"><i class="fas fa-heart"></i> Wishlist</h5>
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-heart"></i> Wishlist</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if user.userprofile.wishlist.all %}
+                            <ul class="list-unstyled">
+                                {% for artwork in user.userprofile.wishlist.all %}
+                                    <li class="d-flex justify-content-between align-items-center mb-2">
+                                        <a href="{% url 'artwork_detail' artwork.id %}" class="text-dark">
+                                            <i class="fas fa-heart text-danger"></i> {{ artwork.title }} by {{ artwork.artist.user.username }}
+                                        </a>
+                                        <!-- Remove from Wishlist Button -->
+                                        <a href="{% url 'remove_from_wishlist' artwork.id %}" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i> Remove
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">Your wishlist is currently empty.</p>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="card-body">
-                {% if user.userprofile.wishlist.all %}
-                <ul class="list-unstyled">
-                {% for artwork in user.userprofile.wishlist.all %}
-                    <li class="d-flex justify-content-between align-items-center mb-2">
-                        <a href="{% url 'artwork_detail' artwork.id %}" class="text-dark">
-                            <i class="fas fa-heart text-danger"></i> {{ artwork.title }} by {{ artwork.artist.user.username }}
-                        </a>
-                        <!-- Remove from Wishlist Button -->
-                        <a href="{% url 'remove_from_wishlist' artwork.id %}" class="btn btn-sm btn-outline-danger">
-                            <i class="fas fa-trash"></i> Remove
-                        </a>
-                    </li>
-                {% endfor %}
-                </ul>
-                {% else %}
-                    <p class="text-muted">Your wishlist is currently empty.</p>
-                {% endif %}
-                </div>
-            </div>
 
                 <hr>
+
+                <!-- Order History Section -->
                 <div class="card shadow-sm border-0 rounded-0 mt-4">
                     <div class="card-header bg-secondary text-white">
                         <h5 class="mb-0"><i class="fas fa-box"></i> Order History</h5>

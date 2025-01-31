@@ -198,3 +198,6 @@ def manage_portfolio(request):
     artworks = Artwork.objects.filter(artist=profile)
 
     return render(request, 'profiles/manage_portfolio.html', {'artworks': artworks})
+
+
+    

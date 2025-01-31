@@ -9,12 +9,14 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile whenever a User object is saved.
     """
     if created:
-        # Check if the role was set during registration
-        role = getattr(instance, 'signup_role', 'patron')  # Default to patron if role is not provided
-        UserProfile.objects.create(user=instance, role=role)
+        # ✅ Fix: Use `get_or_create` to prevent duplicates
+        UserProfile.objects.get_or_create(user=instance, defaults={'role': getattr(instance, 'signup_role', 'patron')})
     else:
-        # Update the profile if it already exists
-        profile, _ = UserProfile.objects.get_or_create(user=instance)
-        if instance.is_superuser:
-            profile.role = 'admin'
-        profile.save()
+        # ✅ Fix: Only update the profile if it already exists
+        try:
+            profile = UserProfile.objects.get(user=instance)
+            if instance.is_superuser:
+                profile.role = 'admin'
+            profile.save()
+        except UserProfile.DoesNotExist:
+            pass  # Prevents creation if no profile exists

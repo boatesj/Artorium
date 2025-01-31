@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
 from checkout.models import Order
+from django.core.exceptions import ObjectDoesNotExist
 
 
-from .models import UserProfile, Commission, Transaction
+
+from .models import UserProfile, Transaction
 from .forms import UserProfileForm
 from checkout.models import Order
 from artworks.models import Artwork
@@ -19,14 +21,14 @@ def profile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=profile, role=getattr(profile, 'role', 'patron'))
+        form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Update failed. Please ensure the form is valid.')
     else:
-        form = UserProfileForm(instance=profile, role=getattr(profile, 'role', 'patron'))
+        form = UserProfileForm(instance=profile)
 
     orders = profile.orders.all() if hasattr(profile, 'orders') else []
 
@@ -38,6 +40,35 @@ def profile(request):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def dashboard_view(request):
+    """
+    Redirects users to their respective dashboards based on their role.
+    Ensures the user's role is correctly retrieved from the UserProfile model.
+    """
+    try:
+        # Ensure the user has a profile
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        # Redirect based on role
+        if user_profile.role == "admin":
+            return redirect("admin_dashboard")
+        elif user_profile.role == "artist":
+            return redirect("artist_dashboard")
+        elif user_profile.role == "patron":
+            return redirect("patron_dashboard")
+        else:
+            return render(request, "profiles/no_role.html", {"message": "Role not assigned"})
+
+    except ObjectDoesNotExist:
+        # If the user profile does not exist, handle gracefully
+        return render(request, "profiles/no_role.html", {"message": "User profile not found. Please contact support."})
+
+
+
+    
 
 
 def order_history(request, order_number):
@@ -111,21 +142,20 @@ def artist_dashboard(request):
         return redirect('home')  # Change 'home' to the appropriate redirection name
 
     # Optimize queries with related data
-    artworks = Artwork.objects.filter(artist=str(profile))
-    commissions = profile.commissions_received.all()  # Assuming prefetch isn't needed for a related manager
+    artworks = Artwork.objects.filter(artist=profile)  # ✅ Fixed Query
+    commissions = []  # Replace this if there's a valid commission query
 
     # Additional stats for the dashboard
     artwork_count = artworks.count()
-    commission_count = commissions.count()
+    commission_count = len(commissions)  # Fix: Ensure commissions exist
 
     # Prepare the context
     template = 'profiles/artist_profile.html'
     context = {
         'profile': profile,
         'artworks': artworks,
-        'commissions': commissions,
         'artwork_count': artwork_count,
-        'commission_count': commission_count,
+        'commission_count': commission_count,  # Include this in the template
     }
 
     return render(request, template, context)
@@ -152,6 +182,7 @@ def patron_dashboard(request):
     return render(request, template, context)
 
 
+
 @login_required
 def edit_profile(request):
     """
@@ -159,15 +190,24 @@ def edit_profile(request):
     """
     profile = request.user.userprofile  # Fetch the UserProfile of the logged-in user
 
+    print(f"DEBUG: Loaded Profile for {profile.user.username}")  # ✅ Debug username
+    print(f"DEBUG: Profile Data - {profile.__dict__}")  # ✅ Print full profile details
+
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('patron_dashboard')  # Redirect to the patron dashboard or another page
+            messages.success(request, "Profile updated successfully!")  
+            return redirect('patron_dashboard')  
+        else:
+            print(f"DEBUG: Form errors - {form.errors}")  # ✅ Debug Form Errors
+            messages.error(request, "Update failed. Please check the form and try again.")
     else:
         form = UserProfileForm(instance=profile)
 
     return render(request, 'profiles/edit_profile.html', {'form': form})
+
+
 
 
 
@@ -234,33 +274,33 @@ def delete_user(request, user_id):
     return redirect('admin_dashboard')
 
 
-    # CRUD for Commissions
-def list_commissions(request):
-    """ List all commissions """
-    commissions = Commission.objects.all()
-    return render(request, 'profiles/list_commissions.html', {'commissions': commissions})
+#     # CRUD for Commissions
+# def list_commissions(request):
+#     """ List all commissions """
+#     commissions = Commission.objects.all()
+#     return render(request, 'profiles/list_commissions.html', {'commissions': commissions})
 
 
-def edit_commission(request, commission_id):
-    """ Edit a commission """
-    commission = get_object_or_404(Commission, id=commission_id)
-    if request.method == "POST":
-        form = CommissionForm(request.POST, instance=commission)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Commission updated successfully!")
-            return redirect('list_commissions')
-    else:
-        form = CommissionForm(instance=commission)
-    return render(request, 'profiles/edit_commission.html', {'form': form})
+# def edit_commission(request, commission_id):
+#     """ Edit a commission """
+#     commission = get_object_or_404(Commission, id=commission_id)
+#     if request.method == "POST":
+#         form = CommissionForm(request.POST, instance=commission)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Commission updated successfully!")
+#             return redirect('list_commissions')
+#     else:
+#         form = CommissionForm(instance=commission)
+#     return render(request, 'profiles/edit_commission.html', {'form': form})
 
 
-def delete_commission(request, commission_id):
-    """ Delete a commission """
-    commission = get_object_or_404(Commission, id=commission_id)
-    commission.delete()
-    messages.success(request, "Commission deleted successfully!")
-    return redirect('list_commissions')
+# def delete_commission(request, commission_id):
+#     """ Delete a commission """
+#     commission = get_object_or_404(Commission, id=commission_id)
+#     commission.delete()
+#     messages.success(request, "Commission deleted successfully!")
+#     return redirect('list_commissions')
 
 
     # CRUD for Transactions
