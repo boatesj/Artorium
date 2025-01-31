@@ -7,12 +7,23 @@ from checkout.models import Order
 from django.core.exceptions import ObjectDoesNotExist
 
 
-
+from allauth.account.views import SignupView
 from .models import UserProfile, Transaction
-from .forms import UserProfileForm
+from .forms import UserProfileForm, CustomSignupForm
 from checkout.models import Order
 from artworks.models import Artwork
 
+
+class CustomSignupView(SignupView):
+    form_class = CustomSignupForm
+
+    def form_valid(self, form):
+        user = form.save(self.request)
+        # Assign the selected role to the user profile
+        UserProfile.objects.create(user=user, role=form.cleaned_data['role'])
+        return redirect(self.get_success_url())
+
+signup_view = CustomSignupView.as_view()
 
 
 @login_required

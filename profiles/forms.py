@@ -1,12 +1,15 @@
 from django import forms
 from .models import UserProfile, Transaction
 from django.utils.module_loading import import_string
+from allauth.account.forms import SignupForm
 
 from django import forms
 from .models import UserProfile
 
 from django import forms
 from .models import UserProfile
+
+
 
 class UserProfileForm(forms.ModelForm):
     """
@@ -50,8 +53,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 
-
-class CustomSignupForm(forms.Form):
+class CustomSignupForm(SignupForm):
     """
     Extend allauth's SignupForm to include role selection
     """
@@ -60,16 +62,17 @@ class CustomSignupForm(forms.Form):
         ('patron', 'Patron'),
         ('artist', 'Artist'),
     ]
-    role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")  # ✅ Role selection
+    role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")
 
     def save(self, request):
         """
         Save user with the selected role
         """
-        from allauth.account.forms import SignupForm  # ✅ Delayed import to avoid circular issues
-        user = SignupForm().save(request)  # Save the user first
-        user.signup_role = self.cleaned_data['role']  # ✅ Attach the role to the user
+        user = super(CustomSignupForm, self).save(request)  # Save the user first using the superclass method
+        UserProfile.objects.create(user=user, role=self.cleaned_data['role'])  # Create the user profile with the role
         return user
+
+
 
 # class CommissionForm(forms.ModelForm):
 #     """
