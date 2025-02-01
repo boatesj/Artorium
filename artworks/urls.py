@@ -9,7 +9,8 @@ urlpatterns = [
     path('delete/<int:artwork_id>/', views.delete_artwork, name='delete_artwork'),
     path('add/artist/', views.add_artwork_artist, name='add_artwork_artist'),
     path('manage-portfolio/', views.manage_portfolio, name='manage_portfolio'),
-    path('categories/', category_list, name='category_list'),
-    path('artworks/', artwork_list, name='artwork_list'),
+    path('categories/', views.category_list, name='category_list'), 
+    path('artworks/', views.artwork_list, name='artwork_list'),     
 
 ]
+
