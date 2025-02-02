@@ -3,7 +3,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-
     {% block meta %}
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset="utf-8">
@@ -134,8 +133,7 @@
             {% endwith %}
         {% endfor %}
     </div>
-{% endif %}
-
+    {% endif %}
 
     {% block page_header %}
     {% endblock %}
@@ -148,6 +146,5 @@
         $('.toast').toast('show');
     </script>
     {% endblock %}
-
   </body>
 </html>
