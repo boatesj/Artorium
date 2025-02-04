@@ -168,26 +168,20 @@ def delete_artwork(request, artwork_id):
     try:
         # Ensure the user has a profile
         user_profile = UserProfile.objects.get(user=user)
-        print(f"UserProfile found for user: {user_profile}")
     except UserProfile.DoesNotExist:
         messages.error(request, 'Your profile does not exist. Please create a profile first.')
-        return redirect(reverse('profile_create'))  # Redirect to profile creation page
+        return redirect(reverse('profiles:create_profile'))
 
-    # Debug: Print out the artwork_id and user info
-    print(f"Attempting to delete artwork with ID: {artwork_id} by user: {user}")
-
-    # Ensure the artwork exists
+    # Ensure the artwork exists and the user has permission to delete it
     artwork = get_object_or_404(Artwork, id=artwork_id)
-    print(f"Artwork found: {artwork}")
 
-    # Check if the user has permission to delete the artwork
     if not (user.is_superuser or artwork.artist == user_profile):
         raise PermissionDenied("You do not have permission to delete this artwork.")
     
     if request.method == 'POST':
         artwork.delete()
         messages.success(request, 'Artwork deleted successfully.')
-        return redirect(reverse('artworks:list'))
+        return redirect(reverse('artworks:list'))  # Use the correct namespace and URL name
 
     return render(request, 'artworks/delete_artwork.html', {'artwork': artwork})
 
