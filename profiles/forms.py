@@ -44,7 +44,6 @@ class UserProfileForm(forms.ModelForm):
             self.fields[field].label = False
 
 
-
 class CustomSignupForm(AllauthSignupForm):
     ROLE_CHOICES = [
         ('patron', 'Patron'),
@@ -52,9 +51,9 @@ class CustomSignupForm(AllauthSignupForm):
     ]
     role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")
 
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2', 'role')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['role'].widget.attrs['class'] = 'form-control'
 
     def save(self, request):
         """
@@ -68,8 +67,6 @@ class CustomSignupForm(AllauthSignupForm):
         UserProfile.objects.create(user=user, role=self.cleaned_data['role'])
 
         return user
-
-
 
 
 # class CommissionForm(forms.ModelForm):
