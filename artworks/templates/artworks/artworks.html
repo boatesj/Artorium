@@ -56,7 +56,6 @@
                                 {% if artwork.image %}
                                 <a href="{% url 'artwork_detail' artwork.id %}">
                                     <img class="card-img-top img-fluid" src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
-
                                 </a>
                                 {% else %}
                                 <a href="{% url 'artwork_detail' artwork.id %}">

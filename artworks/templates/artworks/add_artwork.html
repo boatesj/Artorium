@@ -27,11 +27,25 @@
                     {% csrf_token %}
                     {% for field in form %}
                         {% if field.name != 'image' %}
-                            {{ field | as_crispy_field }}
+                            {{ field|as_crispy_field }}
                         {% else %}
                             {{ field }}
                         {% endif %}
                     {% endfor %}
+                    
+                    <!-- Conditionally render the artist selection field for admins -->
+                    {% if artists %}
+                        <div class="form-group">
+                            <label for="artist">Artist:</label>
+                            <select name="artist" id="artist" class="form-control">
+                                <option value="">Select an artist</option>
+                                {% for artist in artists %}
+                                    <option value="{{ artist.user.username }}">{{ artist.user.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                    
                     <div class="text-right">
                         <a class="btn btn-outline-black rounded-0" href="{% url 'artworks' %}">Cancel</a>
                         <button class="btn btn-black rounded-0" type="submit">Add Artwork</button>

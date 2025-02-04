@@ -177,11 +177,11 @@ def delete_artwork(request, artwork_id):
 
     if not (user.is_superuser or artwork.artist == user_profile):
         raise PermissionDenied("You do not have permission to delete this artwork.")
-    
+
     if request.method == 'POST':
         artwork.delete()
         messages.success(request, 'Artwork deleted successfully.')
-        return redirect(reverse('artworks:list'))  # Use the correct namespace and URL name
+        return redirect(reverse('artworks:artworks'))  # Use the correct namespace and URL name
 
     return render(request, 'artworks/delete_artwork.html', {'artwork': artwork})
 

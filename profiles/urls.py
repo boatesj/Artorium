@@ -1,3 +1,5 @@
+# profiles/urls.py
+
 from django.urls import path
 from . import views
 from .views import signup_view
@@ -5,13 +7,12 @@ from .views import signup_view
 urlpatterns = [
     # Profile & Dashboard Views
     path('', views.profile, name='profile'),
-    path('dashboard/', views.dashboard_view, name='dashboard'),  # ✅ Added this
+    path('dashboard/', views.dashboard_view, name='dashboard'),
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('artist-dashboard/', views.artist_dashboard, name='artist_dashboard'),
     path('patron-dashboard/', views.patron_dashboard, name='patron_dashboard'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('signup/', signup_view, name='account_signup'),
-
 
     # Wishlist
     path('wishlist/', views.wishlist, name='wishlist'),

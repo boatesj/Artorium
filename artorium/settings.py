@@ -39,6 +39,10 @@ ALLOWED_HOSTS = [
     os.getenv('HEROKU_HOSTNAME', ''), 
 ]
 
+# Load environment variables if env.py exists
+if os.path.exists("env.py"):
+    import env
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -145,7 +149,7 @@ SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
