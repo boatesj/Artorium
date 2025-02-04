@@ -160,6 +160,16 @@ def edit_artwork(request, artwork_id):
     return render(request, template, context)
 
 
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.contrib import messages
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
+from profiles.models import UserProfile
+from artworks.models import Artwork
+
+
+
 @login_required
 def delete_artwork(request, artwork_id):
     """ Delete an artwork """
@@ -181,9 +191,10 @@ def delete_artwork(request, artwork_id):
     if request.method == 'POST':
         artwork.delete()
         messages.success(request, 'Artwork deleted successfully.')
-        return redirect(reverse('artworks:artworks'))  # Use the correct namespace and URL name
+        return redirect(reverse('artworks'))  # Use the correct URL pattern
 
     return render(request, 'artworks/delete_artwork.html', {'artwork': artwork})
+
 
 
 

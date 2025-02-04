@@ -12,3 +12,7 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),
     path('list/', views.artwork_list, name='artwork_list'),  # Renamed to 'list'
 ]
+
+
+
+
