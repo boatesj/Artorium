@@ -163,27 +163,22 @@ def edit_artwork(request, artwork_id):
 @login_required
 def delete_artwork(request, artwork_id):
     """ Delete an artwork """
-    artwork = get_object_or_404(Artwork, pk=artwork_id)
+    try:
+        # Ensure the user has a profile
+        user_profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        messages.error(request, 'Your profile does not exist. Please create a profile first.')
+        return redirect(reverse('profile_create'))  # Redirect to profile creation page
 
-    # Ensure the artwork has an associated artist, assign to admin if not
-    if not artwork.artist:
-        admin = UserProfile.objects.get(user__username='admin')  # Ensure 'admin' username exists
-        artwork.artist = admin
-        artwork.save()
+    # Ensure the artwork exists and belongs to the user
+    artwork = get_object_or_404(Artwork, id=artwork_id, artist=user_profile)
+    
+    if request.method == 'POST':
+        artwork.delete()
+        messages.success(request, 'Artwork deleted successfully.')
+        return redirect(reverse('artworks:list'))
 
-    # Check if the requesting user is the artist or an admin
-    if artwork.artist.user != request.user and not request.user.is_superuser:
-        messages.error(request, 'You do not have permission to delete this artwork.')
-        return redirect(reverse('home'))
-
-    artwork.delete()
-    messages.success(request, 'Artwork deleted!')
-
-    # Redirect based on user role
-    if request.user.is_superuser:
-        return redirect(reverse('admin_dashboard'))  # Admin dashboard page
-    else:
-        return redirect(reverse('artist_profile'))  # Artist's profile page
+    return render(request, 'artworks/delete_artwork.html', {'artwork': artwork})
 
 
 
