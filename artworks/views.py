@@ -172,7 +172,12 @@ def delete_artwork(request, artwork_id):
 
     artwork.delete()
     messages.success(request, 'Artwork deleted!')
-    return redirect(reverse('manage_portfolio'))  # Redirect to portfolio page
+
+    # Redirect based on user role
+    if request.user.is_superuser:
+        return redirect(reverse('admin_dashboard'))  # Admin dashboard page
+    else:
+        return redirect(reverse('artist_profile'))  # Artist's profile page
 
 
 @login_required
