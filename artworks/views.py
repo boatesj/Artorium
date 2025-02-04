@@ -163,15 +163,23 @@ def edit_artwork(request, artwork_id):
 @login_required
 def delete_artwork(request, artwork_id):
     """ Delete an artwork """
+    user = request.user
+
     try:
         # Ensure the user has a profile
-        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile = UserProfile.objects.get(user=user)
+        print(f"UserProfile found for user: {user_profile}")
     except UserProfile.DoesNotExist:
         messages.error(request, 'Your profile does not exist. Please create a profile first.')
         return redirect(reverse('profile_create'))  # Redirect to profile creation page
 
-    # Ensure the artwork exists and belongs to the user
-    artwork = get_object_or_404(Artwork, id=artwork_id, artist=user_profile)
+    # Ensure the artwork exists
+    artwork = get_object_or_404(Artwork, id=artwork_id)
+    print(f"Artwork found: {artwork}")
+
+    # Check if the user has permission to delete the artwork
+    if not (user.is_superuser or artwork.artist == user_profile):
+        raise PermissionDenied("You do not have permission to delete this artwork.")
     
     if request.method == 'POST':
         artwork.delete()
