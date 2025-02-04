@@ -44,20 +44,12 @@ class UserProfileForm(forms.ModelForm):
             self.fields[field].label = False
 
 
-
-from django import forms
-from allauth.account.forms import SignupForm
-
 class CustomSignupForm(SignupForm):
     ROLE_CHOICES = [
         ('patron', 'Patron'),
         ('artist', 'Artist'),
     ]
     role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")
-
-    class Meta:
-        model = SignupForm.Meta
-        fields = ('username', 'email', 'password1', 'password2', 'role')  # Include the email field
 
     def save(self, request):
         """
