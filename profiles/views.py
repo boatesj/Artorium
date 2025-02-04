@@ -419,13 +419,14 @@ def signup(request):
         if form.is_valid():
             user = form.save()
 
-            try:
-                UserProfile.objects.get_or_create(user=user, defaults={'role': 'user'})
-            except IntegrityError:
-                existing_profile = UserProfile.objects.get(user=user)
+            # Check if the profile already exists before creating a new one
+            profile, created = UserProfile.objects.get_or_create(user=user, defaults={'role': 'user'})
+            
+            if created:
+                messages.success(request, 'Successfully signed up!')
+            else:
                 messages.warning(request, 'UserProfile already exists. Using existing profile.')
 
-            messages.success(request, 'Successfully signed up!')
             return redirect('login')  # Adjust redirect as needed
         else:
             messages.error(request, 'Failed to sign up. Please ensure the form is valid.')
@@ -433,11 +434,5 @@ def signup(request):
         form = SignupForm()
 
     return render(request, 'profiles/signup.html', {'form': form})
-
-
-
-
-
-
 
 
