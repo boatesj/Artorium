@@ -97,6 +97,10 @@ def add_artwork(request):
                 if artist_username:
                     artist = UserProfile.objects.get(user__username=artist_username)
                     artwork.artist = artist
+                else:
+                    # Automatically assign to admin if artist is not provided
+                    admin = UserProfile.objects.get(user__username='admin')  # Ensure 'admin' username exists
+                    artwork.artist = admin
             else:
                 # If the user is an artist, set the artist field to the logged-in user
                 artwork.artist = request.user.userprofile
@@ -120,6 +124,7 @@ def add_artwork(request):
         'artists': artists,
     }
     return render(request, template, context)
+
 
 
 
@@ -160,10 +165,11 @@ def delete_artwork(request, artwork_id):
     """ Delete an artwork """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
 
-    # Ensure the artwork has an associated artist
-    if not artwork.artist or not hasattr(artwork.artist, 'user'):
-        messages.error(request, "Artwork does not have an associated artist.")
-        return redirect(reverse('home'))
+    # Ensure the artwork has an associated artist, assign to admin if not
+    if not artwork.artist:
+        admin = UserProfile.objects.get(user__username='admin')  # Ensure 'admin' username exists
+        artwork.artist = admin
+        artwork.save()
 
     # Check if the requesting user is the artist or an admin
     if artwork.artist.user != request.user and not request.user.is_superuser:
@@ -178,6 +184,7 @@ def delete_artwork(request, artwork_id):
         return redirect(reverse('admin_dashboard'))  # Admin dashboard page
     else:
         return redirect(reverse('artist_profile'))  # Artist's profile page
+
 
 
 @login_required
