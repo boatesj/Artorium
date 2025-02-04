@@ -1,7 +1,7 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import UserProfile, Transaction
-from allauth.account.forms import SignupForm
-
+from allauth.account.forms import SignupForm as AllauthSignupForm
 
 class UserProfileForm(forms.ModelForm):
     """
@@ -44,12 +44,17 @@ class UserProfileForm(forms.ModelForm):
             self.fields[field].label = False
 
 
-class CustomSignupForm(SignupForm):
+
+class CustomSignupForm(AllauthSignupForm):
     ROLE_CHOICES = [
         ('patron', 'Patron'),
         ('artist', 'Artist'),
     ]
     role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2', 'role')
 
     def save(self, request):
         """
@@ -63,6 +68,7 @@ class CustomSignupForm(SignupForm):
         UserProfile.objects.create(user=user, role=self.cleaned_data['role'])
 
         return user
+
 
 
 
