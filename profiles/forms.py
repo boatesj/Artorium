@@ -1,14 +1,5 @@
 from django import forms
 from .models import UserProfile, Transaction
-from django.utils.module_loading import import_string
-from allauth.account.forms import SignupForm
-
-from django import forms
-from .models import UserProfile
-
-from django import forms
-from .models import UserProfile
-
 
 
 class UserProfileForm(forms.ModelForm):
@@ -49,15 +40,14 @@ class UserProfileForm(forms.ModelForm):
                     placeholder += ' *'
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'border-black rounded-0 profile-form-input'
-            self.fields[field].label = False  # Hide labels for cleaner UI
+            self.fields[field].label = False
 
 
 
-class CustomSignupForm(SignupForm):
+class CustomSignupForm(forms.Form):
     """
     Extend allauth's SignupForm to include role selection
     """
-
     ROLE_CHOICES = [
         ('patron', 'Patron'),
         ('artist', 'Artist'),
@@ -68,8 +58,17 @@ class CustomSignupForm(SignupForm):
         """
         Save user with the selected role
         """
-        user = super(CustomSignupForm, self).save(request)  # Save the user first using the superclass method
-        UserProfile.objects.create(user=user, role=self.cleaned_data['role'])  # Create the user profile with the role
+        from allauth.account.forms import SignupForm  # Lazy import inside the method
+        from django.db.utils import IntegrityError
+        from django.contrib import messages
+
+        user = SignupForm.save(self, request)  # Save the user first using the superclass method
+        try:
+            UserProfile.objects.create(user=user, role=self.cleaned_data['role'])  # Create the user profile with the role
+        except IntegrityError:
+            existing_profile = UserProfile.objects.get(user=user)
+            messages.warning(request, 'UserProfile already exists. Using existing profile.')
+
         return user
 
 

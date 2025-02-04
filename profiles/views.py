@@ -19,8 +19,13 @@ class CustomSignupView(SignupView):
 
     def form_valid(self, form):
         user = form.save(self.request)
-        # Assign the selected role to the user profile
-        UserProfile.objects.create(user=user, role=form.cleaned_data['role'])
+        try:
+            # Assign the selected role to the user profile
+            UserProfile.objects.create(user=user, role=form.cleaned_data['role'])
+        except IntegrityError:
+            existing_profile = UserProfile.objects.get(user=user)
+            messages.warning(self.request, 'UserProfile already exists. Using existing profile.')
+
         return redirect(self.get_success_url())
 
 signup_view = CustomSignupView.as_view()
@@ -404,6 +409,31 @@ def wishlist(request):
     wishlist_items = profile.wishlist.all()
 
     return render(request, 'profiles/wishlist.html', {'wishlist_items': wishlist_items})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            try:
+                UserProfile.objects.get_or_create(user=user, defaults={'role': 'user'})
+            except IntegrityError:
+                existing_profile = UserProfile.objects.get(user=user)
+                messages.warning(request, 'UserProfile already exists. Using existing profile.')
+
+            messages.success(request, 'Successfully signed up!')
+            return redirect('login')  # Adjust redirect as needed
+        else:
+            messages.error(request, 'Failed to sign up. Please ensure the form is valid.')
+    else:
+        form = SignupForm()
+
+    return render(request, 'profiles/signup.html', {'form': form})
+
+
+
 
 
 
