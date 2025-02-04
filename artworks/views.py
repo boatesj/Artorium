@@ -173,6 +173,9 @@ def delete_artwork(request, artwork_id):
         messages.error(request, 'Your profile does not exist. Please create a profile first.')
         return redirect(reverse('profile_create'))  # Redirect to profile creation page
 
+    # Debug: Print out the artwork_id and user info
+    print(f"Attempting to delete artwork with ID: {artwork_id} by user: {user}")
+
     # Ensure the artwork exists
     artwork = get_object_or_404(Artwork, id=artwork_id)
     print(f"Artwork found: {artwork}")
