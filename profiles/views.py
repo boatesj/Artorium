@@ -32,7 +32,6 @@ class CustomSignupView(SignupView):
 signup_view = CustomSignupView.as_view()
 
 
-
 @login_required
 def profile(request):
     """ Display the user's profile. """
