@@ -155,22 +155,24 @@ def edit_artwork(request, artwork_id):
     return render(request, template, context)
 
 
-
-
 @login_required
 def delete_artwork(request, artwork_id):
     """ Delete an artwork """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
 
-    # ✅ Ensure only the correct artist or admin can delete the artwork
+    # Ensure the artwork has an associated artist
+    if not artwork.artist or not hasattr(artwork.artist, 'user'):
+        messages.error(request, "Artwork does not have an associated artist.")
+        return redirect(reverse('home'))
+
+    # Check if the requesting user is the artist or an admin
     if artwork.artist.user != request.user and not request.user.is_superuser:
         messages.error(request, 'You do not have permission to delete this artwork.')
         return redirect(reverse('home'))
 
     artwork.delete()
     messages.success(request, 'Artwork deleted!')
-    return redirect(reverse('manage_portfolio'))  # ✅ Redirect to portfolio page
-
+    return redirect(reverse('manage_portfolio'))  # Redirect to portfolio page
 
 
 @login_required
