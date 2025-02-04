@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from profiles import views as profile_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,6 @@ urlpatterns = [
     path('artworks/', include('artworks.urls')),
     path('bag/', include('bag.urls')),
     path('checkout/', include('checkout.urls')),
-    path('profile/', include('profiles.urls')),
-    path('signup/', views.signup, name='signup'),
+    path('profile/', include('profiles.urls')),  # Ensure profiles URLs are included
+    path('signup/', profile_views.signup, name='signup'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
