@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
 from checkout.models import Order
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.utils import IntegrityError
 
 
 from allauth.account.views import SignupView

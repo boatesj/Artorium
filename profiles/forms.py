@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserProfile, Transaction
+from allauth.account.forms import SignupForm
 
 
 class UserProfileForm(forms.ModelForm):
@@ -44,30 +45,30 @@ class UserProfileForm(forms.ModelForm):
 
 
 
-class CustomSignupForm(forms.Form):
-    """
-    Extend allauth's SignupForm to include role selection
-    """
+from django import forms
+from allauth.account.forms import SignupForm
+
+class CustomSignupForm(SignupForm):
     ROLE_CHOICES = [
         ('patron', 'Patron'),
         ('artist', 'Artist'),
     ]
     role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")
 
+    class Meta:
+        model = SignupForm.Meta
+        fields = ('username', 'email', 'password1', 'password2', 'role')  # Include the email field
+
     def save(self, request):
         """
         Save user with the selected role
         """
-        from allauth.account.forms import SignupForm  # Lazy import inside the method
-        from django.db.utils import IntegrityError
-        from django.contrib import messages
+        user = super().save(request)  # Save the user using the superclass method
+        user.email = self.cleaned_data['email']  # Ensure the email field is populated
+        user.save()
 
-        user = SignupForm.save(self, request)  # Save the user first using the superclass method
-        try:
-            UserProfile.objects.create(user=user, role=self.cleaned_data['role'])  # Create the user profile with the role
-        except IntegrityError:
-            existing_profile = UserProfile.objects.get(user=user)
-            messages.warning(request, 'UserProfile already exists. Using existing profile.')
+        # Create the user profile with the role
+        UserProfile.objects.create(user=user, role=self.cleaned_data['role'])
 
         return user
 
