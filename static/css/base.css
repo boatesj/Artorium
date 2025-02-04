@@ -101,15 +101,17 @@ html, body {
     color: #6c757d;
 }
 
+
 /* === Footer === */
 footer {
-    background-color: var(--primary-color);
+    background-color: #4a4e69; 
     color: white;
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 /* === Utility Classes === */
 .text-center {
