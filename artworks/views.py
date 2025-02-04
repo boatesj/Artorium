@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, F
 from django.db.models.functions import Lower
 from .models import Artwork, Category
 from .forms import ArtworkForm
@@ -49,7 +49,7 @@ def all_artworks(request):
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('artworks'))
 
-            queries = Q(title__icontains=query) | Q(description__icontains=query) | Q(artist__icontains=query)
+            queries = Q(title__icontains=query) | Q(description__icontains=query) | Q(artist__user__username__icontains=query)
             artworks = artworks.filter(queries)
 
     current_sorting = f'{sort}_{direction}'
@@ -62,6 +62,7 @@ def all_artworks(request):
     }
 
     return render(request, 'artworks/artworks.html', context)
+
 
 
 def artwork_detail(request, artwork_id):
@@ -81,7 +82,7 @@ def artwork_detail(request, artwork_id):
 @login_required
 def add_artwork(request):
     """ Add an artwork to the gallery """
-    if request.user.userprofile.role != 'artist' and not request.user.is_superuser:
+    if not request.user.is_superuser and request.user.userprofile.role != 'artist':
         messages.error(request, 'Sorry, only artists or admins can do that.')
         return redirect(reverse('home'))
 
@@ -89,17 +90,35 @@ def add_artwork(request):
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
             artwork = form.save(commit=False)
-            artwork.artist = request.user.userprofile  # Set the logged-in artist as the creator
+            
+            # If the user is an admin, they can choose an artist or leave it blank
+            if request.user.is_superuser:
+                artist_username = request.POST.get('artist')
+                if artist_username:
+                    artist = UserProfile.objects.get(user__username=artist_username)
+                    artwork.artist = artist
+            else:
+                # If the user is an artist, set the artist field to the logged-in user
+                artwork.artist = request.user.userprofile
+                
             artwork.save()
             messages.success(request, 'Successfully added artwork!')
-            return redirect(reverse('artist_dashboard'))  # Redirect to artist dashboard
+            return redirect(reverse('home'))
         else:
             messages.error(request, 'Failed to add artwork. Please ensure the form is valid.')
     else:
         form = ArtworkForm()
 
+    # If the user is an admin, fetch all artists to populate the artist field in the form
+    artists = None
+    if request.user.is_superuser:
+        artists = UserProfile.objects.filter(role='artist')
+
     template = 'artworks/add_artwork.html'
-    context = {'form': form}
+    context = {
+        'form': form,
+        'artists': artists,
+    }
     return render(request, template, context)
 
 
