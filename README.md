@@ -66,7 +66,8 @@ By combining tradition with digital innovation, Artorium redefines the way peopl
 ## Features
 
 ### Artwork Management
-- Admins and artists can **add, edit, update, and delete** artworks.
+- Admins can **edit, update, and delete** artworks.
+- Artists can **add, edit, and update** artworks.
 - Artworks include: **title, description, price, category, availability, and image**.
 - Patrons can **view and purchase** artworks.
 - **Secure payment processing** with Stripe.
@@ -292,7 +293,7 @@ This feature allows users to:
 - **View sales analytics** and revenue reports.
 
 #### **Artist Dashboard**
-- **Manage personal artworks** and commission requests.
+- **Manage personal artworks** 
 - **Update artwork availability** and pricing.
 
 #### **Patron Dashboard**
