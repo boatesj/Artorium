@@ -158,7 +158,7 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 
-ACCOUNT_FORMS = {'signup': 'profiles.forms.CustomSignupForm'}
+ACCOUNT_FORMS = {'signup': 'profiles.forms.RoleSignupForm'} 
 
 WSGI_APPLICATION = 'artorium.wsgi.application'
 
