@@ -6,7 +6,7 @@
         </div>
     </a>
     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0" aria-labelledby="mobile-search">
-        <form class="form" method="GET" action="{% url 'artworks' %}">
+        <form class="form" method="GET" action="{% url 'artworks:gallery' %}">
             <div class="input-group w-100">
                 <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search artworks or artists">
                 <div class="input-group-append">
@@ -19,43 +19,4 @@
             </div>
         </form>
     </div>
-</li>
-<li class="list-inline-item dropdown">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <div class="text-center">
-            <div><i class="fas fa-user fa-lg"></i></div>
-            <p class="my-0">My Account</p>
-        </div>
-    </a>
-    <div class="dropdown-menu border-0" aria-labelledby="user-options">
-        {% if request.user.is_authenticated %}
-            {% if request.user.is_superuser %}
-                <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Admin Dashboard</a>
-            {% elif request.user.userprofile.role == 'artist' %}
-                <a href="{% url 'artist_dashboard' %}" class="dropdown-item">Artist Dashboard</a>
-                <a href="{% url 'manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
-            {% elif request.user.userprofile.role == 'patron' %}
-                <a href="{% url 'patron_dashboard' %}" class="dropdown-item">My Dashboard</a>
-                <a href="{% url 'wishlist' %}" class="dropdown-item">Wishlist</a>
-            {% endif %}
-            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-        {% else %}
-            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-        {% endif %}
-    </div>
-</li>
-<li class="list-inline-item">
-    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="{% url 'view_bag' %}">
-        <div class="text-center">
-            <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-            <p class="my-0">
-                {% if grand_total %}
-                    ${{ grand_total|floatformat:2 }}
-                {% else %}
-                    $0.00
-                {% endif %}
-            </p>
-        </div>
-    </a>
 </li>

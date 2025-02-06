@@ -11,9 +11,8 @@ from profiles.models import UserProfile
 
 # Create your views here.
 
-def all_artworks(request):
+def gallery_view(request):
     """ A view to show all artworks, including sorting and search queries """
-
     artworks = Artwork.objects.all()
     query = None
     categories = None
@@ -43,7 +42,7 @@ def all_artworks(request):
             query = request.GET['q']
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
-                return redirect(reverse('artworks'))
+                return redirect(reverse('artworks:gallery'))
             queries = Q(title__icontains=query) | Q(description__icontains=query)
             artworks = artworks.filter(queries)
 
@@ -55,20 +54,18 @@ def all_artworks(request):
         'current_categories': categories,
         'current_sorting': current_sorting,
     }
+    return render(request, 'artworks/gallery.html', context)
 
-    return render(request, 'artworks/artworks.html', context)
 
-
-def artwork_detail(request, artwork_id):
+def artwork_detail_view(request, artwork_id):
     """ A view to show individual artwork details """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
-
     context = {'artwork': artwork}
     return render(request, 'artworks/artwork_detail.html', context)
 
 
 @login_required
-def add_artwork(request):
+def admin_add_artwork_view(request):
     """ Add an artwork to the gallery """
     profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -83,19 +80,19 @@ def add_artwork(request):
             artwork.artist = profile if not request.user.is_superuser else None
             artwork.save()
             messages.success(request, 'Successfully added artwork!')
-            return redirect(reverse('artworks'))
+            return redirect(reverse('artworks:gallery'))
         else:
             messages.error(request, 'Failed to add artwork. Please check the form.')
-
     else:
         form = ArtworkForm()
 
     context = {'form': form}
-    return render(request, 'artworks/add_artwork.html', context)
+    return render(request, 'artworks/admin/admin_add_artwork.html', context)
+
 
 
 @login_required
-def edit_artwork(request, artwork_id):
+def edit_artwork_view(request, artwork_id):
     """ Edit an artwork """
     artwork = get_object_or_404(Artwork, pk=artwork_id)
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -109,37 +106,50 @@ def edit_artwork(request, artwork_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Artwork updated successfully!')
-            return redirect(reverse('manage_portfolio'))
+            return redirect(reverse('profiles:manage_portfolio'))
         else:
             messages.error(request, 'Failed to update artwork. Please check the form.')
-
     else:
         form = ArtworkForm(instance=artwork)
         messages.info(request, f'You are editing {artwork.title}')
 
     context = {'form': form, 'artwork': artwork}
-    return render(request, 'artworks/edit_artwork.html', context)
+    return render(request, 'artworks/admin/edit_artwork.html', context)
 
 
 @login_required
-def delete_artwork(request, artwork_id):
-    """ Delete an artwork """
+def delete_artwork_view(request, artwork_id):
+    """ Delete an artwork (only by superusers or the artwork owner) """
+    
+    # Check if artwork exists
+    artwork = Artwork.objects.filter(id=artwork_id).first()
+    
+    if not artwork:
+        messages.error(request, "Artwork not found or already deleted.")
+        return redirect(reverse('artworks:gallery'))  # Redirect safely
+    
+    # Ensure the user has a profile
     profile = get_object_or_404(UserProfile, user=request.user)
-    artwork = get_object_or_404(Artwork, id=artwork_id)
-
-    if not (request.user.is_superuser or artwork.artist == profile):
+    
+    # Ensure only the artwork owner or a superuser can delete
+    if not request.user.is_superuser and artwork.artist != profile:
+        messages.error(request, "You do not have permission to delete this artwork.")
         raise PermissionDenied("You do not have permission to delete this artwork.")
 
     if request.method == 'POST':
+        print(f"🛠 Deleting artwork {artwork.id}: {artwork.title}")  # Debugging
         artwork.delete()
         messages.success(request, 'Artwork deleted successfully.')
-        return redirect(reverse('artworks'))
+        
+        # Redirect back to the gallery after deletion
+        return redirect(reverse('artworks:gallery'))
 
-    return render(request, 'artworks/delete_artwork.html', {'artwork': artwork})
+    return render(request, 'artworks/admin/delete_artwork.html', {'artwork': artwork})
+
 
 
 @login_required
-def add_artwork_artist(request):
+def artist_add_artwork_view(request):
     """ Allow artists to add new artwork from their dashboard """
     profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -157,12 +167,11 @@ def add_artwork_artist(request):
             return redirect('artist_dashboard')
         else:
             messages.error(request, "Failed to add artwork. Please check the form.")
-
     else:
         form = ArtworkForm()
 
     context = {'form': form}
-    return render(request, 'artworks/add_artwork_artist.html', context)
+    return render(request, 'artworks/artist/artist_add_artwork.html', context)
 
 
 def artwork_list(request):
@@ -185,7 +194,7 @@ def manage_portfolio(request):
     return render(request, 'profiles/manage_portfolio.html', {'artworks': artworks})
 
 
-def category_list(request):
+def category_list_view(request):
     categories = Category.objects.all()
     return render(request, 'artworks/category_list.html', {'categories': categories})
 

@@ -6,6 +6,7 @@ from django_countries.fields import CountryField
 from django.apps import apps
 
 
+
 class UserProfile(models.Model):
     """
     Handles role distinction and additional data for patrons and artists.

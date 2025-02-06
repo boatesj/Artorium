@@ -8,28 +8,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.utils import IntegrityError
 
 
-from allauth.account.views import SignupView
 from .models import UserProfile, Transaction
-from .forms import UserProfileForm, CustomSignupForm
+from .forms import UserProfileForm
 from checkout.models import Order
 from artworks.models import Artwork
-
-
-class CustomSignupView(SignupView):
-    form_class = CustomSignupForm
-
-    def form_valid(self, form):
-        user = form.save(self.request)
-        try:
-            # Assign the selected role to the user profile
-            UserProfile.objects.create(user=user, role=form.cleaned_data['role'])
-        except IntegrityError:
-            existing_profile = UserProfile.objects.get(user=user)
-            messages.warning(self.request, 'UserProfile already exists. Using existing profile.')
-
-        return redirect(self.get_success_url())
-
-signup_view = CustomSignupView.as_view()
 
 
 @login_required
@@ -69,23 +51,19 @@ def dashboard_view(request):
         # Ensure the user has a profile
         user_profile = UserProfile.objects.get(user=request.user)
 
-        # Redirect based on role
+        # Redirect based on role (✅ Ensure correct namespacing)
         if user_profile.role == "admin":
-            return redirect("admin_dashboard")
+            return redirect("profiles:admin_dashboard")  # ✅ Add namespace
         elif user_profile.role == "artist":
-            return redirect("artist_dashboard")
+            return redirect("profiles:artist_dashboard")
         elif user_profile.role == "patron":
-            return redirect("patron_dashboard")
+            return redirect("profiles:patron_dashboard")
         else:
             return render(request, "profiles/no_role.html", {"message": "Role not assigned"})
 
     except ObjectDoesNotExist:
-        # If the user profile does not exist, handle gracefully
         return render(request, "profiles/no_role.html", {"message": "User profile not found. Please contact support."})
 
-
-
-    
 
 
 def order_history(request, order_number):
@@ -177,6 +155,25 @@ def artist_dashboard(request):
 
     return render(request, template, context)
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+
+@login_required
+def artist_profile(request):
+    """
+    Artist dashboard for managing their profile and artworks.
+    """
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if user_profile.role != "artist":
+        return redirect("profiles:profile")  # Redirect non-artists
+
+    context = {
+        "user_profile": user_profile,
+    }
+
+    return render(request, "profiles/artist_profile.html", context)
 
 
 @login_required
@@ -225,6 +222,16 @@ def edit_profile(request):
     return render(request, 'profiles/edit_profile.html', {'form': form})
 
 
+@login_required
+def manage_portfolio(request):
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    if profile.role != 'artist':
+        messages.error(request, "Access Denied: Only artists can manage portfolios.")
+        return redirect('home')
+
+    artworks = Artwork.objects.filter(artist=profile)
+    return render(request, 'profiles/manage_portfolio.html', {'artworks': artworks})
 
 
 
@@ -288,7 +295,7 @@ def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
     messages.success(request, "User deleted successfully!")
-    return redirect('admin_dashboard')
+    return redirect('profiles:admin_dashboard')
 
 
 #     # CRUD for Commissions
@@ -388,7 +395,7 @@ def add_to_wishlist(request, artwork_id):
     else:
         profile.wishlist.add(artwork)  
 
-    return redirect('artworks') 
+    return redirect('artworks:gallery') 
 
 
 @login_required
@@ -400,7 +407,7 @@ def remove_from_wishlist(request, artwork_id):
     if profile.wishlist.filter(pk=artwork.pk).exists():
         profile.wishlist.remove(artwork)  
 
-    return redirect('patron_dashboard') 
+    return redirect('profiles:patron_dashboard') 
 
 
 @login_required

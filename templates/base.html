@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+
     {% block meta %}
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset="utf-8">
@@ -16,7 +17,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
-        <link rel="icon" href="{% static 'favicon.png' %}">
     {% endblock %}
 
     {% block extra_css %}
@@ -45,7 +45,7 @@
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="{% url 'artworks' %}">
+                <form method="GET" action="{% url 'artworks:gallery' %}">  {# ✅ Updated URL namespace #}
                     <div class="input-group w-100">
                         <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search artworks or artists">
                         <div class="input-group-append">
@@ -70,13 +70,13 @@
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
-                                    <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Admin Dashboard</a>
-                                {% elif request.user.userprofile.role == 'artist' %}
-                                    <a href="{% url 'artist_dashboard' %}" class="dropdown-item">Artist Dashboard</a>
-                                    <a href="{% url 'manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
-                                {% elif request.user.userprofile.role == 'patron' %}
-                                    <a href="{% url 'patron_dashboard' %}" class="dropdown-item">Patron Dashboard</a>
-                                    <a href="{% url 'patron_dashboard' %}#wishlist" class="dropdown-item">Wishlist</a>
+                                    <a href="{% url 'artworks:add_artwork' %}" class="dropdown-item">Admin Dashboard</a>
+                                {% elif request.user.userprofile.is_artist %}
+                                    <a href="{% url 'profiles:artist_profile' %}" class="dropdown-item">Artist Profile</a>
+                                    <a href="{% url 'profiles:manage_portfolio' %}" class="dropdown-item">Manage Portfolio</a>
+                                {% else %}
+                                    <a href="{% url 'profiles:profile' %}" class="dropdown-item">My Profile</a>
+                                    <a href="#" class="dropdown-item">Wishlist</a>
                                 {% endif %}
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
@@ -100,7 +100,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>        
+            </div>
         </div>
         <div class="row bg-white">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
@@ -148,10 +148,12 @@
         </div>
     </footer>
 
+
     {% block postloadjs %}
     <script type="text/javascript">
         $('.toast').toast('show');
     </script>
     {% endblock %}
+
   </body>
 </html>

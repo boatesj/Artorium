@@ -1,25 +1,28 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
-{% endblock %}
 
 {% block content %}
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center">
-            <div class="col-md-12 my-auto">
-                <h1>Artworks</h1>
-                <ul>
-                    {% for artwork in artworks %}
-                        <li>{{ artwork.title }} by {{ artwork.artist.name }} - {{ artwork.description }}</li>
-                    {% endfor %}
-                </ul>
+<div class="container mt-4">
+    <h2 class="text-center">All Artworks</h2>
+    <div class="row">
+        {% for artwork in artworks %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if artwork.image %}
+                <img src="{{ artwork.image.url }}" class="card-img-top" alt="{{ artwork.title }}">
+                {% else %}
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="No Image Available">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ artwork.title }}</h5>
+                    <p class="card-text">By: {{ artwork.artist }}</p>
+                    <p class="card-text"><strong>Medium:</strong> {{ artwork.medium }}</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
             </div>
         </div>
+        {% empty %}
+        <p class="text-center">No artworks available at the moment.</p>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}

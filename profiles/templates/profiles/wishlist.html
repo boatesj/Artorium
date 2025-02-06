@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-5">
+<div class="container" style="margin-top: 250px;">
     <h2 class="logo-font">My Wishlist</h2>
     {% if wishlist_items %}
         <ul class="list-group">
             {% for artwork in wishlist_items %}
                 <li class="list-group-item d-flex justify-content-between">
-                    <a href="{% url 'artwork_detail' artwork.id %}" class="text-dark">
+                    <a href="{% url 'artworks:artwork_detail' artwork.id %}" class="text-dark">
                         <i class="fas fa-heart text-danger"></i> {{ artwork.title }} by {{ artwork.artist.user.username }}
                     </a>
-                    <a href="{% url 'remove_from_wishlist' artwork.id %}" class="btn btn-sm btn-outline-danger">
+                    <a href="{% url 'profiles:remove_from_wishlist' artwork.id %}" class="btn btn-sm btn-outline-danger">
                         <i class="fas fa-times"></i> Remove
                     </a>
                 </li>

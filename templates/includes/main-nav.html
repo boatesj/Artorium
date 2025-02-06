@@ -5,11 +5,11 @@
                 Gallery
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="gallery-link">
-                <a href="{% url 'artworks' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
-                <a href="{% url 'artworks' %}?sort=title&direction=desc" class="dropdown-item">By Title</a>
-                <a href="{% url 'artworks' %}?sort=available&direction=desc" class="dropdown-item">By Availability</a>
-                <a href="{% url 'artworks' %}?sort=category&direction=asc" class="dropdown-item">By Category</a>
-                <a href="{% url 'artworks' %}" class="dropdown-item">All Artworks</a>
+                <a href="{% url 'artworks:gallery' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
+                <a href="{% url 'artworks:gallery' %}?sort=title&direction=desc" class="dropdown-item">By Title</a>
+                <a href="{% url 'artworks:gallery' %}?sort=available&direction=desc" class="dropdown-item">By Availability</a>
+                <a href="{% url 'artworks:gallery' %}?sort=category&direction=asc" class="dropdown-item">By Category</a>
+                <a href="{% url 'artworks:gallery' %}" class="dropdown-item">All Artworks</a>
             </div>
         </li>
 
@@ -18,10 +18,10 @@
                 Fine Art
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="fine-art-link">
-                <a href="{% url 'artworks' %}?category=paintings" class="dropdown-item">Paintings</a>
-                <a href="{% url 'artworks' %}?category=sculpture" class="dropdown-item">Sculptures</a>
-                <a href="{% url 'artworks' %}?category=drawings" class="dropdown-item">Drawings</a>
-                <a href="{% url 'artworks' %}?category=fine_art" class="dropdown-item">All Fine Art</a>
+                <a href="{% url 'artworks:gallery' %}?category=paintings" class="dropdown-item">Paintings</a>
+                <a href="{% url 'artworks:gallery' %}?category=sculpture" class="dropdown-item">Sculptures</a>
+                <a href="{% url 'artworks:gallery' %}?category=drawings" class="dropdown-item">Drawings</a>
+                <a href="{% url 'artworks:gallery' %}?category=fine_art" class="dropdown-item">All Fine Art</a>
             </div>
         </li>
 
@@ -30,37 +30,37 @@
                 Digital & Contemporary Art
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="digital-art-link">
-                <a href="{% url 'artworks' %}?category=digital_art" class="dropdown-item">Digital Art</a>
-                <a href="{% url 'artworks' %}?category=abstract_art" class="dropdown-item">Abstract Art</a>
-                <a href="{% url 'artworks' %}?category=digital_art,abstract_art" class="dropdown-item">All Contemporary Art</a>
+                <a href="{% url 'artworks:gallery' %}?category=digital_art" class="dropdown-item">Digital Art</a>
+                <a href="{% url 'artworks:gallery' %}?category=abstract_art" class="dropdown-item">Abstract Art</a>
+                <a href="{% url 'artworks:gallery' %}?category=digital_art,abstract_art" class="dropdown-item">All Contemporary Art</a>
             </div>
         </li>
 
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
                 <li class="nav-item">
-                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'admin_dashboard' %}">
+                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'profiles:admin_dashboard' %}">
                         Admin Dashboard
                     </a>
                 </li>
             {% elif request.user.userprofile.role == 'artist' %}
                 <li class="nav-item">
-                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'artist_dashboard' %}">
+                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'profiles:artist_dashboard' %}">
                         Artist Dashboard
                     </a>
                 </li>
-                <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'manage_portfolio' %}">
+                <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'profiles:manage_portfolio' %}">
                     Manage Portfolio
                 </a>
                 </li>
             {% elif request.user.userprofile.role == 'patron' %}
                 <li class="nav-item">
-                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'patron_dashboard' %}">
+                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'profiles:patron_dashboard' %}">
                         My Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'wishlist' %}">
+                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'profiles:wishlist' %}">
                         Wishlist
                     </a>
                 </li>

@@ -22,7 +22,8 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         except UserProfile.DoesNotExist:
             pass  # Prevents creation if no profile exists
 
-@receiver(user_signed_up)
-def create_user_profile(request, user, **kwargs):
-    role = request.POST.get('role', 'patron')
-    UserProfile.objects.create(user=user, role=role)
+
+
+
+
+

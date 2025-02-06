@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import UserProfile, Transaction
-from allauth.account.forms import SignupForm as AllauthSignupForm
+from allauth.account.forms import SignupForm
+
+
 
 class UserProfileForm(forms.ModelForm):
     """
@@ -44,30 +46,38 @@ class UserProfileForm(forms.ModelForm):
             self.fields[field].label = False
 
 
-class CustomSignupForm(AllauthSignupForm):
+class RoleSignupForm(SignupForm):
     ROLE_CHOICES = [
         ('patron', 'Patron'),
         ('artist', 'Artist'),
     ]
+    
     role = forms.ChoiceField(choices=ROLE_CHOICES, required=True, label="Register as")
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['role'].widget.attrs['class'] = 'form-control'
-
     def save(self, request):
-        """
-        Save user with the selected role
-        """
-        user = super().save(request)  # Save the user using the superclass method
-        user.email = self.cleaned_data['email']  # Ensure the email field is populated
-        user.save()
+        """ Extend Allauth's save method to include the role """
+        user = super(RoleSignupForm, self).save(request)  # Save the user first
+        role = self.cleaned_data['role']
 
-        # Create the user profile with the role
-        UserProfile.objects.create(user=user, role=self.cleaned_data['role'])
+        # 🔥 Check if the user already has a profile before creating one
+        profile, created = UserProfile.objects.get_or_create(user=user, defaults={'role': role})
 
         return user
 
+
+class TransactionForm(forms.ModelForm):
+    """
+    Form to create or edit a transaction, excluding the transaction_date field.
+    """
+    class Meta:
+        model = Transaction
+        exclude = ['transaction_date']  # Exclude the non-editable field
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].widget.attrs['class'] = 'form-control'
+        self.fields['amount'].widget.attrs['placeholder'] = 'Enter the transaction amount'
+        self.fields['amount'].widget.attrs['class'] = 'form-control'
 
 # class CommissionForm(forms.ModelForm):
 #     """
@@ -86,16 +96,3 @@ class CustomSignupForm(AllauthSignupForm):
 #         self.fields['is_approved'].widget.attrs['class'] = 'form-check-input'
 #         self.fields['is_declined'].widget.attrs['class'] = 'form-check-input'
 
-class TransactionForm(forms.ModelForm):
-    """
-    Form to create or edit a transaction, excluding the transaction_date field.
-    """
-    class Meta:
-        model = Transaction
-        exclude = ['transaction_date']  # Exclude the non-editable field
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['user'].widget.attrs['class'] = 'form-control'
-        self.fields['amount'].widget.attrs['placeholder'] = 'Enter the transaction amount'
-        self.fields['amount'].widget.attrs['class'] = 'form-control'

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <div class="col-md-12 my-auto">
+                <h1>Artworks</h1>
+                <ul>
+                    {% for artwork in artworks %}
+                        <li>{{ artwork.title }} by {{ artwork.artist.name }} - {{ artwork.description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

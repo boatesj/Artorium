@@ -16,7 +16,7 @@
             <div class="col text-center mt-5-artwork-header">
                 <h2 class="logo-font">Artworks</h2>
                 {% for c in current_categories %}
-                    <a class="category-badge text-decoration-none" href="{% url 'artworks' %}?category={{ c.name }}">
+                <a class="category-badge text-decoration-none" href="{% url 'artworks:gallery' %}?category={{ c.name }}">
                         <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
                     </a>
                 {% endfor %}
@@ -42,7 +42,7 @@
                     <div class="col-12 col-md-6 order-md-first">
                         <p class="text-muted mt-3 text-center text-md-left">
                             {% if search_term or current_categories or current_sorting != 'None_None' %}
-                                <span class="small"><a href="{% url 'artworks' %}">Artworks Home</a> | </span>
+                                <span class="small"><a href="{% url 'artworks:gallery' %}">Artworks Home</a> | </span>
                             {% endif %}
                             {{ artworks|length }} Artworks{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                         </p>
@@ -54,11 +54,12 @@
                             <div class="card h-100 border-0">
 
                                 {% if artwork.image %}
-                                <a href="{% url 'artwork_detail' artwork.id %}">
+                                <a href="{% url 'artworks:artwork_detail' artwork.id %}">
+                                    
                                     <img class="card-img-top img-fluid" src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
                                 </a>
                                 {% else %}
-                                <a href="{% url 'artwork_detail' artwork.id %}">
+                                <a href="{% url 'artworks:artwork_detail' artwork.id %}">
                                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ artwork.title }}">
                                 </a>
                                 {% endif %}
@@ -72,7 +73,7 @@
                                             {% if artwork.category %}
                                             <p class="small mt-1 mb-0">
                                                 {% for cat in artwork.category.all %}
-                                                    <a class="text-muted" href="{% url 'artworks' %}?category={{ cat.name }}">
+                                                    <a class="text-muted" href="{% url 'artworks:gallery' %}?category={{ cat.name }}">
                                                         <i class="fas fa-tag mr-1"></i>{{ cat.friendly_name }}
                                                     </a>{% if not forloop.last %}, {% endif %}
                                                 {% endfor %}
@@ -82,20 +83,20 @@
                                             <!-- Wishlist Button -->
                                             {% if artwork in request.user.userprofile.wishlist.all %}
                                                 <!-- If artwork is in wishlist, show filled heart & "Remove from Wishlist" -->
-                                                <a href="{% url 'add_to_wishlist' artwork.id %}" class="btn btn-danger btn-sm mt-2">
+                                                <a href="{% url 'profiles:add_to_wishlist' artwork.id %}" class="btn btn-danger btn-sm mt-2">
                                                     <i class="fas fa-heart"></i> Wishlisted
                                                 </a>
                                             {% else %}
                                                 <!-- If artwork is NOT in wishlist, show empty heart & "Add to Wishlist" -->
-                                                <a href="{% url 'add_to_wishlist' artwork.id %}" class="btn btn-outline-danger btn-sm mt-2">
+                                                <a href="{% url 'profiles:add_to_wishlist' artwork.id %}" class="btn btn-outline-danger btn-sm mt-2">
                                                     <i class="far fa-heart"></i> Add to Wishlist
                                                 </a>
                                             {% endif %}
                                
                                             {% if request.user.is_superuser %}
                                                 <small class="ml-3">
-                                                    <a href="{% url 'edit_artwork' artwork.id %}">Edit</a> | 
-                                                    <a class="text-danger" href="{% url 'delete_artwork' artwork.id %}">Delete</a>
+                                                    <a href="{% url 'artworks:edit_artwork' artwork.id %}">Edit</a> | 
+                                                    <a class="text-danger" href="{% url 'artworks:delete_artwork' artwork.id %}">Delete</a>
                                                 </small>
                                             {% endif %}
                                         </div>

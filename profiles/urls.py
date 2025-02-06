@@ -1,8 +1,11 @@
 # profiles/urls.py
 
-from django.urls import path
+from django.urls import path, include
+from allauth.account.views import SignupView
 from . import views
-from .views import signup_view
+
+
+app_name = 'profiles'
 
 urlpatterns = [
     # Profile & Dashboard Views
@@ -10,9 +13,11 @@ urlpatterns = [
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('artist-dashboard/', views.artist_dashboard, name='artist_dashboard'),
+    path('artist-profile/', views.artist_profile, name='artist_profile'),
     path('patron-dashboard/', views.patron_dashboard, name='patron_dashboard'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
-    path('signup/', signup_view, name='account_signup'),
+    path('signup/', SignupView.as_view(), name='account_signup'),
+    path('manage-portfolio/', views.manage_portfolio, name='manage_portfolio'),
 
     # Wishlist
     path('wishlist/', views.wishlist, name='wishlist'),

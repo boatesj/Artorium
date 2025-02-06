@@ -34,7 +34,7 @@
                     <p class="text-muted">
                         Categories:
                         {% for cat in artwork.category.all %}
-                            <a class="text-muted" href="{% url 'artworks' %}?category={{ cat.name }}">
+                            <a class="text-muted" href="{% url 'artworks:gallery' %}?category={{ cat.name }}">
                                 <i class="fas fa-tag mr-1"></i>{{ cat.friendly_name }}
                             </a>
                             {% if not forloop.last %}, {% endif %}
@@ -87,7 +87,7 @@
                             </div>
 
                             <div class="col-12">
-                                <a href="{% url 'artworks' %}" class="btn btn-outline-black rounded-0 mt-5">
+                                <a href="{% url 'artworks:gallery' %}" class="btn btn-outline-black rounded-0 mt-5">
                                     <span class="icon">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
