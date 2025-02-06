@@ -1,5 +1,11 @@
 # Artorium
 
+## Live Site
+[🔗 Visit Artorium Here](https://artorium-app-a8d0ab88f85f.herokuapp.com/)
+
+![Color Palette](media/artworks/artorium_mockups.jpg)  
+
+
 Artorium is a Django-powered online gallery and e-commerce platform that reimagines the way art lovers collect and experience masterpieces. Inspired by the grandeur of historic palatial homes in the United Kingdom, Artorium offers a curated collection of classic paintings, sculptures, fine arts, and digital works, framed in a way that preserves their historical charm. Patrons can own a piece of history, bringing the timeless elegance of classical and contemporary masterpieces into their own personal "palace." Whether one seeks Renaissance-era paintings, Baroque sculptures, or cutting-edge digital art, Artorium blends tradition with modernity, creating an online space where art is not just admired but truly lived.
 
 The site serves as a digital marketplace where artists can showcase and sell their artwork, patrons can browse and purchase unique pieces, and administrators can manage transactions, and site content.
