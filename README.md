@@ -460,7 +460,7 @@ To **effectively manage development priorities**, tasks are categorized using th
 ### **Local Deployment**
 To set up the project locally, follow these steps:
 
-```bash
+
 git clone https://github.com/yourusername/artorium.git
 cd artorium
 pip install -r requirements.txt
