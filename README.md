@@ -2,7 +2,7 @@
 
 Artorium is a Django-powered online gallery and e-commerce platform that reimagines the way art lovers collect and experience masterpieces. Inspired by the grandeur of historic palatial homes in the United Kingdom, Artorium offers a curated collection of classic paintings, sculptures, fine arts, and digital works, framed in a way that preserves their historical charm. Patrons can own a piece of history, bringing the timeless elegance of classical and contemporary masterpieces into their own personal "palace." Whether one seeks Renaissance-era paintings, Baroque sculptures, or cutting-edge digital art, Artorium blends tradition with modernity, creating an online space where art is not just admired but truly lived.
 
-The site serves as a digital marketplace where artists can showcase and sell their artwork, patrons can browse and purchase unique pieces, and administrators can manage transactions, commissions, and site content.
+The site serves as a digital marketplace where artists can showcase and sell their artwork, patrons can browse and purchase unique pieces, and administrators can manage transactions, and site content.
 
 Built with **Django, Python, HTML, CSS, JavaScript, PostgreSQL, and Stripe integration**, Artorium provides a seamless and secure experience for both buyers and sellers. The platform supports **user authentication, artwork management, wishlist functionality, commission requests, and online payments**.
 
@@ -39,27 +39,20 @@ By combining tradition with digital innovation, Artorium redefines the way peopl
 - Patrons can **view and purchase** artworks.
 - **Secure payment processing** with Stripe.
 
-### Commissions
-- Patrons can **submit commission requests** with details and preferences.
-- Artists/Admins can **accept or decline** commissions.
-- Artists provide **progress updates** on commissions.
 
 ### Wishlist
 - Patrons can **add artworks** to a personal wishlist.
 - Option to **remove items** from the wishlist.
 
 ### User Roles & Permissions
-- **Admin**: Full access to manage artworks, commissions, payments, and site settings.
-- **Artist**: Can manage their own artworks and commissions.
-- **Patron**: Can browse, purchase, and request commissions.
+- **Admin**: Full access to manage artworks, payments, and site settings.
+- **Artist**: Can manage their own artworks.
+- **Patron**: Can browse, purchase, and request.
 
 ### Dashboard Views
-- **Admin Dashboard**: Overview of sales, commissions, and artwork management.
-- **Artist Dashboard**: Manage personal artworks and commissions.
-- **Patron Dashboard**: View order history, wishlist, and commissions.
-
-![Dashboard Example](#)  
-*Placeholder for a screenshot of the admin or user dashboard*
+- **Admin Dashboard**: Overview of sales, and artwork management.
+- **Artist Dashboard**: Manage personal artworks.
+- **Patron Dashboard**: View order history, wishlist.
 
 
 ## User Stories
@@ -72,24 +65,19 @@ By combining tradition with digital innovation, Artorium redefines the way peopl
 - Patrons can **view and purchase** artworks.
 - **Secure payment processing** with Stripe.
 
-### Commissions
-- Patrons can **submit commission requests** with details and preferences.
-- Artists/Admins can **accept or decline** commissions.
-- Artists provide **progress updates** on commissions.
-
 ### Wishlist
 - Patrons can **add artworks** to a personal wishlist.
 - Option to **remove items** from the wishlist.
 
 ### User Roles & Permissions
-- **Admin**: Full access to manage artworks, commissions, payments, and site settings.
-- **Artist**: Can manage their own artworks and commissions.
-- **Patron**: Can browse, purchase, and request commissions.
+- **Admin**: Full access to manage artworks, payments, and site settings.
+- **Artist**: Can manage their own artworks.
+- **Patron**: Can browse and purchase.
 
 ### Dashboard Views
-- **Admin Dashboard**: Overview of sales, commissions, and artwork management.
-- **Artist Dashboard**: Manage personal artworks and commissions.
-- **Patron Dashboard**: View order history, wishlist, and commissions.
+- **Admin Dashboard**: Overview of sales and artwork management.
+- **Artist Dashboard**: Manage personal and artworks.
+- **Patron Dashboard**: View order history and wishlist.
 
 ### Frequent Visitor Goals
 - Stay updated with new artworks
@@ -105,7 +93,7 @@ Detailed user stories for this project are documented separately. Click the link
 - Designed with a **user-centric approach**, the platform should cater to the needs of **artists, patrons, and administrators** by offering a seamless and efficient interface.
 - The project aims to **demonstrate proficiency** in full-stack development, focusing on **CRUD (Create, Read, Update, Delete) functionality** integrated with a PostgreSQL database.
 - The site should **securely handle transactions** through **Stripe** for artwork purchases and commission payments.
-- The platform will provide **role-based access control**, ensuring **secure** and **efficient** management of artworks, orders, commissions, and user interactions.
+- The platform will provide **role-based access control**, ensuring **secure** and **efficient** management of artworks, orders, and user interactions.
 - The system should be **scalable** and **adaptable**, with potential for future enhancements such as analytics, notifications, and multi-language support.
 - The final implementation will **showcase best practices** in **Django development**, **database management**, **API integration**, and **responsive UI design**.
 
@@ -289,20 +277,12 @@ This feature allows users to:
 - **Remove items** from the cart before completing a transaction.
 - **Proceed to checkout** and make a secure payment using **Stripe**.
 - **Receive an order confirmation** after a successful purchase.
----
-
-### Commissions
-This feature allows users to:
-- **Request a custom commission** by providing details and preferences.
-- **Artists/Admins can review and accept/decline commissions**.
-- **Artists can update commission progress**, keeping the patron informed.
 
 ---
 
 ### Dashboard Views
 #### **Admin Dashboard**
 - **Manage all artworks, users, and orders**.
-- **Oversee commissions** and progress tracking.
 - **View sales analytics** and revenue reports.
 
 #### **Artist Dashboard**
@@ -310,12 +290,13 @@ This feature allows users to:
 - **Update artwork availability** and pricing.
 
 #### **Patron Dashboard**
-- **View past orders, wishlist, and commissions**.
+- **View past orders and wishlist**.
 - **Manage profile details** and preferences.
 
 ---
 
 ## Future Enhancements
+- **Commissions** – Patrons can review artworks and request commissions and artists can accept or decline.
 - **Artist Rating System** – Patrons can rate and review artists.
 - **Email Notifications** – Automatic order and commission updates.
 - **Analytics Dashboard** – Insights for Admins on sales trends.
@@ -367,12 +348,12 @@ In **Artorium**, **defensive design principles** are implemented to enhance **us
 
 ## Database Design
 
-This project uses a **PostgreSQL database**, optimized for handling **artwork listings, user roles, commissions, and transactions**.
+This project uses a **PostgreSQL database**, optimized for handling **artwork listings, user roles and transactions**.
 
 ### Entity-Relationship Diagram (ERD)
 Below is a **simplified schema** representing how different database models interact within **Artorium**:
 
-![Models Diagram](media/models_diagram.png)
+![Dashboard Example](media/artworks/models_diagram.png)  
 *Model Diagram*
 
 The **core database models** include:
@@ -431,7 +412,8 @@ To **effectively manage development priorities**, tasks are categorized using th
 
 ### **Documentation & Optimization**
 - **Shields.io** – Used for creating GitHub project badges.
-- **Lighthouse** – Ensured **performance, SEO, and accessibility** compliance.
+**[Lighthouse](https://pagespeed.web.dev/analysis/https-artorium-app-a8d0ab88f85f-herokuapp-com/2x73ds7om3?form_factor=mobile)** – Ensured performance, SEO, and accessibility** compliance.
+
 
 ---
 
@@ -487,6 +469,9 @@ python manage.py runserver
 
 
 ## Testing
+
+For detailed testing documentation, see [View Testing Methods](artorium_testing.md).
+
 
 ### **Manual Testing**
 - **Cross-browser testing**: Ensured compatibility across:
